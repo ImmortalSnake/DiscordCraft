@@ -1,0 +1,61 @@
+{
+    "wood": {
+        "type": "materials",
+        "price": 1,
+        "emote": "<:wood:560737837083787285>"
+    },
+
+    "coal": {
+        "type": "materials",
+        "price": 5,
+        "emote": "<:coal:560905931387568130>"
+    },
+
+    "stone": {
+        "type": "materials",
+        "price": 2,
+        "emote": "<:stone:560736050448695296>"
+    },
+
+    "iron": {
+        "type": "materials",
+        "price": 6,
+        "emote": "<:iron:560736100054859802>"
+    },
+    
+    "lapis": {
+        "type": "materials",
+        "price": 25,
+        "emote": "<:lapis:560905093344395268>"
+    },
+
+    "redstone": {
+        "type": "materials",
+        "price": 25,
+        "emote": "<:redstone:560905123539451956>"
+    },
+      
+    "gold": {
+        "type": "materials",
+        "price": 100,
+        "emote": "<:gold:560733707351097354>"
+    },
+      
+    "emerald": {
+        "type": "materials",
+        "price": 50,
+        "emote": "<:emerald:560905906414682124>"
+    },
+      
+    "diamond": {
+        "type": "materials",
+        "price": 200,
+        "emote": "<:diamond:560734378393862146>"
+    },
+      
+    "obsidian": {
+        "type": "materials",
+        "price": 20,
+        "emote": "<:obsidian:563437424399613953>"
+    }
+}

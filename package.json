@@ -1,0 +1,28 @@
+{
+  "name": "discordcraft",
+  "version": "1.0.0",
+  "description": "A typescript version of MusicCraft",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Discord"
+  ],
+  "author": "ImmortalSnake",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.5",
+    "discord.js": "github:discordjs/discord.js#master",
+    "dotenv": "^8.1.0",
+    "klasa": "github:dirigeants/klasa#v1.0.0-alpha",
+    "mongodb": "^3.3.2",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
+    "eslint": "^6.5.1",
+    "eslint-config-klasa": "github:dirigeants/klasa-lint"
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "wooden_hoe": {
+        "type": "tools",
+        "durability": 50,
+        "emote": "",
+        "enchants": [
+            "unbreaking-",
+            "fortune-",
+            "efficiency-"
+        ],
+
+        "size": 5,
+        "drops": {
+            "wheat": [2, 1, 100]
+        },
+
+        "materials": {
+            "wood": 50
+        }
+    }
+}

@@ -1,0 +1,101 @@
+{
+    "wheat": {
+        "emote": "<:wheat:561544489194356756>",
+        "time": 300000
+    },
+
+    "raw_chicken": {
+        "emote": "<:rawchicken:562937076178485268>",
+        "energy": -10
+    },
+
+    "cooked_chicken": {
+        "emote": "<:cookedchicken:562746672057155613>",
+        "energy": 50
+    },
+
+    "mushroom": {
+        "emote": "<:wheat:561544489194356756>",
+        "energy": 20
+    },
+    
+    "sugar": {
+        "emote": "<:wheat:561544489194356756>",
+        "energy": 18
+      },
+
+    "milk": {
+        "emote": "<:milk:561544638800986144>",
+        "energy": 25
+    },
+
+    "pumpkin": {},
+      
+    "cocoa": {
+        "emote": "<:cocoa:563620422097305603>"
+    },
+      
+    "bread": {
+        "emote": "<:bread:562961357746733058>",
+        "energy": 40
+    },
+      
+    "golden_apple": {
+        "emote": "<:goldenapple:566504525415055365>",
+        "energy": 1000
+    },
+      
+    "raw_beef": {
+        "emote": "<:rawbeef:562937991350321152>",
+        "energy": -10
+    },
+      
+    "Raw Mutton": {
+        "emote": "<:rawmutton:562938203527577600>",
+        "energy": -10
+    },
+      
+    "Raw Porkchop": {
+        "emote": "<:rawporkchop:562938729879175178>",
+        "energy": -10
+    },
+      
+    "raw_salmon": {
+        "type": "materials",
+        "emote": "<:rawsalmon:566503628873924648>",
+        "energy": -5
+    },
+      
+    "raw_cod": {
+        "type": "materials",
+        "emote": "<:rawcod:566518147251830787>",
+        "energy": -5
+    },
+      
+    "tropical_fish": {
+        "type": "materials",
+        "emote": "<:tropicalfish:566518147251830787>",
+        "energy": 30
+    },
+      
+    "Cooked Cod": {
+        "type": "materials",
+        "emote": "<:cookedcod:574333247044059151>",
+        "energy": 25
+    },
+    
+    "Cooked Salmon": {
+        "emote": "<:cookedsalmon:566503739452686336>",
+        "energy": 25
+    },
+      
+    "Baked Potato": {
+        "emote": "<:bakedpotato:563672677123096576>",
+        "energy": 50
+    },
+      
+    "Cookie": {
+        "emote": "<:cookie:563417969254727681>",
+        "energy": 100
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "furnace": {
+        "emote": "<:furnace:562957299191382037>",
+        "price": 500
+    },
+
+    "enchantment_table": {
+        "emote": "",
+        "price": 1000
+    },
+
+    "chest": {
+        "emote": "<:chest:562375311740895262>",
+        "price": 250
+    }
+}

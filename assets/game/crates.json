@@ -1,0 +1,34 @@
+[
+    {
+        "name": "common",
+        "drops": {
+            "wood": [15, 10, 100],
+            "coins": [10, 10, 100],
+            "stone": [10, 10, 90],
+            "iron": [5, 1, 50]
+        }
+    },
+    {
+        "name": "uncommon",
+        "drops": {
+            "wood": [20, 20, 100],
+            "coins": [30, 20, 100],
+            "stone": [20, 15, 100],
+            "iron": [10, 10, 90],
+            "lapis": [5, 1, 50],
+            "redstone": [5, 1, 50]
+        }
+    },
+    {
+        "name": "rare",
+        "drops": {}
+    },
+    {
+        "name": "epic",
+        "drops": {}
+    },
+    {
+        "name": "legendary",
+        "drops": {}
+    }
+]

@@ -1,0 +1,157 @@
+{
+    "crops": [
+        {
+            "name": "wheat",
+            "price": {
+                "coin": 10
+            }
+        },
+        {
+            "name": "carrot",
+            "price": {
+                "coin": 50
+            }
+        }
+    ],
+    "storage": [
+        {
+            "name": "chest",
+            "description": "Stores materials and tools! Useful when running out of inventory space",
+            "price": {
+                "coin": 50 
+            }
+        },
+        {
+            "name": "furnace",
+            "description": "Allows you to cook food!",
+            "price": {
+                "coin": 100
+            }
+        },
+        {
+            "name": "enchantment_table",
+            "description": "Enables enchanting of tools",
+            "price": {
+                "coin": 250
+            }
+        }
+    ],
+    "potions": [
+        {
+            "name": "haste-1",
+            "description": "Cooldowns for all commands will decrease by **10%** for 1 hour",
+            "price": {
+                "redstone": 100
+            }
+        },
+        {
+            "name": "haste-2",
+            "description": "Cooldowns for all commands decrease by **25%** for 1 hour",
+            "price": {
+                "redstone": 250
+            }
+        },
+        {
+            "name": "haste-3",
+            "description": "Cooldowns for all commands by **50%** for 1 hour",
+            "price": {
+                "redstone": 500
+            }
+        },
+        {
+            "name": "xp_boost",
+            "description": "Gives you **2x** xp for 1 hour",
+            "price": {
+                "redstone": 100,
+                "coin": 100
+            }
+        }
+    ],
+
+    "enchants": [
+        {
+            "name": "efficiency-1",
+            "description": "Cooldowns for tool specific commands will decrease by **5%**",
+            "price": {
+                "redstone": 100
+            }
+        },
+        {
+            "name": "efficiency-2",
+            "description": "Cooldowns for tool specific commands will decrease by **10%**",
+            "price": {
+                "redstone": 200
+            }
+        },
+        {
+            "name": "efficiency-3",
+            "description": "Cooldowns for tool specific commands will decrease by **15%**",
+            "price": {
+                "redstone": 300
+            }
+        },
+        {
+            "name": "efficiency-4",
+            "description": "Cooldowns for tool specific commands will decrease by **20%**",
+            "price": {
+                "redstone": 400
+            }
+        },
+        {
+            "name": "efficiency-5",
+            "description": "Cooldowns for tool specific commands will decrease by **25%**",
+            "price": {
+                "redstone": 500
+            }
+        },
+        {
+            "name": "unbreaking-1",
+            "description": "The tool will have a **50%** chance to lose its durability while it is being used",
+            "price": {
+                "redstone": 100
+            }
+        },
+        {
+            "name": "unbreaking-2",
+            "description": "The tool will have a **33%** chance to lose its durability while it is being used",
+            "price": {
+                "redstone": 250
+            }
+        },
+        {
+            "name": "unbreaking-3",
+            "description": "The tool will have a **25%** chance to lose its durability while it is being used",
+            "price": {
+                "redstone": 500
+            }
+        },
+        {
+            "name": "fortune-1",
+            "description": "Increases the chance of **2x** drops by **33%**",
+            "price": {
+                "lapis": 100
+            }
+        },
+        {
+            "name": "fortune-2",
+            "description": "Increases the chance of **2x** or **3x** drops by **25%**",
+            "price": {
+                "lapis": 250
+            }
+        },
+        {
+            "name": "fortune-3",
+            "description":"Increases the chance of **2x** or **3x** or **4x** drops by **20%**",
+            "price": {
+                "lapis": 500
+            }
+        },
+        {
+            "name": "luck_of_the_sea",
+            "description": "Increases the chance of catching fish by **30%** and decreases chance of junk by **30%**",
+            "price": {
+                "lapis": 500
+            }
+        }
+    ]
+}
