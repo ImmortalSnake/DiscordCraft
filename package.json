@@ -4,7 +4,13 @@
   "description": "A typescript version of MusicCraft",
   "main": "dist/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/src/index.js",
+    "build": "tsc",
+    "postInstall": "npm run build"
+  },
+  "engines": {
+    "node": "11.x",
+    "npm": "*"
   },
   "keywords": [
     "Discord"
