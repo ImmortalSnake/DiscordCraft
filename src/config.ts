@@ -32,6 +32,6 @@ export const mongoOptions = {
 export const MinecraftOptions = {
     clientID: '557831541653241857',
     config: {
-        provider: 'mongdb'
+        provider: 'mongodb'
     }
 };

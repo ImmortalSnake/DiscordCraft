@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Provider, util } from 'klasa';
+import { Provider, util, ProviderStore } from 'klasa';
 import { mongoOptions } from '../config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { MongoClient } = require('mongodb');
@@ -7,6 +7,11 @@ const { MongoClient } = require('mongodb');
 export default class extends Provider {
 
     public db: any;
+
+    public constructor(store: ProviderStore, file: string[], directory: string) {
+        super(store, file, directory);
+        this.db = {};
+    }
 
     public async init(): Promise<void> {
         const mongoClient = await MongoClient.connect(mongoOptions.uri,
