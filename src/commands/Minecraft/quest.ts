@@ -17,7 +17,7 @@ export default class extends MinecraftCommand {
             return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(new MessageEmbed()
                 .setColor('#5d97f5')
                 .setTitle(`Quest - ${quest.title}`)
-                .setDescription(quest.description)
+                .setDescription(quest.description(msg))
                 .addField('Rewards', this.stringify(quest.rewards))));
         } else {
             const quest = quests[inventory.quests.id];
@@ -49,7 +49,7 @@ export default class extends MinecraftCommand {
                 return msg.send(new MessageEmbed()
                     .setColor('#5d97f5')
                     .setTitle(`Quest In Progress - ${quest.title}`)
-                    .setDescription(quest.description)
+                    .setDescription(quest.description(msg))
                     .addField('Rewards', this.stringify(quest.rewards), true)
                     .addField('Progress', this.stringify(inventory.quests.current), true));
             }

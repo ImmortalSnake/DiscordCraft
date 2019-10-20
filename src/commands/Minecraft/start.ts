@@ -16,7 +16,9 @@ export default class extends MinecraftCommand {
                     .setTitle('Welcome')
                     .setDescription(`Welcome ${msg.author}
             You received your <:woodenaxe:560778791643774976>
-            You can now type \`${prefix}chop\` to collect some wood`)))
+            You can now type \`${prefix}chop\` to collect some wood
+            
+            Type \`${prefix}quest\` to start quests and recieve rewards!`)))
             .catch(() =>
                 msg.send('Uh oh! something went wrong... Please try again later'));
     }
