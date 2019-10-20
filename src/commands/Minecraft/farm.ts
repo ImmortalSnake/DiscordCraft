@@ -26,6 +26,7 @@ export default class extends MinecraftCommand {
 
         inventory.farm.planted.push([cropName, amount, Date.now()]);
         icrop[1] -= amount;
+        ihoe[1] -= amount;
 
         this.setCooldown({ id, inventory }, cooldown, ihoe);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
