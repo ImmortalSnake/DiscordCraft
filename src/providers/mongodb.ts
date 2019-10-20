@@ -91,7 +91,7 @@ export default class extends Provider {
         });
     }
 
-    replace(table: string, id: string, doc = {}) {
+    public replace(table: string, id: string, doc = {}) {
         return this.db
             .collection(table)
             .replaceOne(resolveQuery(id), this.parseUpdateInput(doc));

@@ -60,7 +60,7 @@ export default class Minecraft {
     public async create(player: KlasaUser): Promise<any> {
         return this.get(player.id).then(res => {
             res.id = player.id;
-            return this.update(player.id, res);
+            return this.provider.create('users', player.id, res);
         });
     }
 
