@@ -69,7 +69,7 @@ export default class extends Language {
             MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT: (tag, name, time, cancelOptions) => `${tag} | **${name}** is a repeating argument | You have **${time}** seconds to respond to this prompt with additional valid arguments. Type **${cancelOptions.join('**, **')}** to cancel this prompt.`,
             MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
             // eslint-disable-next-line max-len
-            INHIBITOR_COOLDOWN: (remaining, guildCooldown) => `${guildCooldown ? 'Someone has' : 'You have'} already used this command. You can use this command again in ${remaining}.`,
+            INHIBITOR_COOLDOWN: (remaining, guildCooldown) => `${guildCooldown ? 'Someone has' : 'You have'} already used this command. You can use this command again in ${remaining} seconds.`,
             INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an admin in this guild.',
             INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by the bot owner.',
             INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
@@ -122,13 +122,7 @@ export default class extends Language {
             COMMAND_PINGPONG: (diff, ping) => `Pong! (Roundtrip took: ${diff}ms. Heartbeat: ${ping}ms.)`,
             COMMAND_INVITE: () => [
                 `To add ${this.client.user!.username} to your discord guild:`,
-                `<${this.client.invite}>`,
-                util.codeBlock('', [
-                    'The above link is generated requesting the minimum permissions required to use every command currently.',
-                    'I know not all permissions are right for every guild, so don\'t be afraid to uncheck any of the boxes.',
-                    'If you try to use a command that requires more permissions than the bot is granted, it will let you know.'
-                ].join(' ')),
-                'Please file an issue at <https://github.com/dirigeants/klasa> if you find any bugs.'
+                `<${this.client.invite}>`
             ],
             COMMAND_INVITE_DESCRIPTION: 'Displays the invite link of the bot, to invite it to your guild.',
             COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
@@ -197,7 +191,7 @@ export default class extends Language {
             COMMAND_CRAFT_EXTENDED: [
                 'Currently tools can be crafted only once'
                 // ...
-            ].join('\n'),
+            ],
 
             COMMAND_CRATE_DESCRIPTION: 'Shows all crates that you own and opens them!',
             COMMAND_CRATE_EXTENDED: '',
@@ -207,7 +201,7 @@ export default class extends Language {
                 'Before you start enchanting you must have an enchanting table which can be brought from the shop',
                 'To get enchants purchase them from the shop',
                 'All tools can have only 1 enchantment at a time, using the enchantment on the same tool will overwrite the previous enchantment'
-            ].join('\n'),
+            ],
 
             COMMAND_EQUIP_DESCRIPTION: 'Equip a tool to use them!',
             COMMAND_EQUIP_EXTENDED: 'Before you start using a tool make sure that you have them equipped',
@@ -216,7 +210,7 @@ export default class extends Language {
             COMMAND_FISH_EXTENDED: [
                 'Fishing requires a fishing rod which can be crafted',
                 'Better the rod more are the catches'
-            ].join('\n'),
+            ],
 
             COMMAND_INFO_DESCRIPTION: 'Shows all details of any item in this game!',
 

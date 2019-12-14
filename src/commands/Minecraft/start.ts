@@ -15,7 +15,7 @@ export default class extends MinecraftCommand {
                 msg.send(this.embed(msg)
                     .setTitle('Welcome')
                     .setDescription(`Welcome ${msg.author}
-            You received your <:woodenaxe:560778791643774976>
+            You received your **Wooden Axe** <:woodenaxe:560778791643774976>
             You can now type \`${prefix}chop\` to collect some wood
             
             Type \`${prefix}quest\` to start quests and recieve rewards!`)))

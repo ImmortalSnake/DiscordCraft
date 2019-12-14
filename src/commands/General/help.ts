@@ -14,7 +14,8 @@ export default class extends Command {
         super(store, file, directory, {
             aliases: ['commands', 'cmd', 'cmds'],
             guarded: true,
-            usage: '(Command:command)'
+            usage: '(Command:command)',
+            description: language => language.get('COMMAND_HELP_DESCRIPTION')
         });
 
         this.createCustomResolver('command', (arg, possible, message) => {

@@ -27,6 +27,7 @@ export default class extends Command {
             hidden: true,
             guarded: true,
             permissionLevel: 10,
+            quotedStringSupport: false,
             usage: '<expression:...str>'
         });
     }
