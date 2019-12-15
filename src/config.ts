@@ -6,6 +6,7 @@ export const config = {
     disableEveryone: true,
     prefix: 's!',
     commandEditing: true,
+    owners: ['410806297580011520'],
     pieceDefaults: {
         commands: {
             usageDelim: ' ',
@@ -18,7 +19,7 @@ export const config = {
 
 export const mongoOptions = {
     // eslint-disable-next-line no-process-env
-    uri: `mongodb+srv://ImmortalSnake:${process.env.PASS}@musiccraft-pp2oj.mongodb.net/minecraft`,
+    uri: process.env.MONGO_PASS,
     options: {
         useNewUrlParser: true,
         reconnectInterval: 500,
