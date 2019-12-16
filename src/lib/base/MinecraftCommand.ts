@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Command, CommandStore, CommandOptions, KlasaMessage, RateLimit, RateLimitManager } from 'klasa';
 import DiscordCraft from '../client';
-import Inventory, { Item } from '../game/items/inventory';
+import Inventory, { InventoryItem } from '../game/items/inventory';
 import util from '../../utils/util';
 import { MessageEmbed } from 'discord.js';
 import { UserInventory } from '../game/minecraft';
+import { Tool } from '../game/items/tool';
 
 export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod';
-type verifyResult = [string, Inventory, string, Item];
+type verifyResult = [string, Inventory, string, InventoryItem];
 
 interface MinecraftCommandOptions extends CommandOptions {
     usageString?: string;
@@ -59,7 +60,7 @@ export default class extends Command {
         return [id, inventory, etool, itool];
     }
 
-    protected dropRewards(inventory: Inventory, itool: [string, number, string?], tool?: any): [string, any[]] {
+    protected dropRewards(inventory: Inventory, itool: InventoryItem, tool?: any): [string, any[]] {
         if (!tool) tool = this.client.minecraft.store[itool[0]];
         const updated = [];
         let mess = '';
@@ -67,7 +68,7 @@ export default class extends Command {
         for (const mat of Object.keys(tool.drops)) {
             if (Math.random() * 100 <= tool.drops[mat][2]) {
                 let drop = Math.floor(Math.random() * tool.drops[mat][0]) + tool.drops[mat][1] as number;
-                const item = this.client.minecraft.store[mat];
+                const item = this.client.minecraft.store[mat] as Tool;
 
                 // handle fortune enchantments
                 if (itool[2] && !itool[2].startsWith('fortune')) {
@@ -88,7 +89,7 @@ export default class extends Command {
         return [mess, updated];
     }
 
-    protected reduceDurability(itool: [string, number, string?]) {
+    protected reduceDurability(itool: InventoryItem) {
         // eslint-disable-next-line no-return-assign
         if (!itool[2] || !itool[2].startsWith('unbreaking')) return itool[1] -= 1;
 
@@ -96,6 +97,14 @@ export default class extends Command {
         if (Math.random() < 1 / (lvl + 1)) itool[1] -= 1;
 
         return itool;
+    }
+
+    protected addXP(inventory: Inventory, tool: any) {
+        const potion = inventory.potions.find(px => px[0] === 'xp_boost');
+        let drop = Math.floor(Math.random() * tool.xp[0]) + tool.xp[1] as number;
+
+        if (potion) drop *= 2;
+        inventory.profile.xp += drop;
     }
 
     /**

@@ -28,7 +28,9 @@ export default class extends Command {
             guarded: true,
             permissionLevel: 10,
             quotedStringSupport: false,
-            usage: '<expression:...str>'
+            usage: '<expression:...str>',
+            description: language => language.get('COMMAND_EVAL_DESCRIPTION'),
+            extendedHelp: language => language.get('COMMAND_EVAL_EXTENDEDHELP')
         });
     }
 

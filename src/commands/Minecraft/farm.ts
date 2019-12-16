@@ -20,7 +20,7 @@ export default class extends MinecraftCommand {
         const icrop = inventory.crops.find(ex => ex[0] === cropName);
         if (!icrop) throw 'Could not find that crop in your inventory';
 
-        const hoe = this.client.minecraft.store[ehoe];
+        const hoe = this.client.minecraft.store[ehoe] as any;
         const amount = hoe.size <= icrop[1] ? hoe.size : icrop[1];
         if (amount === 0) throw `You do not have any ${Util.toTitleCase(cropName.replace('_', ' '))}`;
 
@@ -40,7 +40,7 @@ export default class extends MinecraftCommand {
         return msg.send(this.embed(msg)
             .setTitle(`${msg.author!.tag}'s Farm`)
             .addField('Planted', inventory.farm.planted.map((icrop) => {
-                const crop = this.client.minecraft.store[icrop[0]];
+                const crop = this.client.minecraft.store[icrop[0]] as any;
                 const tleft = icrop[2] + crop.time - Date.now();
 
                 return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}** \`[${tleft > 0 ? Util.msToTime(tleft) : 'Ready'}]\``;
@@ -56,12 +56,12 @@ export default class extends MinecraftCommand {
 
     public async harvest(msg: KlasaMessage, [cropName = 'all']: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const [id, inventory, ehoe] = await this.verify(msg, 'hoe');
-        const hoe = this.client.minecraft.store[ehoe];
+        const hoe = this.client.minecraft.store[ehoe] as any;
 
         cropName = cropName.toLowerCase().replace(' ', '_');
 
         const rcrops = inventory.farm.planted.filter(ex => {
-            const crop = this.client.minecraft.store[ex[0]];
+            const crop = this.client.minecraft.store[ex[0]] as any;
             return ex[2] + crop.time - Date.now() < 0;
         });
 

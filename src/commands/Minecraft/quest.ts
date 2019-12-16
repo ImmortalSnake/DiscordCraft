@@ -2,6 +2,7 @@ import { KlasaMessage, util } from 'klasa';
 import { MessageEmbed } from 'discord.js';
 import quests from '../../lib/game/quests';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import { Tool } from '../../lib/game/items/tool';
 
 export default class extends MinecraftCommand {
 
@@ -29,7 +30,7 @@ export default class extends MinecraftCommand {
                 inventory.profile.coins += quest.coins;
 
                 for (const re in quest.rewards) {
-                    const item = this.client.minecraft.store[re];
+                    const item = this.client.minecraft.store[re] as Tool;
                     const reward = inventory[item.type as 'tools' | 'materials'].find(ex => ex[0] === re);
 
                     if (item.type === 'tools') {

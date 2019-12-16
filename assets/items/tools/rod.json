@@ -12,7 +12,7 @@
         },
 
         "materials": {
-          "wood": 100
+            "wood": 100
         }
     }
 }

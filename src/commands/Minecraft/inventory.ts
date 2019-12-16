@@ -2,8 +2,9 @@ import { util, CommandStore, KlasaMessage, KlasaUser } from 'klasa';
 import { MessageEmbed } from 'discord.js';
 import Inventory from '../../lib/game/items/inventory';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import { Tool } from '../../lib/game/items/tool';
 
-export default class InventoryCommand extends MinecraftCommand {
+export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
@@ -32,7 +33,7 @@ export default class InventoryCommand extends MinecraftCommand {
         let mess = '**';
 
         for (const item of tp) {
-            const { emote } = this.client.minecraft.store[item[0]];
+            const { emote } = this.client.minecraft.store[item[0]] as Tool;
 
             const stat = (type === 'tools' ? ` | Durability ` : `x`) + item[1];
             mess += `${util.toTitleCase(item[0].replace('_', ' '))}${emote} ${stat}\n`;

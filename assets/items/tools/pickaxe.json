@@ -34,20 +34,20 @@
         ],
 
         "drops": {
-          "coal": [0, 1, 50],
-          "stone": [2, 2, 100],
-          "iron": [0, 1, 20]
+            "coal": [0, 1, 50],
+            "stone": [2, 2, 100],
+            "iron": [0, 1, 20]
         },
 
         "repair": {
-          "wood": 50,
-          "coal": 25,
-          "stone": 10
+            "wood": 50,
+            "coal": 25,
+            "stone": 10
         },
 
         "materials": {
-          "wood": 75,
-          "stone": 40
+            "wood": 50,
+            "stone": 40
         }
     },
     
@@ -63,31 +63,32 @@
         ],
 
         "drops": {
-          "stone": [1, 2, 80],
-          "coal": [1, 2, 75],
-          "iron": [2, 3, 100],
-          "redstone": [1, 1, 15],
-          "lapis": [1, 1, 15],
-          "gold": [1, 1, 10],
-          "diamond": [1, 1, 1]
+            "stone": [1, 2, 80],
+            "coal": [1, 2, 75],
+            "iron": [2, 3, 100],
+            "redstone": [1, 1, 15],
+            "lapis": [1, 1, 15],
+            "gold": [1, 1, 10],
+            "diamond": [1, 1, 1]
         },
 
         "repair": {
-          "wood": 75,
-          "coal": 40,
-          "iron": 20
+            "wood": 75,
+            "coal": 40,
+            "iron": 20
         },
 
         "materials": {
-          "wood": 150,
-          "coal": 80,
-          "iron": 50
+            "wood": 150,
+            "coal": 80,
+            "stone": 100,
+            "iron": 50
         }
       },
     
     "gold_pickaxe": {
-        "durability": 300,
         "type": "tools",
+        "durability": 300,
         "emote": "<:goldpickaxe:560738248134098944>",
 
         "enchants": [
@@ -97,32 +98,35 @@
         ],
 
         "drops": {
-          "stone": [2, 2, 100],
-          "coal": [2, 2, 90],
-          "iron": [2, 2, 90],
-          "emerald": [1, 1, 1],
-          "redstone": [1, 1, 25],
-          "lapis": [1, 1, 25],
-          "gold": [1, 1, 2],
-          "diamond": [1, 1, 8]
+            "stone": [2, 2, 100],
+            "coal": [2, 2, 90],
+            "iron": [2, 2, 90],
+            "emerald": [1, 1, 1],
+            "redstone": [1, 1, 25],
+            "lapis": [1, 1, 25],
+            "gold": [1, 1, 2],
+            "diamond": [1, 1, 8]
         },
 
         "repair": {
-          "wood": 150,
-          "coal": 50,
-          "iron": 30,
-          "gold": 10
+            "wood": 150,
+            "coal": 50,
+            "iron": 30,
+            "gold": 10
         },
+
         "materials": {
-          "wood": 500,
-          "iron": 300,
-          "coal": 100,
-          "gold": 40
+            "wood": 500,
+            "iron": 300,
+            "coal": 100,
+            "gold": 40
         }
     },
 
     "diamond_pickaxe": {
+        "type": "tools",
         "durability": 500,
+        "emote": "",
 
         "enchants": [
             "unbreaking-",
@@ -131,15 +135,23 @@
         ],
 
         "drops": {
-          "stone": [3, 3, 95],
-          "coal": [3, 3, 95],
-          "iron": [3, 3, 100],
-          "emerald": [1, 1, 2],
-          "redstone": [1, 1, 8],
-          "lapis": [1, 1, 8],
-          "gold": [1, 1, 25],
-          "diamond": [1, 1, 1],
-          "obsidian": [1, 1, 2]
+            "stone": [3, 3, 95],
+            "coal": [3, 3, 95],
+            "iron": [3, 3, 100],
+            "emerald": [1, 1, 2],
+            "redstone": [1, 1, 8],
+            "lapis": [1, 1, 8],
+            "gold": [1, 1, 25],
+            "diamond": [1, 1, 1],
+            "obsidian": [1, 1, 2]
+        },
+
+        "materials": {
+            "wood": 1000,
+            "coal": 250,
+            "iron": 250,
+            "redstone": 50,
+            "diamond": 20
         }
     }
 }

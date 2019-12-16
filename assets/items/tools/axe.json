@@ -3,6 +3,7 @@
         "type": "tools",
         "durability": 50,
         "emote": "<:woodenaxe:560778791643774976>",
+        "xp": [0, 1, 100],
         "enchants": [
             "unbreaking-",
             "fortune-",
@@ -25,6 +26,7 @@
         "durability": 100,
         "type": "tools",
         "emote": "<:stoneaxe:561524214629138452>",
+        "xp": [1, 2, 100],
         "enchants": [
             "unbreaking-",
             "fortune-",
@@ -35,14 +37,14 @@
         },
 
         "repair": {
-          "wood": 50,
-          "coal": 40,
-          "stone": 10
+            "wood": 50,
+            "coal": 40,
+            "stone": 10
         },
 
         "materials": {
-          "wood": 75,
-          "stone": 30
+            "wood": 50,
+            "stone": 30
         }
     },
 
@@ -50,25 +52,26 @@
         "durability": 300,
         "type": "tools",
         "emote": "<:ironaxe:561534665769615364>",
+        "xp": [2, 3, 100],
         "enchants": [
             "unbreaking-",
             "fortune-",
             "efficiency-"
         ],
         "drops": {
-            "wood": [2, 3, 100]
+            "wood": [2, 2, 100]
         },
 
         "repair": {
-          "wood": 70,
-          "coal": 40,
-          "iron": 20
+            "wood": 70,
+            "coal": 40,
+            "iron": 20
         },
 
         "materials": {
-          "wood": 200,
-          "coal": 80,
-          "iron": 50
+            "wood": 200,
+            "coal": 80,
+            "iron": 50
         }
     },
 
@@ -76,7 +79,7 @@
         "durability": 300,
         "type": "tools",
         "emote": "<:goldaxe:564018320639131659>",
-
+        "xp": [5, 5, 100],
         "enchants": [
             "unbreaking-",
             "fortune-",
@@ -87,40 +90,44 @@
         },
 
         "repair": {
-          "wood": 150,
-          "coal": 50,
-          "iron": 30,
-          "gold": 10
+            "wood": 150,
+            "coal": 50,
+            "iron": 30,
+            "gold": 10
         },
-    
+
         "materials": {
-          "wood": 500,
-          "iron": 200,
-          "coal": 100,
-          "gold": 50
+            "wood": 500,
+            "iron": 200,
+            "coal": 100,
+            "gold": 50
         }
     },
-    
+
     "diamond_axe": {
         "durability": 500,
         "type": "tools",
         "emote": "<:diamondaxe:>",
+        "xp": [4, 4, 100],
+
+        "enchants": [],
 
         "drops": {
             "wood": [4, 8, 100]
         },
 
         "repair": {
-          "wood": 250,
-          "coal": 100,
-          "iron": 30,
-          "gold": 15,
-          "diamond": 8
+            "wood": 250,
+            "coal": 100,
+            "iron": 30,
+            "gold": 15,
+            "diamond": 8
         },
+
         "materials": {
-          "wood": 200,
-          "gold": 50,
-          "diamond": 40
+            "wood": 200,
+            "gold": 50,
+            "diamond": 40
         }
     }
 }

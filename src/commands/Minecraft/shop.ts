@@ -3,6 +3,7 @@ import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { MessageEmbed } from 'discord.js';
 import Shop from '../../../assets/game/shop.json';
 import util from '../../utils/util';
+import { Tool } from '../../lib/game/items/tool';
 
 const time = 1000 * 60 * 3;
 type ShopCategory = 'enchants' | 'potions' | 'storage' | 'crops';
@@ -83,7 +84,7 @@ export default class extends MinecraftCommand {
         const mess = [];
 
         for (const mat in item.price) {
-            const it = this.client.minecraft.store[mat];
+            const it = this.client.minecraft.store[mat] as Tool;
             mess.push(`${util.toTitleCase(mat)}${it ? it.emote : ''} x${item.price[mat]}`);
         }
 

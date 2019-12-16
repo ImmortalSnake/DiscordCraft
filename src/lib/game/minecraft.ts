@@ -10,6 +10,7 @@ import shop from '../../../assets/game/shop.json';
 import { KlasaUser, Provider } from 'klasa';
 import Inventory, { userSchema } from './items/inventory';
 import util from '../../utils/util';
+import { Item, Tool } from './items/tool';
 
 interface MinecraftOptions {
     provider: string;
@@ -25,7 +26,7 @@ export default class Minecraft {
     public client: DiscordCraft;
     public options: MinecraftOptions;
 
-    public store = Object.assign({}, pickaxe, axe, hoe, materials, other, food, rod);
+    public store: Record<string, Item | Tool> = Object.assign({}, pickaxe, axe, hoe, materials, other, food, rod);
     public villageTimer = 10800000;
     public shop = shop;
 

@@ -1,4 +1,4 @@
-export type Item = [
+export type InventoryItem = [
     // Name of the tool
     string,
     // Amount / Durability
@@ -26,29 +26,29 @@ export default interface Inventory {
         chestplate: string
     };
 
-    tools: Item[];
-    materials: Item[];
-    enchants: Item[];
-    potions: Item[];
+    tools: InventoryItem[];
+    materials: InventoryItem[];
+    enchants: InventoryItem[];
+    potions: InventoryItem[];
     storage: InventoryStorage;
     trade: {
         user: string,
         confirmed: boolean,
         trade: any
     };
-    crates: Item[];
+    crates: InventoryItem[];
     codes: any[];
     quests: {
         id: number,
         current: any
     };
 
-    crops: Item[];
+    crops: InventoryItem[];
     farm: {
         planted: any[]
     };
 
-    boosts: Item[];
+    boosts: InventoryItem[];
 
     profile: {
         xp: number,

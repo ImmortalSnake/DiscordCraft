@@ -191,7 +191,7 @@ export default class extends Language {
             COMMAND_CRAFT_EXTENDED: [
                 'Currently tools can be crafted only once'
                 // ...
-            ],
+            ].join('\n'),
 
             COMMAND_CRATE_DESCRIPTION: 'Shows all crates that you own and opens them!',
             COMMAND_CRATE_EXTENDED: '',
@@ -201,16 +201,26 @@ export default class extends Language {
                 'Before you start enchanting you must have an enchanting table which can be brought from the shop',
                 'To get enchants purchase them from the shop',
                 'All tools can have only 1 enchantment at a time, using the enchantment on the same tool will overwrite the previous enchantment'
-            ],
+            ].join('\n'),
 
             COMMAND_EQUIP_DESCRIPTION: 'Equip a tool to use them!',
             COMMAND_EQUIP_EXTENDED: 'Before you start using a tool make sure that you have them equipped',
+
+            COMMAND_FARM_DESCRIPTION: 'Sow crops and harvest them!',
+            COMMAND_FARM_EXTENDED: [
+                'Before you start farming you must craft a hoe and equip it',
+                'Better the hoe, more are the crops you can sow at a time',
+                'Different crops take different amounts of time to get ready for harvesting',
+                '`farm view` to see all crops you have as well as the status of your planted crops',
+                '`farm sow <crop_name>` to sow a crop',
+                '`farm harvest <crop_name>` to harvest crops use `farm harvest all` to harvest them all'
+            ].join('\n'),
 
             COMMAND_FISH_DESCRIPTION: 'Catch fish!',
             COMMAND_FISH_EXTENDED: [
                 'Fishing requires a fishing rod which can be crafted',
                 'Better the rod more are the catches'
-            ],
+            ].join('\n'),
 
             COMMAND_INFO_DESCRIPTION: 'Shows all details of any item in this game!',
 
@@ -264,6 +274,19 @@ export default class extends Language {
             COMMAND_VILLAGER_EXTENDED: [
                 'The villager only accepts emeralds and in return gives materials',
                 'Trade deals reset every 3 hours'
+            ].join('\n'),
+
+
+            /**
+             * Owner Command Descriptions and Extended Help
+             */
+
+            COMMAND_OWNER_DESCRIPTION: 'Secret commands for bot owners to manage the bot',
+            COMMAND_OWNER_EXTENDED: [
+                '`owner view <user>` to view a user\'s inventory',
+                '`owner add <user> <item name>` to add an item to a user\'s inventory',
+                '`owner remove <user> <item name>` to remove an item from the user\'s inventory',
+                'Use flags: `--amount=<amount>` or `all`, to specify the amount'
             ].join('\n')
         };
     }

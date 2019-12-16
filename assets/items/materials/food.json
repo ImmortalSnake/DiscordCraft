@@ -1,61 +1,82 @@
 {
     "wheat": {
+        "type": "materials",
         "emote": "<:wheat:561544489194356756>",
         "time": 300000
     },
 
+    "carrot": {
+        "type": "materials",
+        "emote": "<:carrot:561543767103111168>",
+        "time": 1200000
+    },
+
     "raw_chicken": {
+        "type": "materials",
         "emote": "<:rawchicken:562937076178485268>",
         "energy": -10
     },
 
     "cooked_chicken": {
+        "type": "materials",
         "emote": "<:cookedchicken:562746672057155613>",
         "energy": 50
     },
 
     "mushroom": {
+        "type": "materials",
         "emote": "<:wheat:561544489194356756>",
         "energy": 20
     },
     
     "sugar": {
+        "type": "materials",
         "emote": "<:wheat:561544489194356756>",
         "energy": 18
       },
 
     "milk": {
+        "type": "materials",
         "emote": "<:milk:561544638800986144>",
         "energy": 25
     },
 
-    "pumpkin": {},
+    "pumpkin": {
+        "type": "materials",
+        "emote": ""
+    },
       
     "cocoa": {
+        "type": "materials",
         "emote": "<:cocoa:563620422097305603>"
     },
       
     "bread": {
+        "type": "materials",
         "emote": "<:bread:562961357746733058>",
         "energy": 40
     },
       
     "golden_apple": {
+        "type": "materials",
         "emote": "<:goldenapple:566504525415055365>",
         "energy": 1000
     },
       
     "raw_beef": {
+        "type": "materials",
         "emote": "<:rawbeef:562937991350321152>",
         "energy": -10
     },
       
     "Raw Mutton": {
+        "type": "materials",
         "emote": "<:rawmutton:562938203527577600>",
         "energy": -10
     },
       
     "Raw Porkchop": {
+        "type": "materials",
         "emote": "<:rawporkchop:562938729879175178>",
         "energy": -10
     },
@@ -85,16 +106,19 @@
     },
     
     "Cooked Salmon": {
+        "type": "materials",
         "emote": "<:cookedsalmon:566503739452686336>",
         "energy": 25
     },
       
     "Baked Potato": {
+        "type": "materials",
         "emote": "<:bakedpotato:563672677123096576>",
         "energy": 50
     },
       
     "Cookie": {
+        "type": "materials",
         "emote": "<:cookie:563417969254727681>",
         "energy": 100
     }
