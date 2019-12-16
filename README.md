@@ -5,6 +5,7 @@
 [![Codacy](https://img.shields.io/codacy/grade/a8c86f1a39e942ef8b03357d2932b03a.svg?style=for-the-badge)](https://github.com/ImmortalSnake/DiscordCraft)
 [![Languages](https://img.shields.io/github/languages/top/ImmortalSnake/DiscordCraft.svg?colorB=Yellow&style=for-the-badge)](https://github.com/ImmortalSnake/DiscordCraft)
 [![Version](https://img.shields.io/github/package-json/v/ImmortalSnake/DiscordCraft.svg?colorB=Orange&style=for-the-badge)](https://github.com/ImmortalSnake/DiscordCraft)
+[![Build Status](https://travis-ci.com/ImmortalSnake/DiscordCraft.svg?branch=master)](https://travis-ci.com/ImmortalSnake/DiscordCraft)
 [![Issues](https://img.shields.io/github/issues/ImmortalSnake/DiscordCraft.svg?style=for-the-badge)](https://github.com/ImmortalSnake/DiscordCraft/issues)
 
 > A Discord Bot that gives you a real time minecraft experience while using discord
