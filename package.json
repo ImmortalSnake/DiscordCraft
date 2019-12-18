@@ -1,6 +1,6 @@
 {
   "name": "discordcraft",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A typescript version of MusicCraft",
   "main": "dist/src/index.js",
 

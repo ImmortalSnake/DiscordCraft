@@ -24,21 +24,26 @@ export default class extends MinecraftCommand {
         if (!id) return msg.send('This user does not have a player!');
 
         const amount = 'amount' in msg.flagArgs ? parseInt(msg.flagArgs.amount) : 1;
-        const [name, item] = this.client.minecraft.search(itemname.join('_'));
-        if (!item) return msg.send('Could not find that item!');
 
-        const invItem = inventory.tools.find(ex => ex[0] === name) || inventory.materials.find(ex => ex[0] === name);
+        if (['coins', 'coin'].includes(itemname.join(' '))) {
+            inventory.profile.coins += amount;
+        } else {
+            const [name, item] = this.client.minecraft.search(itemname.join('_'));
+            if (!item) return msg.send('Could not find that item!');
 
-        if (!invItem) {
-            if (item.type === 'tools') inventory.tools.push([name, item.durability]);
-            else if (item.type === 'materials') inventory.materials.push([name, amount]);
-        } else if (item.type === 'materials') {
-            invItem[1] += amount;
-        } else if (item.type === 'tools') {
-            return msg.send('This tool already exists!');
+            const invItem = inventory.tools.find(ex => ex[0] === name) || inventory.materials.find(ex => ex[0] === name);
+
+            if (!invItem) {
+                if (item.type === 'tools') inventory.tools.push([name, item.durability]);
+                else if (item.type === 'materials') inventory.materials.push([name, amount]);
+            } else if (item.type === 'materials') {
+                invItem[1] += amount;
+            } else if (item.type === 'tools') {
+                return msg.send('This tool already exists!');
+            }
         }
 
-        return this.client.minecraft.update(user.id, { id, inventory }).then(() => msg.send(`Successfully added **${amount} ${name} ${item.emote}** to \`${user.tag}\``));
+        return this.client.minecraft.update(user.id, { id, inventory }).then(() => msg.send(`Successfully added **${amount} ${itemname}** to \`${user.tag}\``));
     }
 
     public async remove(msg: KlasaMessage, [user, ...itemname]: [KlasaUser, string]): Promise<KlasaMessage | KlasaMessage[]> {

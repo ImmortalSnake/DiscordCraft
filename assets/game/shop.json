@@ -13,6 +13,26 @@
             }
         }
     ],
+    "crates": [
+        {
+            "name": "common",
+            "price": {
+                "coin": 50
+            }
+        },
+        {
+            "name": "uncommon",
+            "price": {
+                "coin": 150
+            }
+        },
+        {
+            "name": "rare",
+            "price": {
+                "coin": 300
+            }
+        }
+    ],
     "storage": [
         {
             "name": "chest",

@@ -27,6 +27,7 @@ export default class Minecraft {
     public options: MinecraftOptions;
 
     public store: Record<string, Item | Tool> = Object.assign({}, pickaxe, axe, hoe, materials, other, food, rod);
+    public toolStore: Record<string, Tool> = Object.assign({}, pickaxe, axe, hoe, rod)
     public villageTimer = 10800000;
     public shop = shop;
 
@@ -63,6 +64,19 @@ export default class Minecraft {
             res.id = player.id;
             return this.provider.create('users', player.id, res);
         });
+    }
+
+    public updateLevel(inventory: Inventory): boolean {
+        const nxtLevel = 25 * inventory.profile.level;
+        if (inventory.profile.xp >= nxtLevel) {
+            inventory.profile.xp = 0;
+            inventory.profile.level += 1;
+            inventory.profile.coins += nxtLevel;
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

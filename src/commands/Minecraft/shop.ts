@@ -12,7 +12,7 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '[enchants|potions|storage|crops] [item:number] [amount:number]'
+            usage: '[enchants|potions|storage|crops|crates] [item:number] [amount:number]'
         });
     }
 
@@ -27,7 +27,7 @@ export default class extends MinecraftCommand {
                 .setColor('#5d97f5')
                 .setDescription(`Use \`${prefix}${this.name} <category>\` to see all the items in it!
             \n**Categories**:
-            ${['enchants', 'potions', 'storage', 'crops'].map(ex => `\n\`${prefix}${this.name} ${ex}\``).join('\n')}`));
+            ${['enchants', 'potions', 'storage', 'crops', 'crates'].map(ex => `\n\`${prefix}${this.name} ${ex}\``).join('\n')}`));
         }
 
         const shop = Shop[category];

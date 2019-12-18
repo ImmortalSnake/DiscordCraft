@@ -13,6 +13,10 @@
 
         "materials": {
             "wood": 100
+        },
+
+        "repair": {
+            "wood": 25
         }
     }
 }

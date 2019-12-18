@@ -18,7 +18,7 @@ export default class extends MinecraftCommand {
         const xitem = inventory.tools.find(ex => ex[0] === itemName);
         if (!xitem) return msg.send('Could not find the item in your inventory');
 
-        const item = this.client.minecraft.store[xitem[0]];
+        const item = this.client.minecraft.toolStore[xitem[0]];
         for (const mat of Object.keys(item.repair)) {
             const imat = inventory.materials.find(ex => ex[0] === mat);
 

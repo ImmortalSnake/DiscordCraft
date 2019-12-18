@@ -11,16 +11,19 @@ export default class extends MinecraftCommand {
     }
 
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
-        const [id, inventory, axe, iaxe] = await this.verify(msg, 'axe');
+        const [id, inventory, eaxe, iaxe] = await this.verify(msg, 'axe');
         const [m, updated] = this.dropRewards(inventory, iaxe);
         this.reduceDurability(iaxe);
 
         const quest = quests[inventory.quests.id];
         if (quest) quest.update(inventory, { action: 'chop', updated });
         this.setCooldown({ id, inventory }, 5000, iaxe);
-        this.addXP(inventory, axe);
+        this.addXP(msg, inventory, eaxe);
 
-        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg).setDescription(`You have chopped: ${m}`)));
+        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => {
+            const axe = this.client.minecraft.toolStore[eaxe];
+            return msg.send(this.embed(msg).setDescription(`You have chopped with ${eaxe} ${axe.emote}: ${m}`));
+        });
     }
 
 }

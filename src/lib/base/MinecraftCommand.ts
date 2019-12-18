@@ -99,12 +99,22 @@ export default class extends Command {
         return itool;
     }
 
-    protected addXP(inventory: Inventory, tool: any) {
+    protected addXP(msg: KlasaMessage, inventory: Inventory, etool: string) {
+        const tool = this.client.minecraft.toolStore[etool];
         const potion = inventory.potions.find(px => px[0] === 'xp_boost');
         let drop = Math.floor(Math.random() * tool.xp[0]) + tool.xp[1] as number;
 
         if (potion) drop *= 2;
         inventory.profile.xp += drop;
+
+        const lvlup = this.client.minecraft.updateLevel(inventory);
+        if (lvlup) {
+            msg.send(new MessageEmbed()
+                .setColor('#5d97f5')
+                .setTitle(`Level UP!`)
+                .setDescription(`${msg.author!.toString()}, You have levelled up to: \`Level ${inventory.profile.level}\`
+                You got: \`${25 * (inventory.profile.level - 1)} coins\``));
+        }
     }
 
     /**

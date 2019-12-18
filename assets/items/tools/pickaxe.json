@@ -152,6 +152,13 @@
             "iron": 250,
             "redstone": 50,
             "diamond": 20
+        },
+
+        "repair": {
+            "wood": 100,
+            "coal": 100,
+            "iron": 100,
+            "diamond": 5
         }
     }
 }
