@@ -33,6 +33,7 @@ export const mongoOptions = {
 export const MinecraftOptions = {
     clientID: '557831541653241857',
     config: {
-        provider: 'mongodb'
+        // eslint-disable-next-line no-process-env
+        provider: process.env.DATABASE
     }
 };
