@@ -1,6 +1,7 @@
 import { Command, CommandStore, KlasaMessage, util, Stopwatch, Type } from 'klasa';
 import Util from '../../utils/util';
 import { inspect } from 'util';
+import { Message } from 'discord.js';
 
 interface IEvalResult {
     success: boolean;
@@ -53,7 +54,7 @@ export default class extends Command {
     async handleMessage(msg: KlasaMessage, options: any, { success, result, time, footer, language }: IHandleMessageOptions): Promise<KlasaMessage | KlasaMessage[] | null> {
         switch (options.sendAs) {
             case 'file': {
-                if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), 'output.txt', msg.language.get('COMMAND_EVAL_OUTPUT_FILE', time, footer));
+                if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), 'output.txt', msg.language.get('COMMAND_EVAL_SENDFILE', time, footer));
                 await this.getTypeOutput(msg, options);
                 return this.handleMessage(msg, options, { success, result, time, footer, language });
             }
@@ -61,7 +62,7 @@ export default class extends Command {
             case 'hastebin': {
                 // eslint-disable-next-line require-atomic-updates
                 if (!options.url) options.url = await Util.getHaste(result, language).catch(() => null);
-                if (options.url) return msg.sendMessage(msg.language.get('COMMAND_EVAL_OUTPUT_HASTEBIN', time, options.url, footer));
+                if (options.url) return msg.sendMessage(msg.language.get('COMMAND_EVAL_SENDHASTE', time, options.url, footer));
                 // eslint-disable-next-line require-atomic-updates
                 options.hastebinUnavailable = true;
                 await this.getTypeOutput(msg, options);
@@ -70,7 +71,7 @@ export default class extends Command {
             case 'console':
             case 'log': {
                 this.client.emit('log', result);
-                return msg.sendMessage(msg.language.get('COMMAND_EVAL_OUTPUT_CONSOLE', time, footer));
+                return msg.sendMessage(msg.language.get('COMMAND_EVAL_SENDCONSOLE', time, footer));
             }
             case 'none':
                 return null;
@@ -89,13 +90,22 @@ export default class extends Command {
         const _options = ['log'];
         if (msg.channel.attachable) _options.push('file');
         if (!options.hastebinUnavailable) _options.push('hastebin');
-        let _choice;
-        do {
-            // breaking
-            _choice = await msg.reply(`Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
-        } while (!['file', 'haste', 'hastebin', 'console', 'log', 'default', 'none', null].includes(_choice.content));
-        // eslint-disable-next-line require-atomic-updates
-        options.sendAs = _choice.content;
+        const _choice = await this.prompt(msg, `Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
+
+        if (!['file', 'haste', 'hastebin', 'console', 'log', 'default', 'none', null].includes(_choice.content)) {
+            // eslint-disable-next-line require-atomic-updates
+            options.sendAs = 'none';
+        } else {
+            // eslint-disable-next-line require-atomic-updates
+            options.sendAs = _choice.content;
+        }
+    }
+
+    public async prompt(msg: KlasaMessage, text: string): Promise<Message | KlasaMessage> {
+        await msg.send(text);
+        const messages = await msg.channel.awaitMessages(mes => mes.author === msg.author, { time: 60000, max: 1 });
+        if (messages.size === 0) throw null;
+        return messages.first()!;
     }
 
     private timedEval(msg: KlasaMessage, code: string, flagTime: number): any {
@@ -112,7 +122,7 @@ export default class extends Command {
     }
 
     // Eval the input
-    async eval(msg: KlasaMessage, code: string): Promise<IEvalResult> {
+    private async eval(msg: KlasaMessage, code: string): Promise<IEvalResult> {
         const stopwatch = new Stopwatch();
         let success, syncTime, asyncTime, result;
         let thenable = false;
