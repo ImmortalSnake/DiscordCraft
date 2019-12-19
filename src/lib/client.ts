@@ -10,6 +10,7 @@ export default class DiscordCraft extends KlasaClient {
 
     public minecraft: Minecraft;
     public id = clientID;
+    public version = 'v 1.0.3';
 
     public constructor(options: KlasaClientOptions) {
         super(options);

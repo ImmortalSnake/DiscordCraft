@@ -28,7 +28,7 @@
     "@types/node": "^12.7.5",
     "discord.js": "github:discordjs/discord.js#master",
     "dotenv": "^8.1.0",
-    "klasa": "github:dirigeants/klasa#v1.0.0-alpha",
+    "klasa": "github:dirigeants/klasa#settings",
     "mongodb": "^3.3.2",
     "typescript": "^3.6.4"
   },

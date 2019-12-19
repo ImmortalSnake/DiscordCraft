@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Language, util, LanguageStore } from 'klasa';
+import DiscordCraft from '../lib/client';
 
 export default class extends Language {
 
@@ -153,6 +154,7 @@ export default class extends Language {
             COMMAND_STATS: (memUsage, uptime, users, guilds, channels, klasaVersion, discordVersion, processVersion, message) => [
                 '= STATISTICS =',
                 '',
+                `• Version    :: ${(this.client as DiscordCraft).version}`,
                 `• Mem Usage  :: ${memUsage} MB`,
                 `• Uptime     :: ${uptime}`,
                 `• Users      :: ${users}`,

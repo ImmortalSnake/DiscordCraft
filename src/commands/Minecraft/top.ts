@@ -1,6 +1,7 @@
 import { CommandStore, KlasaMessage, RichDisplay, KlasaUser } from 'klasa';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { MessageEmbed } from 'discord.js';
+import { UserInventory } from '../../lib/game/minecraft';
 
 // number of users to show per page
 const npage = 10;
@@ -10,15 +11,15 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<xp|coins:default> [page:int{1,10}]'
+            usage: '<level|coins:default> [page:int{1,10}]'
         });
     }
 
-    public async run(msg: KlasaMessage, [type = 'coins']: [string, number]): Promise<KlasaMessage | KlasaMessage[] | null> {
+    public async run(msg: KlasaMessage, [type = 'coins']: ['coins' | 'level', number]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const { id } = await this.client.minecraft.get((msg.author as KlasaUser).id);
         if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
 
-        const all = await this.client.minecraft.provider.getAll('users');
+        const all = await this.client.minecraft.provider.getAll('users') as UserInventory[];
         const sorted = all.sort((a, b) => {
             if (b.inventory && b.inventory.profile && b.inventory.profile[type]) {
                 if (a.inventory && a.inventory.profile && a.inventory.profile[type]) {
