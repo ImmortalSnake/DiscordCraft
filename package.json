@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@types/node": "^12.7.5",
+    "@types/node-fetch": "^2.5.4",
     "discord.js": "github:discordjs/discord.js#master",
     "dotenv": "^8.1.0",
     "klasa": "github:dirigeants/klasa#settings",

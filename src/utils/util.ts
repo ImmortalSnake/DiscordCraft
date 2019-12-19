@@ -1,4 +1,5 @@
 import { util } from 'klasa';
+import fetch from 'node-fetch';
 
 export default abstract class extends util {
 
@@ -8,9 +9,9 @@ export default abstract class extends util {
 
     static async getHaste(evalResult: string, language: string): Promise<string> {
         // eslint-disable-next-line no-undef
-        const key = await fetch('https://hastebin.com/documents', { method: 'POST', body: evalResult })
-            .then((response: any) => response.json())
-            .then((body: any) => body.key);
+        const key = await fetch('https://hasteb.in/documents', { method: 'POST', body: evalResult })
+            .then(response => response.json())
+            .then(body => body.key);
         return `https://hasteb.in/${key}.${language}`;
     }
 
