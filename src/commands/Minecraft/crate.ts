@@ -8,9 +8,7 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '[crate:...str]',
-            description: (language) => language.get('COMMAND_CRATE_DESCRIPTION'),
-            extendedHelp: (language) => language.get('COMMAND_CRATE_EXTENDED')
+            usage: '[crate:...str]'
         });
     }
 

@@ -1,4 +1,4 @@
-import { CommandStore, KlasaMessage, util } from 'klasa';
+import { CommandStore, KlasaMessage } from 'klasa';
 import Inventory from '../../lib/game/items/inventory';
 import quests from '../../lib/game/quests';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
@@ -7,9 +7,7 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<item:...str>',
-            description: (language) => language.get('COMMAND_CRAFT_DESCRIPTION'),
-            extendedHelp: (language) => language.get('COMMAND_CRAFT_EXTENDED')
+            usage: '<item:...str>'
         });
     }
 
@@ -39,7 +37,7 @@ export default class extends MinecraftCommand {
         if (quest) quest.update(inventory, { action: 'craft', updated: [[itemName, amount]] });
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
-            .setDescription(`You have successfully crafted **${amount} ${util.toTitleCase(itemName.replace('_', ' '))} ${item.emote}**`)));
+            .setDescription(`You have successfully crafted **${amount} ${this.itemName(itemName)} ${item.emote}**`)));
     }
 
 }

@@ -6,9 +6,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<tool:str> <enchantment:str>',
-            usageDelim: '/',
-            description: (language) => language.get('COMMAND_ENCHANT_DESCRIPTION'),
-            extendedHelp: (language) => language.get('COMMAND_ENCHANT_EXTENDED')
+            usageDelim: '/'
         });
     }
 
