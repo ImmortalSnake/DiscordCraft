@@ -163,7 +163,7 @@ export default class extends Language {
                 `• Klasa      :: v${klasaVersion}`,
                 `• Discord.js :: v${discordVersion}`,
                 `• Node.js    :: ${processVersion}`,
-                `• Shard      :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.totalShardCount}`
+                `• Shard      :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.shardCount}`
             ],
             COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
             MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
