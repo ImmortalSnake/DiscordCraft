@@ -13,7 +13,7 @@ import util from '../../utils/util';
 import { Item, Tool } from './items/tool';
 
 interface MinecraftOptions {
-    provider: string;
+    provider: string | undefined;
 }
 
 export interface UserInventory {
@@ -37,7 +37,7 @@ export default class Minecraft {
     }
 
     public get provider(): Provider {
-        return this.client.providers.get(this.options.provider)!;
+        return this.client.providers.get(this.options.provider || 'mongodb')!;
     }
 
     public search(key: string): [string, any | null] {
