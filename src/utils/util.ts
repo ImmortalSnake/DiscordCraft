@@ -1,5 +1,6 @@
-import { util } from 'klasa';
+import { util, KlasaMessage } from 'klasa';
 import fetch from 'node-fetch';
+import { Message } from 'discord.js';
 
 export default abstract class extends util {
 
@@ -13,6 +14,13 @@ export default abstract class extends util {
             .then(response => response.json())
             .then(body => body.key);
         return `https://hasteb.in/${key}.${language}`;
+    }
+
+    static async prompt(msg: KlasaMessage, text: string): Promise<Message | KlasaMessage> {
+        await msg.send(text);
+        const messages = await msg.channel.awaitMessages(mes => mes.author === msg.author, { time: 60000, max: 1 });
+        if (messages.size === 0) throw null;
+        return messages.first()!;
     }
 
     static remDefault(def: any, given: any): any {

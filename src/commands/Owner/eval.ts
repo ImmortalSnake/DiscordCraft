@@ -1,7 +1,6 @@
 import { Command, CommandStore, KlasaMessage, util, Stopwatch, Type } from 'klasa';
 import Util from '../../utils/util';
 import { inspect } from 'util';
-import { Message } from 'discord.js';
 
 interface IEvalResult {
     success: boolean;
@@ -90,7 +89,7 @@ export default class extends Command {
         const _options = ['log'];
         if (msg.channel.attachable) _options.push('file');
         if (!options.hastebinUnavailable) _options.push('hastebin');
-        const _choice = await this.prompt(msg, `Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
+        const _choice = await Util.prompt(msg, `Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
 
         if (!['file', 'haste', 'hastebin', 'console', 'log', 'default', 'none', null].includes(_choice.content)) {
             // eslint-disable-next-line require-atomic-updates
@@ -99,13 +98,6 @@ export default class extends Command {
             // eslint-disable-next-line require-atomic-updates
             options.sendAs = _choice.content;
         }
-    }
-
-    public async prompt(msg: KlasaMessage, text: string): Promise<Message | KlasaMessage> {
-        await msg.send(text);
-        const messages = await msg.channel.awaitMessages(mes => mes.author === msg.author, { time: 60000, max: 1 });
-        if (messages.size === 0) throw null;
-        return messages.first()!;
     }
 
     private timedEval(msg: KlasaMessage, code: string, flagTime: number): any {
