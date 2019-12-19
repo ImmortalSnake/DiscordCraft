@@ -7,7 +7,6 @@ install:
   - npm install
 script: 
   - npm run postInstall
-  - npm start
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
