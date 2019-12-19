@@ -63,6 +63,7 @@ export default interface Inventory {
 
 export const userSchema = {
     id: '',
+    name: 'unknown',
     inventory: {
         equipped: {
             axe: 'wooden_axe',

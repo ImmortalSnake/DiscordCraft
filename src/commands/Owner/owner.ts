@@ -65,11 +65,12 @@ export default class extends MinecraftCommand {
         return this.client.minecraft.update(user.id, { id, inventory }).then(() => msg.send(`Successfully removed ${amount} ${name} ${item.emote} to ${user.tag}`));
     }
 
-    public async view(msg: KlasaMessage, [user]: [KlasaUser]): Promise<KlasaMessage | KlasaMessage[]> {
+    public async view(msg: KlasaMessage, [user]: [KlasaUser]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const { id, inventory } = await this.client.minecraft.get(user.id);
         if (!id) return msg.send('This user does not have a player!');
 
-        return msg.send((this.client.commands.get('inventory') as InventoryCommand).display(user, inventory));
+        await (this.client.commands.get('inventory') as InventoryCommand).display(user, inventory).run(await msg.send('loading...'));
+        return null;
     }
 
 }

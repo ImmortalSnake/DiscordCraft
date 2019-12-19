@@ -2,6 +2,10 @@
 
 All changes to DiscordCraft will be documented here
 
+## Version 1.0.4
+
+- Updated [inventory command](src/commands/Minecraft/inventory.ts)
+
 ## Version 1.0.3
 
 - Added [Rare Crate](assets/game/crates.json)
