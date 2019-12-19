@@ -69,7 +69,7 @@ export default class extends MinecraftCommand {
         const { id, inventory } = await this.client.minecraft.get(user.id);
         if (!id) return msg.send('This user does not have a player!');
 
-        await (this.client.commands.get('inventory') as InventoryCommand).display(user, inventory).run(await msg.send('loading...'));
+        await (this.client.commands.get('inventory') as InventoryCommand).display(user, { id, inventory }).run(await msg.send('loading...'));
         return null;
     }
 

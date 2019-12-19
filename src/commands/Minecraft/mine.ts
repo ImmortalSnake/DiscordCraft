@@ -17,6 +17,7 @@ export default class extends MinecraftCommand {
         this.reduceDurability(ipaxe);
         const quest = quests[inventory.quests.id];
         if (quest) quest.update(inventory, { action: 'mine', updated });
+        this.setCooldown({ id, inventory }, 5000, ipaxe);
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg).setDescription(`You have mined: ${m}`)));
     }

@@ -62,6 +62,8 @@ export default class Minecraft {
     public async create(player: KlasaUser): Promise<any> {
         return this.get(player.id).then(res => {
             res.id = player.id;
+            res.inventory.profile.name = player.tag;
+            res.inventory.profile.created = Date.now();
             return this.provider.create('users', player.id, res);
         });
     }

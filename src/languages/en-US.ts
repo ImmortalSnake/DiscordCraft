@@ -100,7 +100,7 @@ export default class extends Language {
             COMMAND_EVAL_OUTPUT: (time, output, type) => `**Output**:${output}\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDFILE: (time, type) => `Output was too long... sent the result as a file.\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDCONSOLE: (time, type) => `Output was too long... sent the result to console.\n**Type**:${type}\n${time}`,
-            COMMAND_EVAL_SENDHASTE: (time, url, type) => `Output was too long... sent the result to hastebin - ${url}.\n**Type*:${type}\n${time}`,
+            COMMAND_EVAL_SENDHASTE: (time, url, type) => `Output was too long... sent the result to hastebin - ${url}.\n**Type**:${type}\n${time}`,
             COMMAND_UNLOAD: (type, name) => `✅ Unloaded ${type}: ${name}`,
             COMMAND_UNLOAD_DESCRIPTION: 'Unloads the klasa piece.',
             COMMAND_UNLOAD_WARN: 'You probably don\'t want to unload that, since you wouldn\'t be able to run any command to enable it again',
@@ -155,16 +155,16 @@ export default class extends Language {
             COMMAND_STATS: (memUsage, uptime, users, guilds, channels, klasaVersion, discordVersion, processVersion, message) => [
                 '= STATISTICS =',
                 '',
-                `• Version    :: ${(this.client as DiscordCraft).version}`,
-                `• Mem Usage  :: ${memUsage} MB`,
-                `• Uptime     :: ${uptime}`,
-                `• Users      :: ${users}`,
-                `• Guilds     :: ${guilds}`,
-                `• Channels   :: ${channels}`,
-                `• Klasa      :: v${klasaVersion}`,
-                `• Discord.js :: v${discordVersion}`,
-                `• Node.js    :: ${processVersion}`,
-                `• Shard      :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.shardCount}`
+                `• Version      :: ${(this.client as DiscordCraft).version}`,
+                `• Memory Usage :: ${memUsage} MB`,
+                `• Uptime       :: ${uptime}`,
+                `• Users        :: ${users}`,
+                `• Guilds       :: ${guilds}`,
+                `• Channels     :: ${channels}`,
+                `• Klasa        :: v${klasaVersion}`,
+                `• Discord.js   :: v${discordVersion}`,
+                `• Node.js      :: ${processVersion}`,
+                `• Shard        :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.shardCount}`
             ],
             COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
             MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
@@ -175,9 +175,9 @@ export default class extends Language {
              * General
              */
 
-            INVENTORY_NOT_FOUND: ({ prefix }) => `You do not have a player! Please type \`${prefix}start\` to begin playing`,
-            TOOL_NOT_FOUND: (type, { prefix }) => `You do not have a ${type}! Use \`${prefix}craft\` to craft a ${type} and \`${prefix}equip\` to equip it`,
-            BROKEN_TOOL: (type, { prefix }) => `This ${type} is broken! Repair it using \`${prefix}repair\``,
+            INVENTORY_NOT_FOUND: (prefix) => `You do not have a player! Please type \`${prefix}start\` to begin playing`,
+            TOOL_NOT_FOUND: (type, prefix) => `You do not have a ${type}! Use \`${prefix}craft\` to craft a ${type} and \`${prefix}equip\` to equip it`,
+            BROKEN_TOOL: (type, prefix) => `This ${type} is broken! Repair it using \`${prefix}repair\``,
 
             /**
               * Minecraft command descriptions + extended help

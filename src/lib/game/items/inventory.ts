@@ -56,14 +56,15 @@ export default interface Inventory {
         dimension: string,
         health: number,
         luck: number,
-        coins: number
+        coins: number,
+        name: string,
+        created: number
     };
 // eslint-disable-next-line semi
 }
 
 export const userSchema = {
     id: '',
-    name: 'unknown',
     inventory: {
         equipped: {
             axe: 'wooden_axe',
@@ -117,7 +118,9 @@ export const userSchema = {
             health: 100,
             speed: 1,
             luck: 0,
-            coins: 0
+            coins: 0,
+            created: 0,
+            name: 'unknown'
         }
     } as Inventory
 };

@@ -5,6 +5,7 @@ All changes to DiscordCraft will be documented here
 ## Version 1.0.4
 
 - Updated [inventory command](src/commands/Minecraft/inventory.ts)
+- Inventories now show up as reaction menus (profile, materials, tools, ...)
 
 ## Version 1.0.3
 

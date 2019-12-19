@@ -13,7 +13,7 @@ export default [
         static title = 'Getting Started!';
         static description = ({ guildSettings }: KlasaMessage) =>
             `Chop your first wood!
-        Use the \`${(guildSettings as any).prefix}chop\` command`
+        Use the \`${guildSettings.get('prefix')}chop\` command`
 
         static xp = 5;
         static coins = 25;
@@ -43,9 +43,9 @@ export default [
         static title = 'Crafting First Tool!';
         static description = ({ guildSettings }: KlasaMessage) =>
             `In this bot you can craft many tools using the craft command!
-         To craft a tool use \`${(guildSettings as any).prefix}craft <toolname>\`
+         To craft a tool use \`${guildSettings.get('prefix')}craft <toolname>\`
 
-         Get enough wood by using the chop command and then craft your first pickaxe using \`${(guildSettings as any).prefix}craft wooden_pickaxe\``
+         Get enough wood by using the chop command and then craft your first pickaxe using \`${guildSettings.get('prefix')}craft wooden pickaxe\``
 
         static xp = 10;
         static coins = 50;

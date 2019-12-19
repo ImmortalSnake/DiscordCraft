@@ -4,7 +4,6 @@ import DiscordCraft from '../client';
 import Inventory, { InventoryItem } from '../game/items/inventory';
 import util from '../../utils/util';
 import { MessageEmbed } from 'discord.js';
-import { UserInventory } from '../game/minecraft';
 import { Tool } from '../game/items/tool';
 
 export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod';
@@ -41,6 +40,10 @@ export default class extends Command {
         return `${prefix}${this.name} ${this.usageStr}`;
     }
 
+    public itemName(item: string) {
+        return util.toTitleCase(item.replace('_', ' '));
+    }
+
     protected embed(msg: KlasaMessage): MessageEmbed {
         return new MessageEmbed()
             .setColor(msg.member ? msg.member.displayHexColor : '#5d97f5')
@@ -49,14 +52,15 @@ export default class extends Command {
     }
 
     protected async verify(msg: KlasaMessage, type: ToolType): Promise<verifyResult> {
+        const prefix = msg.guildSettings.get('prefix');
         const { inventory, id } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings);
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', prefix);
 
         const etool = inventory.equipped[type];
         const itool = inventory.tools.find(ex => ex[0] === etool);
-        if (!etool || !itool) throw msg.language.get('TOOL_NOT_FOUND', type, msg.guildSettings);
+        if (!etool || !itool) throw msg.language.get('TOOL_NOT_FOUND', type, prefix);
 
-        if (itool[1] <= 0) throw msg.language.get('BROKEN_TOOL', type, msg.guildSettings);
+        if (itool[1] <= 0) throw msg.language.get('BROKEN_TOOL', type, prefix);
         return [id, inventory, etool, itool];
     }
 
@@ -121,7 +125,7 @@ export default class extends Command {
      * Sets a custom cooldown for the command in order to be able to change it accordingly for potions and enchants
      * @protected
      */
-    protected setCooldown(user: UserInventory, cooldown: number, itool: [string, number, string?]): void {
+    protected setCooldown(user: { id: string, inventory: Inventory }, cooldown: number, itool: [string, number, string?]): void {
         if (itool[2] && itool[2].startsWith('efficiency')) {
             const lvl = parseInt(itool[2].split('-')[1]);
             // 95% - 75%

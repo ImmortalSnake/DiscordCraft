@@ -37,7 +37,7 @@ export default class extends MinecraftCommand {
                 .setDescription(sorted.slice(i, ((i / npage) + 1) * npage).map((eh, ek) => {
                     const pl = this.client.users.get(eh.id);
                     const val = eh.inventory && eh.inventory.profile ? eh.inventory.profile[type] || 0 : 0;
-                    return `**${ek + i + 1}] ${pl ? pl.tag : 'Unkown user'}** - \`${val} ${type}\``;
+                    return `**${ek + i + 1}] ${pl ? pl.tag : eh.inventory.profile.name}** - \`${val} ${type}\``;
                 }).join('\n')
                 ));
         }
