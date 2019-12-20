@@ -73,7 +73,7 @@ export default class Minecraft {
         if (inventory.profile.xp >= nxtLevel) {
             inventory.profile.xp = 0;
             inventory.profile.level += 1;
-            inventory.profile.coins += nxtLevel;
+            inventory.profile.coins += Math.floor(nxtLevel / 10);
 
             return true;
         }

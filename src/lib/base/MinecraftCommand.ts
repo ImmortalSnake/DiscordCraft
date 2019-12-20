@@ -117,7 +117,7 @@ export default class extends Command {
                 .setColor('#5d97f5')
                 .setTitle(`Level UP!`)
                 .setDescription(`${msg.author!.toString()}, You have levelled up to: \`Level ${inventory.profile.level}\`
-                You got: \`${25 * (inventory.profile.level - 1)} coins\``));
+                You got: \`${Math.floor(2.5 * (inventory.profile.level - 1))} coins\``));
         }
     }
 
