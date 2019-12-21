@@ -37,7 +37,7 @@ export default class extends MinecraftCommand {
         if (quest) quest.update(inventory, { action: 'craft', updated: [[itemName, amount]] });
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
-            .setDescription(`You have successfully crafted **${amount} ${this.itemName(itemName)} ${item.emote}**`)));
+            .setDescription(`You have successfully crafted **${amount} ${this.properName(itemName)} ${item.emote}**`)));
     }
 
 }

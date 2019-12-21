@@ -1,8 +1,7 @@
-import { util, CommandStore, KlasaMessage, KlasaUser, RichDisplay, Timestamp } from 'klasa';
+import { CommandStore, KlasaMessage, KlasaUser, RichDisplay, Timestamp } from 'klasa';
 import { MessageEmbed } from 'discord.js';
 import Inventory from '../../lib/game/items/inventory';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
-import { Tool } from '../../lib/game/items/tool';
 import { UserInventory } from '../../lib/game/minecraft';
 
 export default class extends MinecraftCommand {
@@ -53,10 +52,15 @@ export default class extends MinecraftCommand {
         const mess = [];
 
         for (const item of tp) {
-            const { emote } = this.client.minecraft.store[item[0]] as Tool;
+            const { emote } = this.client.minecraft.store[item[0]];
 
             const stat = (type === 'tools' ? `- Durability ` : `x`) + item[1];
-            mess.push(`${emote} **\`${util.toTitleCase(item[0].replace('_', ' '))} ${stat}\`**`);
+            let text = `\`${this.properName(item[0])} ${stat}\``;
+            if (type === 'tools' && item[0] in Object.values(inventory.equipped)) {
+                text = `**${text} (eq)**`;
+            }
+
+            mess.push(`${emote} ${text}`);
         }
 
         return mess.join(' | ');

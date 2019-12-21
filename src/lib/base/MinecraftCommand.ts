@@ -40,7 +40,7 @@ export default class extends Command {
         return `${prefix}${this.name} ${this.usageStr}`;
     }
 
-    public itemName(item: string) {
+    public properName(item: string) {
         return util.toTitleCase(item.replace('_', ' '));
     }
 
