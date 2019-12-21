@@ -2,6 +2,10 @@
 
 All changes to DiscordCraft will be documented here
 
+## Version 1.0.5
+
+- Equipped tools are now highlighted
+
 ## Version 1.0.4
 
 - Updated [inventory command](src/commands/Minecraft/inventory.ts)
