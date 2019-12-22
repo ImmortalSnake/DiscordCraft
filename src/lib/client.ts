@@ -4,12 +4,13 @@ import { MinecraftOptions } from '../config';
 import permissionLevel from './structures/permissionLevel';
 import Minecraft from './game/minecraft';
 
-const { clientID, config } = MinecraftOptions;
+const { clientID, developer, config } = MinecraftOptions;
 
 export default class DiscordCraft extends KlasaClient {
 
     public minecraft: Minecraft;
     public id = clientID;
+    public developer = developer;
     public version = 'v 1.0.3';
 
     public constructor(options: KlasaClientOptions) {
