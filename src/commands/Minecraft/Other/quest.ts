@@ -1,8 +1,8 @@
 import { KlasaMessage, util } from 'klasa';
 import { MessageEmbed } from 'discord.js';
-import quests from '../../lib/game/quests';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
-import { Tool } from '../../lib/game/items/tool';
+import quests from '../../../lib/game/quests';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
+import { Tool } from '../../../lib/game/items/tool';
 
 export default class extends MinecraftCommand {
 

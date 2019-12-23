@@ -1,7 +1,7 @@
 import { CommandStore, KlasaMessage, KlasaUser, Settings } from 'klasa';
-import util from '../../utils/util';
+import util from '../../../utils/util';
 import { MessageEmbed } from 'discord.js';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
 

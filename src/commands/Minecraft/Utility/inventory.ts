@@ -1,8 +1,8 @@
 import { CommandStore, KlasaMessage, KlasaUser, RichDisplay, Timestamp } from 'klasa';
 import { MessageEmbed } from 'discord.js';
-import Inventory from '../../lib/game/items/inventory';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
-import { UserInventory } from '../../lib/game/minecraft';
+import Inventory from '../../../lib/game/items/inventory';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
+import { UserInventory } from '../../../lib/game/minecraft';
 
 type inventoryPage = 'materials' | 'tools' | 'enchants';
 export default class extends MinecraftCommand {

@@ -1,7 +1,7 @@
 import { CommandStore, KlasaMessage } from 'klasa';
-import Inventory from '../../lib/game/items/inventory';
-import quests from '../../lib/game/quests';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import Inventory from '../../../lib/game/items/inventory';
+import quests from '../../../lib/game/quests';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
 

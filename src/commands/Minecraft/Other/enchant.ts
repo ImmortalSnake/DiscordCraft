@@ -1,4 +1,4 @@
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { KlasaMessage, CommandStore } from 'klasa';
 
 export default class extends MinecraftCommand {

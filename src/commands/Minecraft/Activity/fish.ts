@@ -1,6 +1,6 @@
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { KlasaMessage } from 'klasa';
-import quests from '../../lib/game/quests';
+import quests from '../../../lib/game/quests';
 
 export default class extends MinecraftCommand {
 

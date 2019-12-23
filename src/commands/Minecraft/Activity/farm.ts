@@ -1,6 +1,6 @@
 import { CommandStore, KlasaMessage } from 'klasa';
-import Util from '../../utils/util';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import Util from '../../../utils/util';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 const cooldown = 5 * 60 * 1000;
 
 export default class extends MinecraftCommand {

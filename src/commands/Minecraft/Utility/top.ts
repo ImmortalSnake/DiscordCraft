@@ -1,7 +1,7 @@
 import { CommandStore, KlasaMessage, RichDisplay, KlasaUser } from 'klasa';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { MessageEmbed } from 'discord.js';
-import { UserInventory } from '../../lib/game/minecraft';
+import { UserInventory } from '../../../lib/game/minecraft';
 
 // number of users to show per page
 const npage = 10;

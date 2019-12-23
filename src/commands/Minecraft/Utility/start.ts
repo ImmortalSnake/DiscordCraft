@@ -1,7 +1,7 @@
 import { KlasaMessage, KlasaUser } from 'klasa';
-import DiscordCraft from '../../lib/client';
-import Minecraft from '../../lib/game/minecraft';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import DiscordCraft from '../../../lib/client';
+import Minecraft from '../../../lib/game/minecraft';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
 

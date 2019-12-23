@@ -1,9 +1,9 @@
 import { KlasaMessage, CommandStore, RichDisplay, KlasaUser } from 'klasa';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { MessageEmbed } from 'discord.js';
-import Shop from '../../../assets/game/shop.json';
-import util from '../../utils/util';
-import { Tool } from '../../lib/game/items/tool';
+import Shop from '../../../../assets/game/shop.json';
+import util from '../../../utils/util';
+import { Tool } from '../../../lib/game/items/tool';
 
 const time = 1000 * 60 * 3;
 type ShopCategory = 'enchants' | 'potions' | 'storage' | 'crops';

@@ -1,5 +1,5 @@
 import { CommandStore, KlasaMessage, util } from 'klasa';
-import MinecraftCommand, { ToolType } from '../../lib/base/MinecraftCommand';
+import MinecraftCommand, { ToolType } from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
 

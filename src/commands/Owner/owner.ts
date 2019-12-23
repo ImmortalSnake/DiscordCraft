@@ -1,6 +1,6 @@
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { KlasaMessage, CommandStore, KlasaUser } from 'klasa';
-import InventoryCommand from '../Minecraft/inventory';
+import InventoryCommand from '../Minecraft/Utility/inventory';
 
 export default class extends MinecraftCommand {
 

@@ -1,9 +1,9 @@
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { CommandStore, KlasaMessage, KlasaUser } from 'klasa';
 import { MessageReaction } from 'discord.js';
-import util from '../../utils/util';
-import Inventory from '../../lib/game/items/inventory';
-import { UserInventory } from '../../lib/game/minecraft';
+import util from '../../../utils/util';
+import Inventory from '../../../lib/game/items/inventory';
+import { UserInventory } from '../../../lib/game/minecraft';
 
 export default class extends MinecraftCommand {
 

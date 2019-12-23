@@ -1,8 +1,8 @@
 import { KlasaMessage, CommandStore } from 'klasa';
-import MinecraftCommand from '../../lib/base/MinecraftCommand';
-import Crates from '../../../assets/game/crates.json';
-import util from '../../utils/util';
-import Inventory from '../../lib/game/items/inventory';
+import MinecraftCommand from '../../../lib/base/MinecraftCommand';
+import Crates from '../../../../assets/game/crates.json';
+import util from '../../../utils/util';
+import Inventory from '../../../lib/game/items/inventory';
 
 export default class extends MinecraftCommand {
 
