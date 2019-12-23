@@ -4,27 +4,27 @@ import Inventory from '../../lib/game/items/inventory';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { UserInventory } from '../../lib/game/minecraft';
 
+type inventoryPage = 'materials' | 'tools' | 'enchants';
 export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['inv'],
-            usage: '[materials|tools]'
+            usage: '[materials|tools|enchants]'
         });
     }
 
-    public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[] | null> {
+    public async run(msg: KlasaMessage, [type]: [inventoryPage | undefined]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const user = await this.client.minecraft.get(msg.author!.id);
         if (!user.id) return msg.send('You do not have a player! Please use the start command to begin playing');
 
-        await this.display(msg.author!, user).run(await msg.send('loading...'));
+        if (!type) await this.display(msg.author!, user).run(await msg.send('loading...'));
+        else return msg.send(this.displayPage(user.inventory, this.template(msg.author!), type));
         return null;
     }
 
     public display(user: KlasaUser, { inventory }: UserInventory): RichDisplay {
-        const display = new RichDisplay(new MessageEmbed()
-            .setAuthor(`${user.tag}'s Inventory`, user.displayAvatarURL())
-            .setColor('#5d97f5'));
+        const display = new RichDisplay(this.template(user));
 
         return display
             .addPage((template: MessageEmbed) => template
@@ -39,31 +39,40 @@ export default class extends MinecraftCommand {
                 **Luck:** \`${inventory.profile.luck}\`
                 **Dimension:** \`${inventory.profile.dimension}\`
                 `))
-            .addPage((template: MessageEmbed) => template
-                .setTitle('Materials')
-                .setDescription(this.ishow(inventory, 'materials')))
-            .addPage((template: MessageEmbed) => template
-                .setTitle('Tools')
-                .setDescription(this.ishow(inventory, 'tools')));
+            .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'materials'))
+            .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'tools'))
+            .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'enchants'));
     }
 
-    private ishow(inventory: Inventory, type: 'materials' | 'tools'): string {
+    private template(user: KlasaUser): MessageEmbed {
+        return new MessageEmbed()
+            .setAuthor(`${user.tag}'s Inventory`, user.displayAvatarURL())
+            .setColor('#5d97f5');
+    }
+
+    private displayPage(inventory: Inventory, template: MessageEmbed, type: inventoryPage): MessageEmbed {
+        return template
+            .setTitle(this.properName(type))
+            .setDescription(this.ishow(inventory, type));
+    }
+
+    private ishow(inventory: Inventory, type: inventoryPage): string {
         const tp = inventory[type];
         const mess = [];
 
         for (const item of tp) {
-            const { emote } = this.client.minecraft.store[item[0]];
+            const it = this.client.minecraft.store[item[0]];
 
             const stat = (type === 'tools' ? `- Durability ` : `x`) + item[1];
             let text = `\`${this.properName(item[0])} ${stat}\``;
-            if (type === 'tools' && item[0] in Object.values(inventory.equipped)) {
+            if (type === 'tools' && Object.values(inventory.equipped).includes(item[0])) {
                 text = `**${text} (eq)**`;
             }
 
-            mess.push(`${emote} ${text}`);
+            mess.push(`${it ? it.emote : ''} ${text}`);
         }
 
-        return mess.join(' | ');
+        return mess.join(' **|** ');
     }
 
 }

@@ -6,7 +6,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<tool:str> <enchantment:str>',
-            usageDelim: '/'
+            usageDelim: ':'
         });
     }
 
@@ -28,7 +28,7 @@ export default class extends MinecraftCommand {
         xitem[2] = enchantName;
         inventory.enchants.splice(enchant, 1);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
-            msg.send(this.embed(msg).setDescription(`You have enchanted your ${name}${tool.emote} with ${enchantName}`)));
+            msg.send(this.embed(msg).setDescription(`You have enchanted your \`${name}\`${tool.emote} with **${enchantName}**`)));
     }
 
 }

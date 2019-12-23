@@ -56,7 +56,7 @@ export default class extends MinecraftCommand {
 
     public async harvest(msg: KlasaMessage, [cropName = 'all']: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const [id, inventory, ehoe] = await this.verify(msg, 'hoe');
-        const hoe = this.client.minecraft.store[ehoe];
+        const hoe = this.client.minecraft.store[ehoe] as any;
 
         cropName = cropName.toLowerCase().replace(' ', '_');
 
