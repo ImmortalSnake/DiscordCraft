@@ -9,6 +9,7 @@ export const config = {
     owners: ['410806297580011520'],
     pieceDefaults: {
         commands: {
+            runIn: ['text'],
             usageDelim: ' ',
             quotedStringSupport: true
         }
