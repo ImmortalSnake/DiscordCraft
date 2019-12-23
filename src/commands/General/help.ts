@@ -99,9 +99,10 @@ export default class extends Command {
         const commands = new Map();
         await Promise.all(this.client.commands.map((command) => run(command, true)
             .then(() => {
-                const category = commands.get(command.fullCategory.join(' '));
+                const cat = command.fullCategory.join(' ');
+                const category = commands.get(cat);
                 if (category) category.push(command);
-                else commands.set(command.category, [command]);
+                else commands.set(cat, [command]);
             }).catch(() => {
                 // noop
             })
