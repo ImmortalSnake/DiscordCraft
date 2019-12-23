@@ -20,7 +20,7 @@ export default class extends MinecraftCommand {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
         if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
 
-        const { prefix } = msg.guildSettings as any;
+        const prefix = msg.guildSettings.get('prefix') as string;
         if (!category) {
             return msg.send(new MessageEmbed()
                 .setTitle('Shop')

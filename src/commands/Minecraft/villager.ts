@@ -58,7 +58,7 @@ export default class extends MinecraftCommand {
         }
 
         mess += `**
-        Use \`${(msg.guildSettings as any).prefix}villager [item] [amount of emeralds]\` to buy an item
+        Use \`${msg.guildSettings.get('prefix')}villager [item] [amount of emeralds]\` to buy an item
 
         Trade deals reset in ${util.msToTime(parseInt(villager.time) + this.client.minecraft.villageTimer - Date.now())}`;
 

@@ -8,7 +8,7 @@ export default class extends MinecraftCommand {
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         // const inventory = (msg.author as KlasaUser).settings.get('inventory');
         // if (inventory.id) return msg.send('You already have a profile. Great!');
-        const { prefix } = msg.guildSettings as any;
+        const prefix = msg.guildSettings.get('prefix');
 
         return ((this.client as DiscordCraft).minecraft as Minecraft).create(msg.author as KlasaUser)
             .then(() =>

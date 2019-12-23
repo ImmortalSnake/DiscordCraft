@@ -20,7 +20,7 @@ export default class extends MinecraftCommand {
 
     // eslint-disable-next-line complexity
     public async run(msg: KlasaMessage, [action, itemName = '']: [string | KlasaUser, string]): Promise<KlasaMessage | KlasaMessage[] | null> {
-        const { prefix } = msg.guildSettings as any;
+        const prefix = msg.guildSettings.get('prefix');
 
         if (action instanceof KlasaUser) {
             if (action.id === msg.author!.id) return msg.send('You cant trade with yourself!');
@@ -205,7 +205,7 @@ export default class extends MinecraftCommand {
         const inv1 = await this.client.minecraft.get(author!.id);
         if (!inv1.id) throw `<@${author!.id}> does not have a player! Please use the start command to begin playing`;
         if (user2 && inv1.inventory.trade.user) throw `<@${author!.id}> is already in a trade with someone else!`;
-        else if (!user2 && !inv1.inventory.trade.user) throw `You are not in a trade with anyone. Use \`${(guildSettings as any).prefix}trade [@user]\` to start trading!`;
+        else if (!user2 && !inv1.inventory.trade.user) throw `You are not in a trade with anyone. Use \`${guildSettings.get('prefix')}trade [@user]\` to start trading!`;
 
         const id = user2 ? user2.id : inv1.inventory.trade.user;
         const inv2 = await this.client.minecraft.get(id);

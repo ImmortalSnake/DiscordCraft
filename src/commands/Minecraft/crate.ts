@@ -28,7 +28,7 @@ export default class extends MinecraftCommand {
                 msg.send(this.embed(msg).setDescription(`You opened a **${util.toTitleCase(crateName!.replace('_', ' '))}** and found: ${m}`)
                 ));
         } else {
-            const { prefix } = msg.guildSettings as any;
+            const prefix = msg.guildSettings.get('prefix');
             return msg.send(this.embed(msg)
                 .setDescription(`Use \`${prefix}${this.name} <crate name>\` to open a crate!
 Here are the Crates that you own:\n${this.displayCrates(inventory)}`));
