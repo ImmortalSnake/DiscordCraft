@@ -3,6 +3,7 @@
         "type": "tools",
         "durability": 50,
         "emote": "<:woodenhoe:562246996178632707>",
+        "xp": [1, 4, 100],
         "enchants": [
             "fortune-",
             "efficiency-"

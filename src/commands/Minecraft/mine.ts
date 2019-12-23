@@ -11,13 +11,14 @@ export default class extends MinecraftCommand {
     }
 
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
-        const [id, inventory, , ipaxe] = await this.verify(msg, 'pickaxe');
+        const [id, inventory, epaxe, ipaxe] = await this.verify(msg, 'pickaxe');
         const [m, updated] = this.dropRewards(inventory, ipaxe);
 
         this.reduceDurability(ipaxe);
         const quest = quests[inventory.quests.id];
         if (quest) quest.update(inventory, { action: 'mine', updated });
         this.setCooldown({ id, inventory }, 5000, ipaxe);
+        this.addXP(msg, inventory, epaxe);
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg).setDescription(`You have mined: ${m}`)));
     }

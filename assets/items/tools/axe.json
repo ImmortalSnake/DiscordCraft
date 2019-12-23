@@ -108,7 +108,7 @@
         "durability": 500,
         "type": "tools",
         "emote": "<:diamondaxe:>",
-        "xp": [4, 4, 100],
+        "xp": [3, 4, 100],
 
         "enchants": [],
 

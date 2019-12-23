@@ -5,6 +5,7 @@ All changes to DiscordCraft will be documented here
 ## Version 1.0.5
 
 - Equipped tools are now highlighted
+- Gain xp from `chop`, `mine`, `farm`, `fish` commands
 
 ## Version 1.0.4
 

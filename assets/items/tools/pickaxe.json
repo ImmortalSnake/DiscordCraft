@@ -3,6 +3,7 @@
         "type": "tools",
         "durability": 50,
         "emote": "<:woodenpickaxe:560738424576016405>",
+        "xp": [0, 1, 100],
         "enchants": [
             "unbreaking-",
             "fortune-",
@@ -26,6 +27,7 @@
         "type" :"tools",
         "durability": 100,
         "emote": "<:stonepickaxe:560738938000769026>",
+        "xp": [1, 2, 100],
 
         "enchants": [
             "unbreaking-",
@@ -55,6 +57,7 @@
         "durability": 300,
         "type": "tools",
         "emote": "<:ironpickaxe:560738057003859969>",
+        "xp": [2, 3, 100],
 
         "enchants": [
             "unbreaking-",
@@ -90,6 +93,7 @@
         "type": "tools",
         "durability": 300,
         "emote": "<:goldpickaxe:560738248134098944>",
+        "xp": [5, 5, 100],
 
         "enchants": [
             "unbreaking-",
@@ -126,7 +130,8 @@
     "diamond_pickaxe": {
         "type": "tools",
         "durability": 500,
-        "emote": "",
+        "emote": "<:diamondpickaxe:560733779703103489>",
+        "xp": [3, 4, 100],
 
         "enchants": [
             "unbreaking-",

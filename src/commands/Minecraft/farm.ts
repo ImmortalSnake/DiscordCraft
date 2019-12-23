@@ -56,7 +56,7 @@ export default class extends MinecraftCommand {
 
     public async harvest(msg: KlasaMessage, [cropName = 'all']: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const [id, inventory, ehoe] = await this.verify(msg, 'hoe');
-        const hoe = this.client.minecraft.store[ehoe] as any;
+        const hoe = this.client.minecraft.store[ehoe];
 
         cropName = cropName.toLowerCase().replace(' ', '_');
 
@@ -84,6 +84,7 @@ export default class extends MinecraftCommand {
         }).join();
 
         inventory.farm.planted = inventory.farm.planted.filter(cr => !rcrops.includes(cr));
+        this.addXP(msg, inventory, ehoe);
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Farm - Harvest')

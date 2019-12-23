@@ -2,7 +2,8 @@
     "wooden_rod": {
         "durability": 50,
         "type": "tools",
-        "emote": "<:fishingrod:566529467854487563>",
+        "emote": "<:woodenrod:566529467854487563>",
+        "xp": [1, 4, 100],
         "enchants": [
             "luck_of_the_sea"
         ],
