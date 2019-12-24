@@ -3,6 +3,7 @@ import { MessageEmbed } from 'discord.js';
 import Inventory from '../../../lib/game/items/inventory';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { UserInventory } from '../../../lib/game/minecraft';
+import { Tool } from '../../../lib/game/items/tool';
 
 type inventoryPage = 'materials' | 'tools' | 'enchants';
 export default class extends MinecraftCommand {
@@ -29,16 +30,7 @@ export default class extends MinecraftCommand {
         return display
             .addPage((template: MessageEmbed) => template
                 .setTitle('Profile')
-                .setDescription(`
-                **Name:** \`${user.tag}\`
-                **Joined At:** \`${new Timestamp('DD/MM/YYYY').displayUTC(inventory.profile.created)}\`
-                **Level:** \`${inventory.profile.level}\`
-                **XP:** \`${inventory.profile.xp}\`
-                **Coins:** \`${inventory.profile.coins}\`
-                **Health:** \`${inventory.profile.health}\`
-                **Luck:** \`${inventory.profile.luck}\`
-                **Dimension:** \`${inventory.profile.dimension}\`
-                `))
+                .setDescription(this.showProfile(user, inventory)))
             .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'materials'))
             .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'tools'))
             .addPage((template: MessageEmbed) => this.displayPage(inventory, template, 'enchants'));
@@ -48,6 +40,19 @@ export default class extends MinecraftCommand {
         return new MessageEmbed()
             .setAuthor(`${user.tag}'s Inventory`, user.displayAvatarURL())
             .setColor('#5d97f5');
+    }
+
+    private showProfile(user: KlasaUser, inventory: Inventory): string {
+        return `
+        **Name:** \`${user.tag}\`
+        **Joined At:** \`${new Timestamp('DD/MM/YYYY').displayUTC(inventory.profile.created)}\`
+        **Level:** \`${inventory.profile.level}\`
+        **XP:** \`${inventory.profile.xp}\`
+        **Coins:** \`${inventory.profile.coins}\`
+        **Health:** \`${inventory.profile.health}\`
+        **Luck:** \`${inventory.profile.luck}\`
+        **Dimension:** \`${inventory.profile.dimension}\`
+        `;
     }
 
     private displayPage(inventory: Inventory, template: MessageEmbed, type: inventoryPage): MessageEmbed {
@@ -63,8 +68,9 @@ export default class extends MinecraftCommand {
         for (const item of tp) {
             const it = this.client.minecraft.store[item[0]];
 
-            const stat = (type === 'tools' ? `- Durability ` : `x`) + item[1];
+            const stat = type === 'tools' ? `[${item[1]}/${(it as Tool).durability}]` : `x${item[1]}`;
             let text = `\`${this.properName(item[0])} ${stat}\``;
+
             if (type === 'tools' && Object.values(inventory.equipped).includes(item[0])) {
                 text = `**${text} (eq)**`;
             }

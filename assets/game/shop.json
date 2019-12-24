@@ -2,12 +2,14 @@
     "crops": [
         {
             "name": "wheat",
+            "emote": "",
             "price": {
                 "coin": 10
             }
         },
         {
             "name": "carrot",
+            "emote": "",
             "price": {
                 "coin": 50
             }
@@ -37,6 +39,7 @@
         {
             "name": "chest",
             "description": "Stores materials and tools! Useful when running out of inventory space",
+            "emote": "<:chest:562375311740895262>",
             "price": {
                 "coin": 50 
             }
@@ -44,6 +47,7 @@
         {
             "name": "furnace",
             "description": "Allows you to cook food!",
+            "emote": "<:furnace:562957299191382037>",
             "price": {
                 "coin": 100
             }
@@ -51,6 +55,7 @@
         {
             "name": "enchantment_table",
             "description": "Enables enchanting of tools",
+            "emote": "",
             "price": {
                 "coin": 250
             }

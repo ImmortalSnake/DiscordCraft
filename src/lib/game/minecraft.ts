@@ -2,7 +2,6 @@ import DiscordCraft from '../client';
 import axe from '../../../assets/items/tools/axe.json';
 import hoe from '../../../assets/items/tools/hoe.json';
 import materials from '../../../assets/items/materials/materials.json';
-import other from '../../../assets/items/other.json';
 import food from '../../../assets/items/materials/food.json';
 import pickaxe from '../../../assets/items/tools/pickaxe.json';
 import rod from '../../../assets/items/tools/rod.json';
@@ -26,7 +25,7 @@ export default class Minecraft {
     public client: DiscordCraft;
     public options: MinecraftOptions;
 
-    public store: Record<string, Item | Tool> = Object.assign({}, pickaxe, axe, hoe, materials, other, food, rod);
+    public store: Record<string, Item | Tool> = Object.assign({}, pickaxe, axe, hoe, materials, food, rod);
     public toolStore: Record<string, Tool> = Object.assign({}, pickaxe, axe, hoe, rod)
     public villageTimer = 10800000;
     public shop = shop;

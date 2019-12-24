@@ -8,6 +8,7 @@ import { Tool } from '../game/items/tool';
 
 export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod';
 type verifyResult = [string, Inventory, string, InventoryItem];
+type InventoryStores = 'materials' | 'enchants' | 'crops'
 
 interface MinecraftCommandOptions extends CommandOptions {
     usageString?: string;
@@ -91,6 +92,15 @@ export default class extends Command {
         }
 
         return [mess, updated];
+    }
+
+    protected finalize(inventory: Inventory) {
+        const branches = ['materials', 'crops'] as InventoryStores[];
+        for (const b of branches) {
+            inventory[b] = inventory[b].filter(it => it[1] > 0);
+            console.log(inventory[b]);
+        }
+        return inventory;
     }
 
     protected reduceDurability(itool: InventoryItem) {
