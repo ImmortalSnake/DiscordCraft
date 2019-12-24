@@ -1,5 +1,4 @@
 import { CommandStore, KlasaMessage, util } from 'klasa';
-import { MessageEmbed } from 'discord.js';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
@@ -27,9 +26,8 @@ export default class extends MinecraftCommand {
         }
 
         xitem[1] = item.durability;
-        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(new MessageEmbed()
-            .setTitle('Repair')
-            .setColor('#5d97f5')
+        inventory.materials = inventory.materials.filter(it => it[1] > 0);
+        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setDescription(`You have successfully repaired your **${util.toTitleCase(itemName.replace('_', ' '))} ${item.emote}**`)));
     }
 

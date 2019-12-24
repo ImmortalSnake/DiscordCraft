@@ -34,12 +34,10 @@ export default class extends MinecraftCommand {
             const namount = (deal[1] > 1 ? amount / deal[1] : amount) * deal[0];
             imat ? imat[1] += namount : inventory.materials.push([itemName, namount]);
 
+            if (ie[1] <= 0) inventory.materials = inventory.materials.filter(it => it[1] > 0);
             return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
-                msg.send(new MessageEmbed()
-                    .setTitle('Villager')
-                    .setColor('#5d97f5')
-                    // eslint-disable-next-line max-len
-                    .setDescription(`You brought **${namount} ${util.toTitleCase(itemName.replace('_', ' '))} ${this.client.minecraft.store[itemName].emote}** for **${amount} Emeralds ${this.emerald.emote}**`)));
+                msg.send(this.embed(msg)
+                    .setDescription(`You brought **${namount} ${this.properName(itemName)} ${this.client.minecraft.store[itemName].emote}** for **${amount} Emeralds ${this.emerald.emote}**`)));
         }
 
         return msg.send(new MessageEmbed()

@@ -6,7 +6,7 @@ import util from '../../../utils/util';
 import { Tool } from '../../../lib/game/items/tool';
 
 const time = 1000 * 60 * 3;
-type ShopCategory = 'enchants' | 'potions' | 'storage' | 'crops';
+type ShopCategory = 'enchants' | 'potions' | 'storage' | 'crops' | 'crates';
 
 export default class extends MinecraftCommand {
 
@@ -55,12 +55,15 @@ export default class extends MinecraftCommand {
             }
         }
 
-        if (category === 'storage') { inventory.storage[item.name] = true; } else {
+        if (category === 'storage') {
+            inventory.storage[item.name] += amount;
+        } else {
             const xitem = inventory[category].find(ex => ex[0] === item.name);
             // eslint-disable-next-line no-unused-expressions
             xitem ? xitem[1] += amount : inventory[category].push([item.name, amount]);
         }
 
+        inventory.materials = inventory.materials.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Shop Purchase')
             .setDescription(`You have successfully purchased **${amount} ${util.toTitleCase(item.name.replace('_', ' '))}**!`)));

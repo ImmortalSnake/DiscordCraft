@@ -85,6 +85,8 @@ export default class extends MinecraftCommand {
                     inv1.inventory.trade.trade[itemName] ? inv1.inventory.trade.trade[itemName] += amount : inv1.inventory.trade.trade[itemName] = amount;
                     await this.client.minecraft.set(msg.author!.id, inv1);
 
+                    // eslint-disable-next-line require-atomic-updates
+                    if (xitem[1] <= 0) inv1.inventory.materials = inv1.inventory.materials.filter(it => it[1] > 0);
                     return msg.send(this.embed(msg)
                         .setTitle('Trade Add')
                         .setDescription(`Successfully added **${util.toTitleCase(xitem[0].replace('_', ' '))} x${amount}** to the trade!`));

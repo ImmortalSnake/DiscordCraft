@@ -1,6 +1,5 @@
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { CommandStore, KlasaMessage } from 'klasa';
-import util from '../../../utils/util';
 
 export default class extends MinecraftCommand {
 
@@ -24,9 +23,10 @@ export default class extends MinecraftCommand {
         xitem[1] -= amount;
         inventory.profile.coins += item.price * amount;
 
+        if (xitem[1] <= 0) inventory.materials = inventory.materials.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
             msg.send(this.embed(msg)
-                .setDescription(`You have successfully sold **${amount} ${util.toTitleCase(itemName.replace('_', ' '))} ${item.emote}** for **${item.price * amount} coins**!`)));
+                .setDescription(`You have successfully sold **${amount} ${this.properName(itemName)} ${item.emote}** for **${item.price * amount} coins**!`)));
     }
 
 }

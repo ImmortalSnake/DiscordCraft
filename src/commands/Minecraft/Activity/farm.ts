@@ -29,6 +29,7 @@ export default class extends MinecraftCommand {
         ihoe[1] -= amount;
 
         this.setCooldown({ id, inventory }, cooldown, ihoe);
+        inventory.crops = inventory.crops.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Farm - Sow')
             .setDescription(`You have sown:\n**${Util.toTitleCase(cropName.replace('_', ' '))}${crop.emote} x${amount}**`)));

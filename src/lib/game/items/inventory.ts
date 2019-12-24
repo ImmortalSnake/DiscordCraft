@@ -8,10 +8,10 @@ export type InventoryItem = [
 ];
 
 export interface InventoryStorage {
-    [index: string]: boolean;
-    enchantment_table: boolean;
-    chest: boolean;
-    furnace: boolean;
+    [index: string]: number;
+    enchantment_table: number;
+    chest: number;
+    furnace: number;
 }
 
 export default interface Inventory {
@@ -94,9 +94,9 @@ export const userSchema = {
         boosts: [],
         storage: {
             // eslint-disable-next-line @typescript-eslint/camelcase
-            enchantment_table: false,
-            chest: false,
-            furnace: false
+            enchantment_table: 0,
+            chest: 0,
+            furnace: 0
         },
         quests: {
             id: 0,
