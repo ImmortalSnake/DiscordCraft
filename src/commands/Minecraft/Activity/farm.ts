@@ -21,7 +21,7 @@ export default class extends MinecraftCommand {
         if (!icrop) throw 'Could not find that crop in your inventory';
 
         const hoe = this.client.minecraft.store[ehoe] as any;
-        const amount = hoe.size <= icrop[1] ? hoe.size : icrop[1];
+        const amount = hoe.size[icrop[0]] <= icrop[1] ? hoe.size[icrop[0]] : icrop[1];
         if (amount === 0) throw `You do not have any ${Util.toTitleCase(cropName.replace('_', ' '))}`;
 
         inventory.farm.planted.push([cropName, amount, Date.now()]);
@@ -73,7 +73,7 @@ export default class extends MinecraftCommand {
             if (Math.random() * 100 <= hoe.drops[cr[0]][2]) {
                 const crop = this.client.minecraft.store[cr[0]];
                 const icrop = inventory.crops.find(ex => ex[0] === cr[0]);
-                const amount = Math.floor(((Math.random() * hoe.drops[cr[0]][0]) + hoe.drops[cr[0]][1]) * cr[1]);
+                const amount = Math.ceil(((Math.random() * hoe.drops[cr[0]][0]) + hoe.drops[cr[0]][1]) * cr[1]);
 
                 // eslint-disable-next-line no-unused-expressions
                 icrop ? icrop[1] += amount : inventory.crops.push([cr[0], amount]);

@@ -9,9 +9,14 @@
             "efficiency-"
         ],
 
-        "size": 5,
+        "size": {
+            "wheat": 5,
+            "carrot": 2
+        },
+        
         "drops": {
-            "wheat": [2, 1, 100]
+            "wheat": [2, 1, 100],
+            "carrot": [2, 1, 100]
         },
 
         "materials": {
