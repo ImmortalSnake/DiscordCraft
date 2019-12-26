@@ -1,12 +1,13 @@
-import { Command, CommandStore, KlasaMessage, Duration, version as klasaVersion } from 'klasa';
+import { CommandStore, KlasaMessage, Duration, version as klasaVersion } from 'klasa';
 import { version as discordVersion } from 'discord.js';
+import MinecraftCommand from '../../lib/base/MinecraftCommand';
 
-export default class extends Command {
+export default class extends MinecraftCommand {
 
     constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             guarded: true,
-            description: language => language.get('COMMAND_PING_DESCRIPTION')
+            description: language => language.get('COMMAND_STATS_DESCRIPTION')
         });
     }
 

@@ -2,6 +2,12 @@
 
 All changes to DiscordCraft will be documented here
 
+## Version 1.0.6
+
+- Improved help command [Reminders, Examples]
+- Amount of crops sowed now depends on type of hoe
+- Cook Command
+
 ## Version 1.0.5
 
 - Equipped tools are now highlighted
