@@ -6,6 +6,7 @@ import food from '../../../assets/items/materials/food.json';
 import pickaxe from '../../../assets/items/tools/pickaxe.json';
 import rod from '../../../assets/items/tools/rod.json';
 import shop from '../../../assets/game/shop.json';
+import recipes from '../../../assets/game/recipes.json';
 import { KlasaUser, Provider } from 'klasa';
 import Inventory, { userSchema } from './items/inventory';
 import util from '../../utils/util';
@@ -29,6 +30,7 @@ export default class Minecraft {
     public toolStore: Record<string, Tool> = Object.assign({}, pickaxe, axe, hoe, rod)
     public villageTimer = 10800000;
     public shop = shop;
+    public recipes: any = recipes;
 
     public constructor(client: DiscordCraft, options: MinecraftOptions) {
         this.client = client;

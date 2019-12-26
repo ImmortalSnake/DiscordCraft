@@ -69,13 +69,13 @@
         "energy": -10
     },
       
-    "Raw Mutton": {
+    "raw_mutton": {
         "type": "materials",
         "emote": "<:rawmutton:562938203527577600>",
         "energy": -10
     },
       
-    "Raw Porkchop": {
+    "raw_porkchop": {
         "type": "materials",
         "emote": "<:rawporkchop:562938729879175178>",
         "energy": -10
@@ -99,25 +99,25 @@
         "energy": 30
     },
       
-    "Cooked Cod": {
+    "cooked_cod": {
         "type": "materials",
         "emote": "<:cookedcod:574333247044059151>",
         "energy": 25
     },
     
-    "Cooked Salmon": {
+    "cooked_salmon": {
         "type": "materials",
         "emote": "<:cookedsalmon:566503739452686336>",
         "energy": 25
     },
       
-    "Baked Potato": {
+    "baked_potato": {
         "type": "materials",
         "emote": "<:bakedpotato:563672677123096576>",
         "energy": 50
     },
       
-    "Cookie": {
+    "cookie": {
         "type": "materials",
         "emote": "<:cookie:563417969254727681>",
         "energy": 100

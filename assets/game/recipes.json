@@ -3,5 +3,10 @@
         "milk": 5,
         "wheat": 20,
         "egg": 5
+    },
+
+    "bread": {
+        "wheat": 10,
+        "coal": 5
     }
 }
