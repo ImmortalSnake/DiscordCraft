@@ -8,7 +8,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '[crate:...str]'
+            usage: '[crate:...str]',
+            examples: ['common crate', 'rare crate']
         });
     }
 

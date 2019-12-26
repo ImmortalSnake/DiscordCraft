@@ -6,7 +6,8 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<tool:str> <enchantment:str>',
-            usageDelim: ':'
+            usageDelim: ':',
+            examples: ['stone axe : efficiency-2']
         });
     }
 

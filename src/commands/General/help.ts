@@ -1,112 +1,129 @@
-import { Command, RichDisplay, util, CommandStore, KlasaMessage, KlasaUser } from 'klasa';
-import { MessageEmbed, Permissions, MessageReaction, GuildMember, TextChannel, ClientUser } from 'discord.js';
+import { MessageEmbed, Permissions, TextChannel, Collection } from 'discord.js';
+import { CommandStore, KlasaMessage, util, Command } from 'klasa';
+import { UserRichDisplay } from '../../lib/structures/UserRichDisplay';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 
-const { isFunction } = util;
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
-const time = 1000 * 60 * 3;
 
-export default class extends Command {
-
-    public handlers: Map<any, any>;
+export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['commands', 'cmd', 'cmds'],
             guarded: true,
-            usage: '(Command:command)',
-            description: language => language.get('COMMAND_HELP_DESCRIPTION')
+            usage: '(Command:command|page:integer|category:category)',
+            flagSupport: true,
+            runIn: ['text', 'dm']
         });
 
-        this.createCustomResolver('command', (arg, possible, message) => {
-            if (!arg || arg === '') return undefined;
-            return this.client.arguments.get('command')!.run(arg, possible, message);
+        this.createCustomResolver('command', (arg, possible, msg) => {
+            if (!arg) return undefined;
+            return this.client.arguments.get('command')!.run(arg, possible, msg);
         });
-
-        // Cache the handlers
-        this.handlers = new Map();
+        this.createCustomResolver('category', async (arg, __, msg) => {
+            if (!arg) return undefined;
+            arg = arg.toLowerCase();
+            const commandsByCategory = await this._fetchCommands(msg);
+            for (const [page, category] of commandsByCategory.keyArray().entries()) {
+                // Add 1, since 1 will be subtracted later
+                if (category.toLowerCase() === arg) return page + 1;
+            }
+            return undefined;
+        });
     }
 
-    public async run(message: KlasaMessage, [command]: [Command | MinecraftCommand]): Promise<KlasaMessage | KlasaMessage[] | null> {
+    // eslint-disable-next-line complexity
+    public async run(msg: KlasaMessage, [commandOrPage]: [Command | number | undefined]): Promise<KlasaMessage | KlasaMessage[] | null> {
+        if (msg.flagArgs.categories || msg.flagArgs.cat) {
+            const commandsByCategory = await this._fetchCommands(msg);
+            const { language } = msg;
+            let i = 0;
+            const commandCategories: string[] = [];
+            for (const [category, commands] of commandsByCategory) {
+                const line = String(++i).padStart(2, '0');
+                commandCategories.push(`\`${line}.\` **${category}** → ${language.get('COMMAND_HELP_COMMAND_COUNT', commands.length)}`);
+            }
+            return msg.sendMessage(commandCategories);
+        }
+
+        // Handle case for a single command
+        const command = typeof commandOrPage === 'object' ? commandOrPage : null;
         if (command) {
-            return message.sendMessage([
-                `= ${command.name} = `,
-                isFunction(command.description) ? command.description(message.language) : command.description,
-                '',
-                message.language.get('COMMAND_HELP_ALIASES', command.aliases),
-                message.language.get('COMMAND_HELP_USAGE', command instanceof MinecraftCommand ? command.fullUsage(message) : command.usage.fullUsage(message)),
-                message.language.get('COMMAND_HELP_EXTENDED'),
-                isFunction(command.extendedHelp) ? command.extendedHelp(message.language) : command.extendedHelp
-            ], { code: 'asciidoc' });
+            return msg.sendMessage([
+                msg.language.get('COMMAND_HELP_TITLE', command.name, util.isFunction(command.description) ? command.description(msg.language) : command.description),
+                msg.language.get('COMMAND_HELP_ALIASES', command.aliases),
+                msg.language.get('COMMAND_HELP_USAGE', command instanceof MinecraftCommand ? command.fullUsage(msg) : command.usage.fullUsage(msg)),
+                msg.language.get('COMMAND_HELP_EXTENDED', util.isFunction(command.extendedHelp) ? command.extendedHelp(msg.language) : command.extendedHelp),
+                command instanceof MinecraftCommand ? msg.language.get('COMMAND_HELP_EXAMPLE', command.displayExamples) : ''
+            ].join('\n'));
         }
 
-        if (!('all' in message.flagArgs) && message.guild && ((message.channel as TextChannel).permissionsFor(this.client.user as ClientUser) as Permissions).has(PERMISSIONS_RICHDISPLAY)) {
-            // Finish the previous handler
-            const previousHandler = this.handlers.get((message.author as KlasaUser).id);
-            if (previousHandler) previousHandler.stop();
+        if (!msg.flagArgs.all && msg.guild && (msg.channel as TextChannel).permissionsFor(this.client.user!)!.has(PERMISSIONS_RICHDISPLAY)) {
+            const response = await msg.sendMessage(
+                msg.language.get('COMMAND_HELP_ALL_FLAG', msg.guildSettings.get('prefix')),
+                new MessageEmbed({ description: msg.language.get('SYSTEM_LOADING'), color: '#5d97f5' })
+            );
+            const display = await this.buildDisplay(msg);
 
-            const handler = await (await this.buildDisplay(message)).run(await message.send('Loading Commands...') as KlasaMessage, {
-                filter: (_reaction: MessageReaction, user: KlasaUser) => user.id === (message.author as KlasaUser).id,
-                time
-            });
-            handler.on('end', () => this.handlers.delete((message.author as KlasaUser).id));
-            this.handlers.set((message.author as KlasaUser).id, handler);
+            // Extract start page and sanitize it
+            const page = util.isNumber(commandOrPage) ? commandOrPage - 1 : null;
+            const startPage = page === null || page < 0 || page >= display.pages.length ? null : page;
+            await display.start(response, msg.author!.id, startPage === null ? undefined : { startPage });
+            return response;
+        }
+
+        try {
+            const response = await msg.author!.send(await this.buildHelp(msg), { split: { char: '\n' } });
+            msg.channel.type === 'dm' ? response : await msg.sendLocale('COMMAND_HELP_DM');
             return null;
+        } catch {
+            return msg.channel.type === 'dm' ? null : msg.sendLocale('COMMAND_HELP_NODM');
         }
-
-        (message.author as KlasaUser).send(await this.buildHelp(message), { split: { char: '\n' } })
-            .then(() => { if (message.channel.type !== 'dm') message.sendMessage(message.language.get('COMMAND_HELP_DM')); })
-            .catch(() => { if (message.channel.type !== 'dm') message.sendMessage(message.language.get('COMMAND_HELP_NODM')); });
-
-        return null;
     }
 
-    public async buildHelp(message: KlasaMessage): Promise<string> {
-        const commands = await this._fetchCommands(message);
-        const prefix = message.guildSettings.get('prefix') as string;
+    private async buildHelp(msg: KlasaMessage): Promise<string> {
+        const commands = await this._fetchCommands(msg);
+        const prefix = msg.guildSettings.get('prefix') as string;
 
-        const helpMessage = [];
+        const helpMessage: string[] = [];
         for (const [category, list] of commands) {
-            helpMessage.push(`**${category} Commands**:\n`, list.map(this.formatCommand.bind(this, message, prefix, false)).join('\n'), '');
+            helpMessage.push(`**${category} Commands**:\n`, list.map(this.formatCommand.bind(this, msg, prefix, false)).join('\n'), '');
         }
 
         return helpMessage.join('\n');
     }
 
-    public async buildDisplay(message: KlasaMessage): Promise<RichDisplay> {
-        const commands = await this._fetchCommands(message);
-        const prefix = message.guildSettings.get('prefix') as string;
-        const display = new RichDisplay();
-        const color = (message.member as GuildMember).displayColor;
-        for (const [category, list] of commands) {
-            display.addPage(new MessageEmbed()
+    private async buildDisplay(msg: KlasaMessage): Promise<UserRichDisplay> {
+        const commandsByCategory = await this._fetchCommands(msg);
+        const prefix = msg.guildSettings.get('prefix') as string;
+
+        const display = new UserRichDisplay(this.embed(msg));
+        for (const [category, commands] of commandsByCategory) {
+            display.addPage((template: MessageEmbed) => template
                 .setTitle(`${category} Commands`)
-                .setColor(color)
-                .setDescription(list.map(this.formatCommand.bind(this, message, prefix, true)).join('\n'))
-            );
+                .setDescription(commands.map(this.formatCommand.bind(this, msg, prefix, true)).join('\n')));
         }
 
         return display;
     }
 
-    public formatCommand(message: KlasaMessage, prefix: string, richDisplay: boolean, command: Command): string {
-        const description = isFunction(command.description) ? command.description(message.language) : command.description;
+
+    private formatCommand(msg: KlasaMessage, prefix: string, richDisplay: boolean, command: Command): string {
+        const description = util.isFunction(command.description) ? command.description(msg.language) : command.description;
         return richDisplay ? `• **${prefix}${command.name}** → \`${description}\`` : `• **${prefix}${command.name}** → \`${description}\``;
     }
 
-    private async _fetchCommands(message: KlasaMessage): Promise<Map<string, Command[]>> {
-        const run = this.client.inhibitors.run.bind(this.client.inhibitors, message);
-        const commands = new Map();
-        await Promise.all(this.client.commands.map((command) => run(command, true)
+    private async _fetchCommands(msg: KlasaMessage): Promise<Collection<string, Command[]>> {
+        const run = this.client.inhibitors.run.bind(this.client.inhibitors, msg);
+        const commands = new Collection<string, Command[]>();
+        await Promise.all(this.client.commands.map(command => run(command, true)
             .then(() => {
                 const cat = command.fullCategory.join(' ');
                 const category = commands.get(cat);
                 if (category) category.push(command);
                 else commands.set(cat, [command]);
-            }).catch(() => {
-                // noop
-            })
-        ));
+                return null;
+            }).catch(() => {})));
 
         return commands;
     }

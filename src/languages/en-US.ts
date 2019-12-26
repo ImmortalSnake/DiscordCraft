@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Language, util, LanguageStore } from 'klasa';
 import DiscordCraft from '../lib/client';
+import { LanguageHelp } from '../lib/structures/LanguageHelp';
+
+const builder = new LanguageHelp()
+    .setExplainedUsage('⚙ | ***Explained usage***')
+    .setPossibleFormats('🔢 | ***Possible formats***')
+    .setReminder('⏰ | ***Reminder***');
 
 export default class extends Language {
 
@@ -127,13 +133,11 @@ export default class extends Language {
                 `<${this.client.invite}>`
             ],
             COMMAND_INVITE_DESCRIPTION: 'Displays the invite link of the bot, to invite it to your guild.',
+
             COMMAND_HELP_DESCRIPTION: 'Display help for a command.',
             COMMAND_HELP_NO_EXTENDED: 'No extended help available.',
             COMMAND_HELP_DM: '📥 | The list of commands you have access to has been sent to your DMs.',
             COMMAND_HELP_NODM: '❌ | You have DMs disabled, I couldn\'t send you the commands in DMs.',
-            COMMAND_HELP_ALIASES: (aliases) => aliases.length ? `Aliases :: ${aliases.join(', ')}` : '',
-            COMMAND_HELP_USAGE: (usage) => `Usage :: ${usage}`,
-            COMMAND_HELP_EXTENDED: 'Extended Help ::',
             COMMAND_ENABLE: (type, name) => `+ Successfully enabled ${type}: ${name}`,
             COMMAND_ENABLE_DESCRIPTION: 'Re-enables or temporarily enables a command/inhibitor/monitor/finalizer. Default state restored on reboot.',
             COMMAND_DISABLE: (type, name) => `+ Successfully disabled ${type}: ${name}`,
@@ -171,6 +175,18 @@ export default class extends Language {
             TEXT_PROMPT_ABORT_OPTIONS: ['abort', 'stop', 'cancel'],
 
             /**
+             * General Commands
+             */
+
+            COMMAND_HELP_ALL_FLAG: prefix => `Displaying one category per page. Have issues with the embed? Run \`${prefix}help --all\` for a full list in DMs.`,
+            COMMAND_HELP_COMMAND_COUNT: num => `${num} command${num === 1 ? '' : 's'}`,
+            COMMAND_HELP_TITLE: (name, description) => `📃 | **Help Message** | __**${name}**__\n${description}\n`,
+            COMMAND_HELP_USAGE: usage => `📝 | **Command Usage**\n\`${usage}\`\n`,
+            COMMAND_HELP_EXTENDED: extendedHelp => `🔍 | **Extended Help**\n${extendedHelp}`,
+            COMMAND_HELP_ALIASES: aliases => aliases.length ? `**Aliases**\n${aliases.join(', ')}` : '',
+            COMMAND_HELP_EXAMPLE: examples => `**:link: | Examples**\n${examples}`,
+
+            /**
              * Minecraft Locales
              * General
              */
@@ -184,100 +200,109 @@ export default class extends Language {
               */
 
             COMMAND_CHOP_DESCRIPTION: 'Chop trees to get wood!',
-            COMMAND_CHOP_EXTENDED: [
-                'Once you recieve an axe, you can chop wood',
-                'Better the axe more are the drops!',
-                'Gold and Diamond axe can even drop fruits'
-            ].join('\n'),
+            COMMAND_CHOP_EXTENDED: builder.display({
+                extendedHelp: `Once you recieve an axe, you can chop wood
+                Better the axe more are the drops!
+                Gold and Diamond axe can even drop fruits`
+            }),
 
             COMMAND_CRAFT_DESCRIPTION: 'Craft tools, armor and other items that will help you on your adventure!',
-            COMMAND_CRAFT_EXTENDED: [
-                'Currently tools can be crafted only once'
-                // ...
-            ].join('\n'),
+            COMMAND_CRAFT_EXTENDED: builder.display({
+                extendedHelp: 'Currently tools can be crafted only once'
+            }),
 
-            COMMAND_CRATE_DESCRIPTION: 'Shows all crates that you own and opens them!',
-            COMMAND_CRATE_EXTENDED: '',
+            COMMAND_CRATE_DESCRIPTION: 'Recieved a crate? open them to recieve exciting rewards',
+            COMMAND_CRATE_EXTENDED: builder.display({
+                extendedHelp: `Better the crates better the rewards`
+            }),
 
             COMMAND_ENCHANT_DESCRIPTION: 'Enchant your tools to make them more powerful!',
-            COMMAND_ENCHANT_EXTENDED: [
-                'Before you start enchanting you must have an enchanting table which can be brought from the shop',
-                'To get enchants purchase them from the shop',
-                'All tools can have only 1 enchantment at a time, using the enchantment on the same tool will overwrite the previous enchantment'
-            ].join('\n'),
+            COMMAND_ENCHANT_EXTENDED: builder.display({
+                extendedHelp: `Before you start enchanting you must have an enchanting table which can be brought from the shop.
+                To get enchants purchase them from the shop.
+                All tools can have only 1 enchantment at a time, using the enchantment on the same tool will overwrite the previous enchantment`
+            }),
 
             COMMAND_EQUIP_DESCRIPTION: 'Equip a tool to use them!',
-            COMMAND_EQUIP_EXTENDED: 'Before you start using a tool make sure that you have them equipped',
+            COMMAND_EQUIP_EXTENDED: builder.display({
+                extendedHelp: 'Before you start using a tool make sure that you have them equipped'
+            }),
 
             COMMAND_FARM_DESCRIPTION: 'Sow crops and harvest them!',
-            COMMAND_FARM_EXTENDED: [
-                'Before you start farming you must craft a hoe and equip it',
-                'Better the hoe, more are the crops you can sow at a time',
-                'Different crops take different amounts of time to get ready for harvesting',
-                '`farm view` to see all crops you have as well as the status of your planted crops',
-                '`farm sow <crop_name>` to sow a crop',
-                '`farm harvest <crop_name>` to harvest crops use `farm harvest all` to harvest them all'
-            ].join('\n'),
+            COMMAND_FARM_EXTENDED: builder.display({
+                extendedHelp: `Before you start farming you must craft a hoe and equip it
+                Better the hoe, more are the crops you can sow at a time
+                Different crops take different amounts of time to get ready for harvesting
+                \`farm view\` to see all crops you have as well as the status of your planted crops
+                \`farm sow <crop_name>\` to sow a crop
+                \`farm harvest <crop_name>\` to harvest crops use \`farm harvest all\` to harvest them all`
+            }),
 
             COMMAND_FISH_DESCRIPTION: 'Catch fish!',
-            COMMAND_FISH_EXTENDED: [
-                'Fishing requires a fishing rod which can be crafted',
-                'Better the rod more are the catches'
-            ].join('\n'),
+            COMMAND_FISH_EXTENDED: builder.display({
+                extendedHelp: `Fishing requires a fishing rod which can be crafted
+                Better the rod more are the catches`
+            }),
 
             COMMAND_INFO_DESCRIPTION: 'Shows all details of any item in this game!',
+            COMMAND_INFO_EXTENDED: '',
 
             COMMAND_INVENTORY_DESCRIPTION: 'Shows you your current inventory',
+            COMMAND_INVENTORY_EXTENDED: builder.display({
+                extendedHelp: 'View your inventory using reactions'
+            }),
 
             COMMAND_MINE_DESCRIPTION: 'Mine for materials and diamonds!',
-            COMMAND_MINE_EXTENDED: [
-                'Mining requires a pickaxe which can be crafted',
-                'Better the pickaxe more and better are the drops!'
-            ].join('\n'),
+            COMMAND_MINE_EXTENDED: builder.display({
+                extendedHelp: `Mining requires a pickaxe which can be crafted
+                Better the pickaxe more and better are the drops!`
+            }),
 
             COMMAND_QUEST_DESCRIPTION: 'Start your quests and recieve rewards!',
-            COMMAND_QUEST_EXTENDED: [
-                'Start your quest by using this command',
-                'When you feel that you have completed the quest use this command again to recieve your rewards',
-                '',
-                'More Quests coming soon!'
-            ].join('\n'),
+            COMMAND_QUEST_EXTENDED: builder.display({
+                extendedHelp: `Start your quest by using this command
+                When you feel that you have completed the quest use this command again to recieve your rewards
+
+                More Quests coming soon!`
+            }),
 
             COMMAND_REPAIR_DESCRIPTION: 'Broken tool? No problem!',
-            COMMAND_REPAIR_EXTENDED: [
-                'When your tool\'s durability reaches 0, it cannot be used until it is repaired',
-                'Repairing your tool will give it full durability'
-            ].join('\n'),
+            COMMAND_REPAIR_EXTENDED: builder.display({
+                extendedHelp: `When your tool's durability reaches 0, it cannot be used until it is repaired
+                Repairing your tool will give it full durability`
+            }),
 
             COMMAND_SELL_DESCRIPTION: 'Sell unwanted materials for coins!',
+            COMMAND_SELL_EXTENDED: '',
 
             COMMAND_SHOP_DESCRIPTION: 'View and purchase enchants, potions, and others here!',
-            COMMAND_SHOP_EXTENDED: [
-                'Currently `enchants`, `storage` and `potions` categories are available',
-                'More coming soon...'
-            ].join('\n'),
+            COMMAND_SHOP_EXTENDED: builder.display({
+                extendedHelp: `Currently \`enchants\`, \`storage\` and \`potions\` categories are available
+                More coming soon...`
+            }),
 
             COMMAND_START_DESCRIPTION: 'Start your new minecraft adventure!',
-            COMMAND_START_EXTENDED: [
-                'Once this command is used you will recieve an axe to get started',
-                'This command must be used in order to use most other minecraft commands'
-            ].join('\n'),
+            COMMAND_START_EXTENDED: builder.display({
+                extendedHelp: 'Once this command is used you will recieve an axe to get started',
+                reminder: 'This command must be used in order to use most other minecraft commands'
+            }),
 
             COMMAND_TOP_DESCRIPTION: 'View the top players based on xp and coins!',
+            COMMAND_TOP_EXTENDED: '',
 
             COMMAND_TRADE_DESCRIPTION: 'Trade items with your friends!',
-            COMMAND_TRADE_EXTENDED: [
-                'To start a trade, use `trade [@user]`, the trade will begin only when the other user accepts your request',
-                'Once the trade request is accepted you can add or remove items from the trade',
-                'You cannot add or remove items from the trade once you confirm, however you can cancel it anytime',
-                'Currently you cant trade tools but you can trade coins'
-            ].join('\n'),
+            COMMAND_TRADE_EXTENDED: builder.display({
+                extendedHelp: `To start a trade, use \`trade [@user]\`, the trade will begin only when the other user accepts your request
+                Once the trade request is accepted you can add or remove items from the trade
+                You cannot add or remove items from the trade once you confirm, however you can cancel it anytime
+                Currently you cant trade tools but you can trade coins`
+            }),
 
             COMMAND_VILLAGER_DESCRIPTION: 'Displays trade deals with the villager, trade emeralds for materials with the villager',
-            COMMAND_VILLAGER_EXTENDED: [
-                'The villager only accepts emeralds and in return gives materials',
-                'Trade deals reset every 3 hours'
-            ].join('\n'),
+            COMMAND_VILLAGER_EXTENDED: builder.display({
+                extendedHelp: `The villager only accepts emeralds and in return gives materials
+                Trade deals reset every 3 hours`
+            }),
 
 
             /**
@@ -285,12 +310,12 @@ export default class extends Language {
              */
 
             COMMAND_OWNER_DESCRIPTION: 'Secret commands for bot owners to manage the bot',
-            COMMAND_OWNER_EXTENDED: [
-                '`owner view <user>` to view a user\'s inventory',
-                '`owner add <user> <item name>` to add an item to a user\'s inventory',
-                '`owner remove <user> <item name>` to remove an item from the user\'s inventory',
-                'Use flags: `--amount=<amount>` or `all`, to specify the amount'
-            ].join('\n')
+            COMMAND_OWNER_EXTENDED: builder.display({
+                extendedHelp: `\`owner view <user>\` to view a user's inventory
+                \`owner add <user> <item name>\` to add an item to a user's inventory
+                \`owner remove <user> <item name>\` to remove an item from the user's inventory
+                Use flags: \`--amount=<amount>\` or \`all\`, to specify the amount`
+            })
         };
     }
 

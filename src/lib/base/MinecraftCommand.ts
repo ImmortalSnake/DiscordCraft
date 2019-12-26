@@ -6,12 +6,13 @@ import util from '../../utils/util';
 import { MessageEmbed } from 'discord.js';
 import { Tool } from '../game/items/tool';
 
-export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod';
+export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod' | 'sword';
 type verifyResult = [string, Inventory, string, InventoryItem];
 type InventoryStores = 'materials' | 'enchants' | 'crops'
 
 interface MinecraftCommandOptions extends CommandOptions {
     usageString?: string;
+    examples?: string[];
 }
 
 export default class extends Command {
@@ -19,6 +20,7 @@ export default class extends Command {
     public client: DiscordCraft;
     public cooldowns: RateLimitManager;
     public usageStr: string;
+    public examples: string[];
 
     public constructor(store: CommandStore, file: string[], directory: string, options = {} as MinecraftCommandOptions) {
         if (!options.extendedHelp) options.extendedHelp = (language) => language.get(`COMMAND_${this.name.toUpperCase()}_EXTENDED`);
@@ -34,6 +36,12 @@ export default class extends Command {
 
         // For custom cooldowns
         this.cooldowns = new RateLimitManager(options.bucket || 0, (options.cooldown || 0) * 1000);
+
+        this.examples = options.examples || [''];
+    }
+
+    public get displayExamples(): string {
+        return this.examples.map(example => `→ \`s!${this.name} ${example}\``).join('\n');
     }
 
     public fullUsage(msg: KlasaMessage): string {
@@ -92,15 +100,6 @@ export default class extends Command {
         }
 
         return [mess, updated];
-    }
-
-    protected finalize(inventory: Inventory) {
-        const branches = ['materials', 'crops'] as InventoryStores[];
-        for (const b of branches) {
-            inventory[b] = inventory[b].filter(it => it[1] > 0);
-            console.log(inventory[b]);
-        }
-        return inventory;
     }
 
     protected reduceDurability(itool: InventoryItem) {

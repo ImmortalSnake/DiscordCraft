@@ -7,13 +7,14 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<item:...str>'
+            usage: '<item:...str>',
+            examples: ['wooden pickaxe', 'stone axe']
         });
     }
 
     public async run(msg: KlasaMessage, [itemName]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         const item = this.client.minecraft.search(itemName);
         if (!item[0]) return msg.send('Could not find that item!');
