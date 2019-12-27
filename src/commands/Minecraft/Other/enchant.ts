@@ -13,7 +13,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [toolName, enchantName]: [string, string]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
         if (!inventory.storage.enchantment_table) return msg.send('You need an enchantment table to do this. Buy one from the shop!');
 
         const [name, tool] = this.client.minecraft.search(toolName);

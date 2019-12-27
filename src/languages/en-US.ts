@@ -175,6 +175,12 @@ export default class extends Language {
             TEXT_PROMPT_ABORT_OPTIONS: ['abort', 'stop', 'cancel'],
 
             /**
+             * KEYWORDS
+             */
+
+            KEYWORDS_LOADING: 'loading...',
+
+            /**
              * General Commands
              */
 
@@ -194,6 +200,66 @@ export default class extends Language {
             INVENTORY_NOT_FOUND: (prefix) => `You do not have a player! Please type \`${prefix}start\` to begin playing`,
             TOOL_NOT_FOUND: (type, prefix) => `You do not have a ${type}! Use \`${prefix}craft\` to craft a ${type} and \`${prefix}equip\` to equip it`,
             BROKEN_TOOL: (type, prefix) => `This ${type} is broken! Repair it using \`${prefix}repair\``,
+            INVENTORY_ITEM_NOT_FOUND: (item, type = 'item') => `Could not find that ${type} \`(${item})\` in your inventory`,
+            ITEM_NOT_FOUND: item => `Could not find that item \`(${item})\``,
+            INSUFFICIENT_MATERIALS: (type = 'items') => `You do not have that many ${type}!`,
+            MATERIAL_REQUIRED: (amount, name) => `You need **${amount}** \`${name}\` to get this item!`,
+
+            LEVEL_UP_TITLE: 'Level UP!!',
+            LEVEL_UP_DESCRIPTION: (user, profile) => `${user.toString()}, You have levelled up to: \`Level ${profile.level}\`
+            You got: \`${Math.floor(2.5 * (profile.level - 1))} coins\``,
+
+            ACTION_DESCRIPTION: (action, name, tool, mess) => `You have ${action} with **${name}** ${tool.emote}: ${mess}`,
+
+            /**
+             * Command Specific Locales
+             */
+
+            CRAFT_EMBED_DESCRIPTION: (amount, name, item) => `You have successfully crafted **${amount} ${name} ${item.emote}**`,
+
+            CRATE_OPEN_DESCRIPTION: (name, mess) => `You opened a **${name}** and found: ${mess}`,
+            CRATE_DISPLAY_DESCRIPTION: (prefix, name, mess) => `Use \`${prefix}${name} <crate name>\` to open a crate!
+            Here are the Crates that you own:\n${mess}`,
+
+            EQUIP_SUCCESS_DESCRIPTION: (name, item) => `Successfully equipped ${name} ${item.emote}!`,
+
+            FARM_NO_CROP: 'Specify which crop you would like to sow!',
+            FARM_NO_HARVEST: all => `You do not have ${all ? 'any' : 'that'} crop ready for harvesting!`,
+            FARM_SOW_DESCRIPTION: (amount, name, crop) => `You have sown:\n**${name}${crop.emote} x${amount}**`,
+            FARM_HARVEST_DESCRIPTION: mess => `You harvested:\n**${mess}**`,
+
+            FISH_DESCRIPTION: mess => `You have fished: ${mess || 'Nothing!\nBetter luck next time!'}`,
+
+            QUEST_UNAVAILABLE: 'Sorry, there are no quests available right now!',
+            QUEST_START_TITLE: title => `Quest - ${title}`,
+            QUEST_COMPLETE_TITLE: title => `Quest Complete - ${title}`,
+            QUEST_COMPLETE_DESCRIPTION: '**Congratulations! You have completed the quest\nYou have recieved your rewards\nUse the quest command again to get a new quest!**',
+            QUEST_PROGRESS_TITLE: title => `Quest In Progress - ${title}`,
+
+            SELL_DESCRIPTION: (amount, name, item) => `You have successfully sold **${amount} ${name} ${item.emote}** for **${item.price * amount} coins**!`,
+
+            SHOP_CATEGORY_DESCRIPTION: (prefix, name, categories) => `Use \`${prefix}${name} <category>\` to see all the items in it!
+            \n**Categories**:
+            ${categories}`,
+            SHOP_NO_ITEM: id => `There is no item in this category with id: ${id}`,
+            SHOP_DISPLAY_TITLE: (prefix, name, catname) => `Use \`${prefix}${name} ${catname} <item_number> [amount]\` to buy an item!\n\n`,
+            SHOP_PURCHASE_DESCRIPTION: (amount, name) => `You have successfully purchased **${amount} ${name}**!`,
+
+            START_DESCRIPTION: (user, prefix) => `Welcome ${user}
+            You received your **Wooden Axe** <:woodenaxe:560778791643774976>
+            You can now type \`${prefix}chop\` to collect some wood
+            
+            Type \`${prefix}quest\` to start quests and recieve rewards!`,
+
+            TOP_TITLE: type => `Top players for ${type}`,
+            TOP_FOOTER: (position, total) => `Your position: ${position}/${total}`,
+
+            VILLAGER_NO_SALE: 'This item is not for sale',
+            VILLAGER_MULTIPLE_EXCEPT: (emerald, name) => `You can trade only multiples of ${emerald} for ${name}`,
+            VILLAGER_FOOTER: (prefix, time) => `**
+            Use \`${prefix}villager [item] [amount of emeralds]\` to buy an item
+    
+            Trade deals reset in ${time}`,
 
             /**
               * Minecraft command descriptions + extended help

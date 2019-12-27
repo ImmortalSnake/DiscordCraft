@@ -17,7 +17,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [type]: [inventoryPage | undefined]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const user = await this.client.minecraft.get(msg.author!.id);
-        if (!user.id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!user.id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         if (!type) await this.display(msg.author!, user).run(await msg.send('loading...'));
         else return msg.send(this.displayPage(user.inventory, this.template(msg.author!), type));

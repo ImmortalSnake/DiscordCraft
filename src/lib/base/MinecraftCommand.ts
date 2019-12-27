@@ -3,12 +3,12 @@ import { Command, CommandStore, CommandOptions, KlasaMessage, RateLimit, RateLim
 import DiscordCraft from '../client';
 import Inventory, { InventoryItem } from '../game/items/inventory';
 import util from '../../utils/util';
-import { MessageEmbed } from 'discord.js';
 import { Tool } from '../game/items/tool';
+import { COLORS } from '../../utils/constants';
+import LocaleEmbed from '../structures/LocaleEmbed';
 
 export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod' | 'sword';
 type verifyResult = [string, Inventory, string, InventoryItem];
-type InventoryStores = 'materials' | 'enchants' | 'crops'
 
 interface MinecraftCommandOptions extends CommandOptions {
     usageString?: string;
@@ -53,9 +53,9 @@ export default class extends Command {
         return util.toTitleCase(item.replace('_', ' '));
     }
 
-    protected embed(msg: KlasaMessage): MessageEmbed {
-        return new MessageEmbed()
-            .setColor(msg.member ? msg.member.displayHexColor : '#5d97f5')
+    protected embed(msg: KlasaMessage): LocaleEmbed {
+        return new LocaleEmbed(msg)
+            .setColor(msg.member ? msg.member.displayHexColor : COLORS.PRIMARY)
             .setTitle(util.toTitleCase(this.name))
             .setFooter(`Requested by ${msg.author!.tag}`);
     }
@@ -122,11 +122,9 @@ export default class extends Command {
 
         const lvlup = this.client.minecraft.updateLevel(inventory);
         if (lvlup) {
-            msg.send(new MessageEmbed()
-                .setColor('#5d97f5')
-                .setTitle(`Level UP!`)
-                .setDescription(`${msg.author!.toString()}, You have levelled up to: \`Level ${inventory.profile.level}\`
-                You got: \`${Math.floor(2.5 * (inventory.profile.level - 1))} coins\``));
+            msg.send(this.embed(msg)
+                .setLocaleTitle('LEVEL_UP_TITLE')
+                .setLocaleDescription('LEVEL_UP_DESCRIPTION', msg.author!, inventory.profile));
         }
     }
 

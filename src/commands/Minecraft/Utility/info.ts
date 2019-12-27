@@ -12,7 +12,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [query]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const [itemName, item] = this.client.minecraft.search(query);
-        if (!itemName) return msg.send('Could not find that item!');
+        if (!itemName) throw msg.language.get('ITEM_NOT_FOUND', query);
 
         const embed = new MessageEmbed()
             .setColor('#5d97f5')

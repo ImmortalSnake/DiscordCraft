@@ -1,6 +1,5 @@
-import { CommandStore, KlasaMessage, KlasaUser, Settings } from 'klasa';
+import { CommandStore, KlasaMessage, Settings } from 'klasa';
 import util from '../../../utils/util';
-import { MessageEmbed } from 'discord.js';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
@@ -15,20 +14,20 @@ export default class extends MinecraftCommand {
     }
 
     public async run(msg: KlasaMessage, [itemName, amount = 1]: [string, number]): Promise<KlasaMessage | KlasaMessage[]> {
-        const { id, inventory } = await this.client.minecraft.get((msg.author as KlasaUser).id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
         const villager = (this.client.settings as Settings).get('villager')! as any;
 
         if (itemName && amount) {
             itemName = itemName.toLowerCase().replace(' ', '_');
-            if (!villager.deals[itemName]) return msg.send('This item is not for sale');
+            if (!villager.deals[itemName]) throw msg.language.get('VILLAGER_NO_SALE');
 
             const ie = inventory.materials.find(ex => ex[0] === 'emerald');
             const imat = inventory.materials.find(ex => ex[0] === itemName);
             const deal = villager.deals[itemName];
 
             if (!ie || ie[1] < amount) return msg.send('You do not have enough emeralds!');
-            if (deal[1] > 1 && amount % deal[1] !== 0) return msg.send(`You can trade only multiples of ${deal[1]} for ${itemName}`);
+            if (deal[1] > 1 && amount % deal[1] !== 0) throw msg.language.get('VILLAGER_MULTIPLE_EXCEPT', deal[1], this.properName(itemName));
 
             ie[1] -= amount;
             const namount = (deal[1] > 1 ? amount / deal[1] : amount) * deal[0];
@@ -40,8 +39,7 @@ export default class extends MinecraftCommand {
                     .setDescription(`You brought **${namount} ${this.properName(itemName)} ${this.client.minecraft.store[itemName].emote}** for **${amount} Emeralds ${this.emerald.emote}**`)));
         }
 
-        return msg.send(new MessageEmbed()
-            .setColor('#5d97f5')
+        return msg.send(this.embed(msg)
             .setTitle('Villager Deals')
             .setDescription(this.displayDeals(msg, villager)));
     }
@@ -55,10 +53,7 @@ export default class extends MinecraftCommand {
             mess += `${villager.deals[deal][1]} ${this.emerald.emote} = ${villager.deals[deal][0]} ${util.toTitleCase(deal)} ${item.emote}\n`;
         }
 
-        mess += `**
-        Use \`${msg.guildSettings.get('prefix')}villager [item] [amount of emeralds]\` to buy an item
-
-        Trade deals reset in ${util.msToTime(parseInt(villager.time) + this.client.minecraft.villageTimer - Date.now())}`;
+        mess += msg.language.get('VILLAGER_FOOTER', msg.guildSettings.get('prefix'), util.msToTime(parseInt(villager.time) + this.client.minecraft.villageTimer - Date.now()));
 
         return mess;
     }

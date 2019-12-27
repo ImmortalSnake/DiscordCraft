@@ -6,28 +6,25 @@ import util from '../../../utils/util';
 import { Tool } from '../../../lib/game/items/tool';
 
 const time = 1000 * 60 * 3;
+const categories = ['enchants', 'potions', 'storage', 'crops', 'crates'];
 type ShopCategory = 'enchants' | 'potions' | 'storage' | 'crops' | 'crates';
 
 export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '[enchants|potions|storage|crops|crates] [item:number] [amount:number]'
+            usage: `[${categories.join('|')}] [item:number] [amount:number]`
         });
     }
 
     public async run(msg: KlasaMessage, [category, itemno, amount = 1]: [ShopCategory, number, number]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         const prefix = msg.guildSettings.get('prefix') as string;
         if (!category) {
-            return msg.send(new MessageEmbed()
-                .setTitle('Shop')
-                .setColor('#5d97f5')
-                .setDescription(`Use \`${prefix}${this.name} <category>\` to see all the items in it!
-            \n**Categories**:
-            ${['enchants', 'potions', 'storage', 'crops', 'crates'].map(ex => `\n\`${prefix}${this.name} ${ex}\``).join('\n')}`));
+            return msg.send(this.embed(msg)
+                .setLocaleDescription('SHOP_CATEGORY_DESCRIPTION', prefix, this.name, categories.map(ex => `\n\`${prefix}${this.name} ${ex}\``).join('\n')));
         }
 
         const shop = Shop[category];
@@ -41,15 +38,15 @@ export default class extends MinecraftCommand {
         }
 
         const item = shop[itemno - 1];
-        if (!item) return msg.send('There is no item in this category with that id');
+        if (!item) throw msg.language.get('SHOP_NO_ITEM', itemno);
 
         for (const mat in item.price) {
             if (mat === 'coin') {
-                if (inventory.profile.coins < (item.price as any)[mat] * amount) return msg.send('You do not have enough coins!');
+                if (inventory.profile.coins < (item.price as any)[mat] * amount) throw msg.language.get('MATERIAL_REQUIRED', (item.price as any)[mat] * amount, 'coins');
                 inventory.profile.coins -= (item.price as any)[mat] * amount;
             } else {
                 const imat = inventory.materials.find(ex => ex[0] === mat);
-                if (!imat || imat[1] < (item.price as any)[mat] * amount) return msg.send('You do not have enough materials!');
+                if (!imat || imat[1] < (item.price as any)[mat] * amount) throw msg.language.get('MATERIAL_REQUIRED', (item.price as any)[mat] * amount, this.properName(mat));
 
                 imat[1] -= (item.price as any)[mat] * amount;
             }
@@ -66,11 +63,11 @@ export default class extends MinecraftCommand {
         inventory.materials = inventory.materials.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Shop Purchase')
-            .setDescription(`You have successfully purchased **${amount} ${util.toTitleCase(item.name.replace('_', ' '))}**!`)));
+            .setLocaleDescription('SHOP_PURCHASE_DESCRIPTION', amount, this.properName(item.name))));
     }
 
     public buildDisplay(msg: KlasaMessage, [catname, category]: [string, any[]], prefix: string): RichDisplay {
-        const text = `Use \`${prefix}${this.name} ${catname} <item_number> [amount]\` to buy an item!\n\n`;
+        const text = msg.language.get('SHOP_DISPLAY_TITLE', prefix, this.name, catname);
         const display = new RichDisplay(this.embed(msg)
             .setTitle(`${util.toTitleCase(catname)} Shop`));
 

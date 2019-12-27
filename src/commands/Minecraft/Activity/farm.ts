@@ -15,15 +15,14 @@ export default class extends MinecraftCommand {
 
     public async sow(msg: KlasaMessage, [cropname]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const [id, inventory, ehoe, ihoe] = await this.verify(msg, 'hoe');
-        if (!cropname) throw 'Specify which crop you would like to sow!';
+        if (!cropname) throw msg.language.get('FARM_NO_CROP');
 
         const [cropName, crop] = this.client.minecraft.search(cropname);
         const icrop = inventory.crops.find(ex => ex[0] === cropName);
-        if (!icrop) throw 'Could not find that crop in your inventory';
+        if (!icrop || icrop[1] <= 0) throw msg.language.get('INVENTORY_ITEM_NOT_FOUND', cropname, 'crop');
 
         const hoe = this.client.minecraft.store[ehoe] as any;
         const amount = hoe.size[icrop[0]] <= icrop[1] ? hoe.size[icrop[0]] : icrop[1];
-        if (amount === 0) throw `You do not have any ${Util.toTitleCase(cropName.replace('_', ' '))}`;
 
         inventory.farm.planted.push([cropName, amount, Date.now()]);
         icrop[1] -= amount;
@@ -33,7 +32,7 @@ export default class extends MinecraftCommand {
         inventory.crops = inventory.crops.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Farm - Sow')
-            .setDescription(`You have sown:\n**${Util.toTitleCase(cropName.replace('_', ' '))}${crop.emote} x${amount}**`)));
+            .setLocaleDescription('FARM_SOW_DESCRIPTION', amount, this.properName(cropName), crop)));
     }
 
     public async view(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
@@ -68,7 +67,7 @@ export default class extends MinecraftCommand {
         });
 
         const icrops = cropName === 'all' ? rcrops : rcrops.filter(ex => ex[0] === cropName);
-        if (!icrops.length) throw `You do not have ${cropName === 'all' ? 'any' : 'that'} crop ready for harvesting!`;
+        if (!icrops.length) throw msg.language.get('FARM_NO_HARVEST', cropName === 'all');
 
         const mess = this.join(icrops).map((cr) => {
             if (Math.random() * 100 <= hoe.drops[cr[0]][2]) {
@@ -90,7 +89,7 @@ export default class extends MinecraftCommand {
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
             .setTitle('Farm - Harvest')
-            .setDescription(`You harvested:\n**${mess}**`)));
+            .setLocaleDescription('FARM_HARVEST_DESCRIPTION', mess)));
     }
 
     private join(arr: [string, number, number?][]): [string, number, number?][] {

@@ -15,24 +15,22 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [crateName]: [string?]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         if (crateName) {
-            crateName = crateName.replace(' ', '_').toLowerCase();
-            const crate = Crates.find(ex => ex.name === crateName);
-            const icrate = inventory.crates.findIndex(ex => ex[0] === crateName);
-            if (!crate || icrate === -1) return msg.send('Could not find that crate in your inventory');
+            const cName = crateName.replace(' ', '_').toLowerCase();
+            const crate = Crates.find(ex => ex.name === cName);
+            const icrate = inventory.crates.findIndex(ex => ex[0] === cName);
+            if (!crate || icrate === -1) throw msg.language.get('INVENTORY_ITEM_NOT_FOUND', cName);
 
             const [m] = this.dropRewards(inventory, inventory.crates[icrate], crate);
 
-            return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
-                msg.send(this.embed(msg).setDescription(`You opened a **${util.toTitleCase(crateName!.replace('_', ' '))}** and found: ${m}`)
-                ));
+            return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
+                .setLocaleDescription('CRATE_OPEN_DESCRIPTION', this.properName(cName), m)));
         } else {
             const prefix = msg.guildSettings.get('prefix');
             return msg.send(this.embed(msg)
-                .setDescription(`Use \`${prefix}${this.name} <crate name>\` to open a crate!
-Here are the Crates that you own:\n${this.displayCrates(inventory)}`));
+                .setLocaleDescription('CRATE_DISPLAY_DESCRIPTION', prefix, this.name, this.displayCrates(inventory)));
         }
     }
 

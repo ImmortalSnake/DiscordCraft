@@ -17,7 +17,7 @@ export default class extends MinecraftCommand {
         if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         const item = this.client.minecraft.search(itemName);
-        if (!item[0]) return msg.send('Could not find that item!');
+        if (!item[0]) throw msg.language.get('ITEM_NOT_FOUND', itemName);
 
         return this.craft(msg, [id, inventory], item);
     }
@@ -29,7 +29,7 @@ export default class extends MinecraftCommand {
         for (const mat of Object.keys(item.materials)) {
             const imat = inventory.materials.find(ex => ex[0] === mat);
 
-            if (!imat || imat[1] < item.materials[mat] * amount) return msg.send(`You need ${item.materials[mat]} ${mat} to craft this item!`);
+            if (!imat || imat[1] < item.materials[mat] * amount) throw msg.language.get('MATERIAL_REQUIRED', item.materials[mat] * amount, this.properName(itemName));
             imat[1] -= item.materials[mat] * amount;
         }
 
@@ -39,7 +39,7 @@ export default class extends MinecraftCommand {
 
         inventory.materials = inventory.materials.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
-            .setDescription(`You have successfully crafted **${amount} ${this.properName(itemName)} ${item.emote}**`)));
+            .setLocaleDescription('CRAFT_EMBED_DESCRIPTION', amount, this.properName(itemName), item)));
     }
 
 }

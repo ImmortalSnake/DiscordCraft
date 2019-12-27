@@ -16,7 +16,7 @@ export default class extends MinecraftCommand {
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
             msg.send(this.embed(msg)
-                .setDescription(`You have fished: ${m || 'Nothing!\nBetter luck next time!'}`)));
+                .setLocaleDescription('FISH_DESCRIPTION', m)));
     }
 
 }

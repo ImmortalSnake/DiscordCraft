@@ -1,5 +1,4 @@
 import { KlasaMessage, util } from 'klasa';
-import { MessageEmbed } from 'discord.js';
 import quests from '../../../lib/game/quests';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { Tool } from '../../../lib/game/items/tool';
@@ -8,16 +7,15 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         if (!Object.keys(inventory.quests.current).length) {
             const quest = quests[inventory.quests.id];
-            if (!quest) return msg.send('Sorry, there are no quests available right now!');
+            if (!quest) throw msg.language.get('QUEST_UNAVAILABLE');
 
             quest.start(inventory);
-            return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(new MessageEmbed()
-                .setColor('#5d97f5')
-                .setTitle(`Quest - ${quest.title}`)
+            return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
+                .setLocaleTitle('QUEST_START_TITLE', quest.title)
                 .setDescription(quest.description(msg))
                 .addField('Rewards', this.stringify(quest.rewards))));
         } else {
@@ -42,14 +40,12 @@ export default class extends MinecraftCommand {
                     }
                 }
 
-                return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(new MessageEmbed()
-                    .setColor('#5d97f5')
-                    .setTitle(`Quest Complete: ${quest.title}`)
-                    .setDescription('**Congratulations! You have completed the quest\nYou have recieved your rewards\nUse the quest command again to get a new quest!**')));
+                return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
+                    .setLocaleTitle('QUEST_COMPLETE_TITLE', quest.title)
+                    .setLocaleDescription('QUEST_COMPLETE_DESCRIPTION')));
             } else {
-                return msg.send(new MessageEmbed()
-                    .setColor('#5d97f5')
-                    .setTitle(`Quest In Progress - ${quest.title}`)
+                return msg.send(this.embed(msg)
+                    .setLocaleTitle('QUEST_PROGRESS_TITLE', quest.title)
                     .setDescription(quest.description(msg))
                     .addField('Rewards', this.stringify(quest.rewards), true)
                     .addField('Progress', this.stringify(inventory.quests.current), true));

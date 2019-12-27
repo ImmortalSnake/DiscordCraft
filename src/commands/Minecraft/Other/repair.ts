@@ -9,13 +9,13 @@ export default class extends MinecraftCommand {
         });
     }
 
-    public async run(msg: KlasaMessage, [itemName]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
+    public async run(msg: KlasaMessage, [iName]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
-        itemName = itemName.trim().toLowerCase().replace(' ', '_');
+        const itemName = iName.trim().toLowerCase().replace(' ', '_');
         const xitem = inventory.tools.find(ex => ex[0] === itemName);
-        if (!xitem) return msg.send('Could not find the item in your inventory');
+        if (!xitem) throw msg.language.get('INVENTORY_ITEM_NOT_FOUND', iName);
 
         const item = this.client.minecraft.toolStore[xitem[0]];
         for (const mat of Object.keys(item.repair)) {

@@ -17,7 +17,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [type = 'coins']: ['coins' | 'level', number]): Promise<KlasaMessage | KlasaMessage[] | null> {
         const { id } = await this.client.minecraft.get((msg.author as KlasaUser).id);
-        if (!id) return msg.send('You do not have a player! Please use the start command to begin playing');
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         const all = await this.client.minecraft.provider.getAll('users') as UserInventory[];
         const sorted = all.sort((a, b) => {
@@ -29,8 +29,8 @@ export default class extends MinecraftCommand {
         });
 
         const display = new RichDisplay(this.embed(msg)
-            .setTitle(`Top players for ${type}`)
-            .setFooter(`Your position: ${sorted.findIndex(ex => ex.id === msg.author!.id)}/${sorted.length}`));
+            .setLocaleTitle('TOP_TITLE', type)
+            .setLocaleFooter('TOP_FOOTER', sorted.findIndex(ex => ex.id === msg.author!.id), sorted.length));
 
         for (let i = 0; i < sorted.length; i += npage) {
             display.addPage((template: MessageEmbed) => template
@@ -42,7 +42,7 @@ export default class extends MinecraftCommand {
                 ));
         }
 
-        await display.run(await msg.send('Loading...') as KlasaMessage, {
+        await display.run(await msg.send('Loading...'), {
             filter: (__, user: KlasaUser) => user.id === msg.author!.id,
             time
         });

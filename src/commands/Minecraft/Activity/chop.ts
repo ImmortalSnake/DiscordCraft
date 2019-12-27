@@ -22,7 +22,8 @@ export default class extends MinecraftCommand {
 
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => {
             const axe = this.client.minecraft.toolStore[eaxe];
-            return msg.send(this.embed(msg).setDescription(`You have chopped with ${this.properName(eaxe)} ${axe.emote}: ${m}`));
+            return msg.send(this.embed(msg)
+                .setLocaleDescription('ACTION_DESCRIPTION', 'chopped', this.properName(eaxe), axe, m));
         });
     }
 

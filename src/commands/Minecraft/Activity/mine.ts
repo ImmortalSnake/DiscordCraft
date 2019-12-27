@@ -20,7 +20,9 @@ export default class extends MinecraftCommand {
         this.setCooldown({ id, inventory }, 5000, ipaxe);
         this.addXP(msg, inventory, epaxe);
 
-        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg).setDescription(`You have mined: ${m}`)));
+        const paxe = this.client.minecraft.toolStore[epaxe];
+        return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
+            .setLocaleDescription('ACTION_DESCRIPTION', 'mined', this.properName(epaxe), paxe, m)));
     }
 
 }
