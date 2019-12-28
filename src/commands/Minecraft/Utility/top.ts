@@ -42,7 +42,8 @@ export default class extends MinecraftCommand {
                 ));
         }
 
-        await display.run(await msg.send('Loading...'), {
+        const { LOADING } = msg.language.KEYWORDS;
+        await display.run(await msg.send(LOADING), {
             filter: (__, user: KlasaUser) => user.id === msg.author!.id,
             time
         });

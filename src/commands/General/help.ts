@@ -2,6 +2,7 @@ import { MessageEmbed, Permissions, TextChannel, Collection } from 'discord.js';
 import { CommandStore, KlasaMessage, util, Command } from 'klasa';
 import { UserRichDisplay } from '../../lib/structures/UserRichDisplay';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import { COLORS } from '../../utils/constants';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 
@@ -61,7 +62,7 @@ export default class extends MinecraftCommand {
         if (!msg.flagArgs.all && msg.guild && (msg.channel as TextChannel).permissionsFor(this.client.user!)!.has(PERMISSIONS_RICHDISPLAY)) {
             const response = await msg.sendMessage(
                 msg.language.get('COMMAND_HELP_ALL_FLAG', msg.guildSettings.get('prefix')),
-                new MessageEmbed({ description: msg.language.get('SYSTEM_LOADING'), color: '#5d97f5' })
+                new MessageEmbed({ description: msg.language.get('SYSTEM_LOADING'), color: COLORS.PRIMARY })
             );
             const display = await this.buildDisplay(msg);
 

@@ -9,6 +9,7 @@ export default class extends MinecraftCommand {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
         if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
+        const { REWARDS, PROGRESS } = msg.language.KEYWORDS;
         if (!Object.keys(inventory.quests.current).length) {
             const quest = quests[inventory.quests.id];
             if (!quest) throw msg.language.get('QUEST_UNAVAILABLE');
@@ -17,7 +18,7 @@ export default class extends MinecraftCommand {
             return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
                 .setLocaleTitle('QUEST_START_TITLE', quest.title)
                 .setDescription(quest.description(msg))
-                .addField('Rewards', this.stringify(quest.rewards))));
+                .addField(REWARDS, this.stringify(quest.rewards))));
         } else {
             const quest = quests[inventory.quests.id];
             if (quest.checkCompleted(inventory)) {
@@ -47,8 +48,8 @@ export default class extends MinecraftCommand {
                 return msg.send(this.embed(msg)
                     .setLocaleTitle('QUEST_PROGRESS_TITLE', quest.title)
                     .setDescription(quest.description(msg))
-                    .addField('Rewards', this.stringify(quest.rewards), true)
-                    .addField('Progress', this.stringify(inventory.quests.current), true));
+                    .addField(REWARDS, this.stringify(quest.rewards), true)
+                    .addField(PROGRESS, this.stringify(inventory.quests.current), true));
             }
         }
     }

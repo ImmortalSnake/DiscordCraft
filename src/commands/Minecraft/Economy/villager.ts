@@ -26,7 +26,7 @@ export default class extends MinecraftCommand {
             const imat = inventory.materials.find(ex => ex[0] === itemName);
             const deal = villager.deals[itemName];
 
-            if (!ie || ie[1] < amount) return msg.send('You do not have enough emeralds!');
+            if (!ie || ie[1] < amount) throw msg.language.get('MATERIAL_REQUIRED', amount, 'emeralds');
             if (deal[1] > 1 && amount % deal[1] !== 0) throw msg.language.get('VILLAGER_MULTIPLE_EXCEPT', deal[1], this.properName(itemName));
 
             ie[1] -= amount;
@@ -36,7 +36,7 @@ export default class extends MinecraftCommand {
             if (ie[1] <= 0) inventory.materials = inventory.materials.filter(it => it[1] > 0);
             return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() =>
                 msg.send(this.embed(msg)
-                    .setDescription(`You brought **${namount} ${this.properName(itemName)} ${this.client.minecraft.store[itemName].emote}** for **${amount} Emeralds ${this.emerald.emote}**`)));
+                    .setLocaleDescription('VILLAGER_BUY_DESCRIPTION', namount, this.properName(itemName), this.client.minecraft.store[itemName], amount, this.emerald)));
         }
 
         return msg.send(this.embed(msg)

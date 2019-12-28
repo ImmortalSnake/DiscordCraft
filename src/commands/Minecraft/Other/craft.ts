@@ -23,8 +23,8 @@ export default class extends MinecraftCommand {
     }
 
     private async craft(msg: KlasaMessage, [id, inventory]: [string, Inventory], [itemName, item, amount = 1]: [string, any, number?]): Promise<KlasaMessage | KlasaMessage[]> {
-        if (!item.materials) return msg.send('This item is not craftable!');
-        if (item.type === 'tools' && inventory.tools.find(ex => ex[0] === itemName)) return msg.send('You cannot have more than 1 of the same tool or armor');
+        if (!item.materials) throw msg.language.get('CRAFT_INVALID');
+        if (item.type === 'tools' && inventory.tools.find(ex => ex[0] === itemName)) throw msg.language.get('CRAFT_TOOL_1');
 
         for (const mat of Object.keys(item.materials)) {
             const imat = inventory.materials.find(ex => ex[0] === mat);

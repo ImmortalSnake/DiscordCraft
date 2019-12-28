@@ -1,4 +1,4 @@
-import { CommandStore, KlasaMessage, util } from 'klasa';
+import { CommandStore, KlasaMessage } from 'klasa';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
@@ -21,14 +21,14 @@ export default class extends MinecraftCommand {
         for (const mat of Object.keys(item.repair)) {
             const imat = inventory.materials.find(ex => ex[0] === mat);
 
-            if (!imat || imat[1] < item.repair[mat]) return msg.send(`You need ${item.repair[mat]} ${mat} to repair this item!`);
+            if (!imat || imat[1] < item.repair[mat]) throw msg.language.get('MATERIAL_REQUIRED', item.repair[mat], this.properName(mat));
             imat[1] -= item.repair[mat];
         }
 
         xitem[1] = item.durability;
         inventory.materials = inventory.materials.filter(it => it[1] > 0);
         return this.client.minecraft.update(msg.author!.id, { id, inventory }).then(() => msg.send(this.embed(msg)
-            .setDescription(`You have successfully repaired your **${util.toTitleCase(itemName.replace('_', ' '))} ${item.emote}**`)));
+            .setLocaleDescription('REPAIR_DESCRIPTION', this.properName(itemName), item)));
     }
 
 }

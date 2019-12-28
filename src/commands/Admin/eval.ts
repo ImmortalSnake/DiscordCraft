@@ -89,7 +89,7 @@ export default class extends Command {
         const _options = ['log'];
         if (msg.channel.attachable) _options.push('file');
         if (!options.hastebinUnavailable) _options.push('hastebin');
-        const _choice = await Util.prompt(msg, `Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
+        const _choice = await msg.prompt(`Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));
 
         if (!['file', 'haste', 'hastebin', 'console', 'log', 'default', 'none', null].includes(_choice.content)) {
             // eslint-disable-next-line require-atomic-updates

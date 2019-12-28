@@ -14,7 +14,7 @@ export default class extends MinecraftCommand {
 
         this.createCustomResolver('item', (arg, _possible, _message, [action]) => {
             if (arg || !['add', 'remove'].includes(action)) return arg;
-            throw 'Item should be specified';
+            throw 'Item name should be specified';
         });
     }
 
@@ -23,18 +23,19 @@ export default class extends MinecraftCommand {
         const prefix = msg.guildSettings.get('prefix');
 
         if (action instanceof KlasaUser) {
-            if (action.id === msg.author!.id) return msg.send('You cant trade with yourself!');
+            if (action.id === msg.author!.id) throw msg.language.get('TRADE_NO_SELF');
 
             const mess = await msg.channel.send(this.embed(msg)
                 .setTitle('Trade Request')
-                .setDescription(`**\`${action.tag}\` has recieved a trade request from \`${msg.author!.tag}\`**
-            React to confirm or deny the trade request`));
+                .setLocaleDescription('TRADE_REQUEST_DESCRIPTION', msg.author!.tag, action.tag));
             await mess.react('❎');
             await mess.react('✅');
 
             const collector = mess.createReactionCollector((re: MessageReaction, us: KlasaUser) => us.id === action.id && ['❎', '✅'].includes(re.emoji.name), { max: 1 });
             collector.on('collect', async (re: MessageReaction) => {
-                if (re.emoji.name === '❎') { return msg.send(`**${action.tag}** did not accept the trade request`); } else {
+                if (re.emoji.name === '❎') {
+                    throw msg.language.get('TRADE_REQUEST_DECLINE', action.tag);
+                } else {
                     try {
                         const { inv1, inv2 } = await this.checkTraders(msg, action);
 
@@ -46,15 +47,9 @@ export default class extends MinecraftCommand {
 
                         await msg.channel.send(this.embed(msg)
                             .setTitle('Trade Request Accepted')
-                            .setDescription(`**\`${action.tag}\`, confirmed the trade request from \`${msg.author!.tag}\`**
-
-                            Use \`${prefix}trade add <item> [--amount=number]\` to add materials or food to the trade
-                            Use \`${prefix}trade remove <item>\` to remove materials or food to trade
-                            Use \`${prefix}trade info\` to view the current trade
-                            Use \`${prefix}trade confirm\` to confirm
-                            Use \`${prefix}trade cancel\` to cancel the trade`));
+                            .setLocaleDescription('TRADE_REQUEST_ACCEPT', msg.author!.tag, action.tag, prefix));
                     } catch (err) {
-                        return msg.send(err);
+                        msg.send(err);
                     }
                 }
 
@@ -66,19 +61,19 @@ export default class extends MinecraftCommand {
         } else {
             const { inv1, inv2 } = await this.checkTraders(msg);
             const trader = await this.client.users.fetch(inv2.id);
-            if (!trader) return msg.send('Cannot find the other user. Make sure they are in atleast 1 guild where I am in');
+            if (!trader) throw msg.language.get('TRADE_INVALID_USER');
 
             switch (action.toLowerCase()) {
                 case 'add': {
-                    if (inv1.inventory.trade.confirmed) return msg.send(`You have already confirmed the trade use \`${prefix}trade cancel\` to cancel this trade`);
+                    if (inv1.inventory.trade.confirmed) throw msg.language.get('TRADE_CONFIRM_2', prefix);
 
                     itemName = itemName.toLowerCase().replace(' ', '_');
                     const xitem = itemName === 'coins' ? ['coins', inv1.inventory.profile.coins] as [string, number] : inv1.inventory.materials.find(ex => ex[0] === itemName);
-                    if (!xitem) return msg.send('Could not find that item in your inventory');
+                    if (!xitem) throw msg.language.get('INVENTORY_ITEM_NOT_FOUND', this.properName(itemName));
                     const amount = 'all' in msg.flagArgs ? xitem[1] : parseInt(msg.flagArgs.amount) || 1;
 
                     const total = inv1.inventory.trade.trade[itemName] ? inv1.inventory.trade.trade[itemName] + amount : amount;
-                    if (total > xitem[1]) return msg.send('You do not have that much of material');
+                    if (total > xitem[1]) throw msg.language.get('INSUFFICIENT_MATERIALS');
 
                     xitem[1] -= amount;
                     // eslint-disable-next-line no-unused-expressions
@@ -93,11 +88,11 @@ export default class extends MinecraftCommand {
                 }
 
                 case 'remove': {
-                    if (inv1.inventory.trade.confirmed) return msg.send(`You have already confirmed the trade use \`${prefix}trade cancel\` to cancel this trade`);
+                    if (inv1.inventory.trade.confirmed) throw msg.language.get('TRADE_CONFIRM_2', prefix);
 
                     itemName = itemName.toLowerCase().replace(' ', '_');
                     // eslint-disable-next-line max-len
-                    if (!inv1.inventory.trade.trade[itemName]) return msg.send(`That item is not in the trade. Use \`${prefix}trade add [item] -[amount]\` to add materials or food ot money to the trade`);
+                    if (!inv1.inventory.trade.trade[itemName]) return msg.language.get('TRADE_REMOVE_INVALID', prefix);
 
                     const xitem = itemName === 'coins' ? ['coins', inv1.inventory.profile.coins] as [string, number] : inv1.inventory.materials.find(ex => ex[0] === itemName);
                     const amount = inv1.inventory.trade.trade[itemName];
@@ -122,9 +117,9 @@ export default class extends MinecraftCommand {
                 }
 
                 case 'confirm': {
-                    if (inv1.inventory.trade.confirmed) return msg.send(`You have already confirmed the trade use \`${prefix}trade cancel\` to cancel this trade`);
+                    if (inv1.inventory.trade.confirmed) throw msg.language.get('TRADE_CONFIRM_2', prefix);
 
-                    const mess = await msg.reply(`Do you wish to confirm the trade with **${trader.tag}**\nReact with ✅ to confirm the trade`);
+                    const mess = await msg.sendLocale('TRADE_CONFIRM_CONFIRM', [trader]);
 
                     await mess.react('✅');
                     await mess.react('❎');
@@ -132,7 +127,7 @@ export default class extends MinecraftCommand {
 
                     collector.on('collect', async (re) => {
                         if (re.emoji.name === '❎') {
-                            return msg.send('The trade was not confirmed!');
+                            return msg.sendLocale('TRADE_NO_CONFIRM');
                         } else if (re.emoji.name === '✅') {
                             if (inv2.inventory.trade.confirmed) {
                                 this.trade(inv2.inventory, inv1.inventory);
@@ -142,14 +137,13 @@ export default class extends MinecraftCommand {
                                 await this.client.minecraft.set(inv1.id, inv1);
                                 await this.client.minecraft.set(inv2.id, inv2);
 
-                                return msg.send(`The trade between <@${msg.author!.id}> and <@${trader.id}> was completed!`);
+                                return msg.sendLocale('TRADE_COMPLETE', [msg.author!, trader]);
                             }
 
                             inv1.inventory.trade.confirmed = true;
                             await this.client.minecraft.set(inv1.id, inv1);
 
-                            // eslint-disable-next-line max-len
-                            return msg.send(`<@${msg.author!.id}> confirmed! Waiting confirmation from **${trader.tag}**\n<@${trader.id}>, please use \`${prefix}trade confirm\` to confirm from your end!`);
+                            return msg.sendLocale('TRADE_CONFIRM', [msg.author!, trader, prefix]);
                         }
 
                         return null;
@@ -160,14 +154,14 @@ export default class extends MinecraftCommand {
 
                 // stuff to be added back
                 case 'cancel': {
-                    const mess = await msg.channel.send(`Do you wish to cancel the trade with **${trader.tag}**\nReact with ✅ to cancel the trade`);
+                    const mess = await msg.sendLocale('TRADE_CANCEL_CONFIRM', [trader.tag]);
                     await mess.react('✅');
                     await mess.react('❎');
 
                     const collector = mess.createReactionCollector((re, us) => us.id === msg.author!.id && ['❎', '✅'].includes(re.emoji.name), { max: 1 });
                     collector.on('collect', async (re) => {
                         if (re.emoji.name === '❎') {
-                            return msg.send('Trade was not cancelled');
+                            return msg.sendLocale('TRADE_NO_CANCEL');
                         } else if (re.emoji.name === '✅') {
                             this.cancelTrade(inv1.inventory);
                             this.cancelTrade(inv2.inventory);
@@ -176,7 +170,7 @@ export default class extends MinecraftCommand {
                             await this.client.minecraft.set(inv1.id, inv1);
                             await this.client.minecraft.set(inv2.id, inv2);
 
-                            return msg.send(`The trade between <@${inv1.id}> and <@${inv2.id}> was cancelled by <@${msg.author!.id}>`);
+                            return msg.sendLocale('TRADE_CANCEL', [inv1.id, inv2.id, msg.author!.id]);
                         }
 
                         return null;
@@ -203,16 +197,16 @@ export default class extends MinecraftCommand {
     }
 
     // general check function
-    private async checkTraders({ guildSettings, author }: KlasaMessage, user2?: KlasaUser): Promise<{ inv1: UserInventory, inv2: UserInventory}> {
+    private async checkTraders({ author, language, guildSettings }: KlasaMessage, user2?: KlasaUser): Promise<{ inv1: UserInventory, inv2: UserInventory}> {
         const inv1 = await this.client.minecraft.get(author!.id);
-        if (!inv1.id) throw `<@${author!.id}> does not have a player! Please use the start command to begin playing`;
-        if (user2 && inv1.inventory.trade.user) throw `<@${author!.id}> is already in a trade with someone else!`;
-        else if (!user2 && !inv1.inventory.trade.user) throw `You are not in a trade with anyone. Use \`${guildSettings.get('prefix')}trade [@user]\` to start trading!`;
+        if (!inv1.id) throw language.get('TRADE_NO_PLAYER', author!.id);
+        if (user2 && inv1.inventory.trade.user) throw language.get('TRADE_OTHER', author!.id);
+        else if (!user2 && !inv1.inventory.trade.user) throw language.get('TRADE_NONE', guildSettings.get('prefix'));
 
         const id = user2 ? user2.id : inv1.inventory.trade.user;
         const inv2 = await this.client.minecraft.get(id);
-        if (!inv2.id) throw `<@${id}> does not have a player! Please use the start command to begin playing`;
-        if (user2 && inv2.inventory.trade.user) throw `<@${id}> is already in a trade with someone else!`;
+        if (!inv2.id) throw language.get('TRADE_NO_PLAYER', id);
+        if (user2 && inv2.inventory.trade.user) throw language.get('TRADE_OTHER', id);
 
         return { inv1, inv2 };
     }

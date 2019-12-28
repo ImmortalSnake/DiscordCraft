@@ -1,5 +1,4 @@
 import { CommandStore, KlasaMessage, util } from 'klasa';
-import { MessageEmbed } from 'discord.js';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
@@ -14,8 +13,7 @@ export default class extends MinecraftCommand {
         const [itemName, item] = this.client.minecraft.search(query);
         if (!itemName) throw msg.language.get('ITEM_NOT_FOUND', query);
 
-        const embed = new MessageEmbed()
-            .setColor('#5d97f5')
+        const embed = this.embed(msg)
             .setDescription(`**${util.toTitleCase(itemName.replace('_', ' '))} ${item.emote} Stats**`);
 
         if (this.stats(item)) embed.addField('General Stats', this.stats(item));

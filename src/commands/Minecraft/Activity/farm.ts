@@ -37,17 +37,18 @@ export default class extends MinecraftCommand {
 
     public async view(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         const [, inventory] = await this.verify(msg, 'hoe');
+        const { PLANTED, CROPS, READY } = msg.language.KEYWORDS;
 
         return msg.send(this.embed(msg)
             .setTitle(`${msg.author!.tag}'s Farm`)
-            .addField('Planted', inventory.farm.planted.map((icrop) => {
+            .addField(PLANTED, inventory.farm.planted.map((icrop) => {
                 const crop = this.client.minecraft.store[icrop[0]] as any;
                 const tleft = icrop[2] + crop.time - Date.now();
 
-                return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}** \`[${tleft > 0 ? Util.msToTime(tleft) : 'Ready'}]\``;
+                return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}** \`[${tleft > 0 ? Util.msToTime(tleft) : READY}]\``;
             })
                 .join('\n') || '**')
-            .addField('Crops', inventory.crops.map((icrop) => {
+            .addField(CROPS, inventory.crops.map((icrop) => {
                 const crop = this.client.minecraft.store[icrop[0]];
 
                 return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}**`;
@@ -68,6 +69,7 @@ export default class extends MinecraftCommand {
 
         const icrops = cropName === 'all' ? rcrops : rcrops.filter(ex => ex[0] === cropName);
         if (!icrops.length) throw msg.language.get('FARM_NO_HARVEST', cropName === 'all');
+        const { RECIEVED } = msg.language.KEYWORDS;
 
         const mess = this.join(icrops).map((cr) => {
             if (Math.random() * 100 <= hoe.drops[cr[0]][2]) {
@@ -78,7 +80,7 @@ export default class extends MinecraftCommand {
                 // eslint-disable-next-line no-unused-expressions
                 icrop ? icrop[1] += amount : inventory.crops.push([cr[0], amount]);
 
-                return `${Util.toTitleCase(cr[0].replace('_', ' '))}${crop.emote} x${cr[1]} | Recieved: x${amount}\n`;
+                return `${Util.toTitleCase(cr[0].replace('_', ' '))}${crop.emote} x${cr[1]} | ${RECIEVED}: x${amount}\n`;
             }
 
             return '';

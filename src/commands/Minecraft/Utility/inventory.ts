@@ -4,6 +4,7 @@ import Inventory from '../../../lib/game/items/inventory';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { UserInventory } from '../../../lib/game/minecraft';
 import { Tool } from '../../../lib/game/items/tool';
+import { COLORS } from '../../../utils/constants';
 
 type inventoryPage = 'materials' | 'tools' | 'enchants';
 export default class extends MinecraftCommand {
@@ -39,7 +40,7 @@ export default class extends MinecraftCommand {
     private template(user: KlasaUser): MessageEmbed {
         return new MessageEmbed()
             .setAuthor(`${user.tag}'s Inventory`, user.displayAvatarURL())
-            .setColor('#5d97f5');
+            .setColor(COLORS.PRIMARY);
     }
 
     private showProfile(user: KlasaUser, inventory: Inventory): string {

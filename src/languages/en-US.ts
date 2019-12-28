@@ -13,6 +13,16 @@ export default class extends Language {
     constructor(store: LanguageStore, file: string[], directory: string) {
         super(store, file, directory);
 
+        this.KEYWORDS = {
+            LOADING: 'Loading...',
+            RECIEVED: 'Recieved',
+            PLANTED: 'Planted',
+            CROPS: 'Crops',
+            REWARDS: 'Rewards',
+            PROGRESS: 'Progress',
+            PRICE: 'Price',
+            READY: 'Ready'
+        };
 
         this.language = {
 
@@ -175,12 +185,6 @@ export default class extends Language {
             TEXT_PROMPT_ABORT_OPTIONS: ['abort', 'stop', 'cancel'],
 
             /**
-             * KEYWORDS
-             */
-
-            KEYWORDS_LOADING: 'loading...',
-
-            /**
              * General Commands
              */
 
@@ -208,6 +212,7 @@ export default class extends Language {
             LEVEL_UP_TITLE: 'Level UP!!',
             LEVEL_UP_DESCRIPTION: (user, profile) => `${user.toString()}, You have levelled up to: \`Level ${profile.level}\`
             You got: \`${Math.floor(2.5 * (profile.level - 1))} coins\``,
+            PROFILE_FOUND: 'You already have a profile. Great!',
 
             ACTION_DESCRIPTION: (action, name, tool, mess) => `You have ${action} with **${name}** ${tool.emote}: ${mess}`,
 
@@ -215,13 +220,15 @@ export default class extends Language {
              * Command Specific Locales
              */
 
+            CRAFT_INVALID: 'This item is not craftable!',
+            CRAFT_TOOL_1: 'You cannot have more than 1 of the same tool or armor',
             CRAFT_EMBED_DESCRIPTION: (amount, name, item) => `You have successfully crafted **${amount} ${name} ${item.emote}**`,
 
             CRATE_OPEN_DESCRIPTION: (name, mess) => `You opened a **${name}** and found: ${mess}`,
             CRATE_DISPLAY_DESCRIPTION: (prefix, name, mess) => `Use \`${prefix}${name} <crate name>\` to open a crate!
             Here are the Crates that you own:\n${mess}`,
 
-            EQUIP_SUCCESS_DESCRIPTION: (name, item) => `Successfully equipped ${name} ${item.emote}!`,
+            EQUIP_SUCCESS_DESCRIPTION: (name, item) => `Successfully equipped **${name}** ${item.emote}!`,
 
             FARM_NO_CROP: 'Specify which crop you would like to sow!',
             FARM_NO_HARVEST: all => `You do not have ${all ? 'any' : 'that'} crop ready for harvesting!`,
@@ -235,6 +242,8 @@ export default class extends Language {
             QUEST_COMPLETE_TITLE: title => `Quest Complete - ${title}`,
             QUEST_COMPLETE_DESCRIPTION: '**Congratulations! You have completed the quest\nYou have recieved your rewards\nUse the quest command again to get a new quest!**',
             QUEST_PROGRESS_TITLE: title => `Quest In Progress - ${title}`,
+
+            REPAIR_DESCRIPTION: (name, item) => `You have successfully repaired your **${name} ${item.emote}**`,
 
             SELL_DESCRIPTION: (amount, name, item) => `You have successfully sold **${amount} ${name} ${item.emote}** for **${item.price * amount} coins**!`,
 
@@ -254,8 +263,38 @@ export default class extends Language {
             TOP_TITLE: type => `Top players for ${type}`,
             TOP_FOOTER: (position, total) => `Your position: ${position}/${total}`,
 
+            // Trading requires a whole bunch of locales
+            TRADE_NO_PLAYER: (id) => `<@${id}> does not have a player! Please use the start command to begin playing`,
+            TRADE_OTHER: (id) => `<@${id}> is already in a trade with someone else!`,
+            TRADE_NONE: (prefix) => `You are not in a trade with anyone. Use \`${prefix}trade [@user]\` to start trading!`,
+            TRADE_REQUEST_DESCRIPTION: (user1, user2) => `**\`${user2}\` has recieved a trade request from \`${user1}\`**
+            React to confirm or deny the trade request`,
+            TRADE_NO_SELF: 'You cant trade with yourself!',
+            TRADE_REQUEST_DECLINE: (user) => `**${user}** did not accept the trade request`,
+            TRADE_REQUEST_ACCEPT: (user1, user2, prefix) => `
+            **\`${user2}\`, confirmed the trade request from \`${user1}\`**
+
+            Use \`${prefix}trade add <item> [--amount=number]\` to add materials or food to the trade
+            Use \`${prefix}trade remove <item>\` to remove materials or food to trade
+            Use \`${prefix}trade info\` to view the current trade
+            Use \`${prefix}trade confirm\` to confirm
+            Use \`${prefix}trade cancel\` to cancel the trade`,
+
+            TRADE_INVALID_USER: 'Cannot find the other user. Make sure they are in atleast 1 guild where I am in',
+            TRADE_REMOVE_INVALID: (prefix) => `That item is not in the trade. Use \`${prefix}trade add [item] -[amount]\` to add materials or food ot money to the trade`,
+            TRADE_CONFIRM_2: (prefix) => `You have already confirmed the trade use \`${prefix}trade cancel\` to cancel this trade`,
+            TRADE_CONFIRM_CONFIRM: (trader) => `Do you wish to confirm the trade with **${trader.tag}**\nReact with ✅ to confirm the trade`,
+            TRADE_COMPLETE: (user, trader) => `The trade between <@${user.id}> and <@${trader.id}> was completed!`,
+            TRADE_NO_CONFIRM: 'The trade was not confirmed!',
+            // eslint-disable-next-line max-len
+            TRADE_CONFIRM: (user, trader, prefix) => `<@${user.id}> confirmed! Waiting confirmation from **${trader.tag}**\n<@${trader.id}>, please use \`${prefix}trade confirm\` to confirm from your end!`,
+            TRADE_CANCEL_CONFIRM: (trader) => `Do you wish to cancel the trade with **${trader}**\nReact with ✅ to cancel the trade`,
+            TRADE_NO_CANCEL: 'Trade was not cancelled',
+            TRADE_CANCEL: (id1, id2, user) => `The trade between <@${id1}> and <@${id2}> was cancelled by <@${user}>`,
+
             VILLAGER_NO_SALE: 'This item is not for sale',
             VILLAGER_MULTIPLE_EXCEPT: (emerald, name) => `You can trade only multiples of ${emerald} for ${name}`,
+            VILLAGER_BUY_DESCRIPTION: (amount1, name, item, amount2, emerald) => `You brought **${amount1} ${name} ${item.emote}** for **${amount2} Emeralds ${emerald.emote}**`,
             VILLAGER_FOOTER: (prefix, time) => `**
             Use \`${prefix}villager [item] [amount of emeralds]\` to buy an item
     

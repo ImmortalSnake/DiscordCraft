@@ -68,13 +68,14 @@ export default class extends MinecraftCommand {
 
     public buildDisplay(msg: KlasaMessage, [catname, category]: [string, any[]], prefix: string): RichDisplay {
         const text = msg.language.get('SHOP_DISPLAY_TITLE', prefix, this.name, catname);
+        const { PRICE } = msg.language.KEYWORDS;
         const display = new RichDisplay(this.embed(msg)
             .setTitle(`${util.toTitleCase(catname)} Shop`));
 
         for (let i = 0; i < category.length; i += 5) {
             display.addPage((template: MessageEmbed) => template
                 // eslint-disable-next-line max-len
-                .setDescription(text + category.slice(i, ((i / 5) + 1) * 5).map((ex, ik) => `**${ik + i + 1}] ${util.toTitleCase(ex.name.replace('_', ' '))}** ${ex.description ? `- ${ex.description}` : ''}\n**Price: ${this.displayPrice(ex).join(', ')}**\n`).join('\n')));
+                .setDescription(text + category.slice(i, ((i / 5) + 1) * 5).map((ex, ik) => `**${ik + i + 1}] ${util.toTitleCase(ex.name.replace('_', ' '))}** ${ex.description ? `- ${ex.description}` : ''}\n**${PRICE}: ${this.displayPrice(ex).join(', ')}**\n`).join('\n')));
         }
 
         return display;
