@@ -2,11 +2,16 @@
 
 All changes to DiscordCraft will be documented here
 
+## Version 1.0.7
+
+- Localization **(97%)**
+- Commands reorganized to folders
+
 ## Version 1.0.6
 
 - Improved help command [Reminders, Examples]
 - Amount of crops sowed now depends on type of hoe
-- Cook Command
+- [Cook Command](src/commands/Minecraft/Other/cook.ts) in beta testing
 
 ## Version 1.0.5
 
@@ -15,7 +20,7 @@ All changes to DiscordCraft will be documented here
 
 ## Version 1.0.4
 
-- Updated [inventory command](src/commands/Minecraft/inventory.ts)
+- Updated [inventory command](src/commands/Minecraft/Utility/inventory.ts)
 - Inventories now show up as reaction menus (profile, materials, tools, ...)
 - Coins reward for level ups `floor(new level * 2.5)`
 
