@@ -1,7 +1,7 @@
 import { CommandStore, KlasaMessage } from 'klasa';
-import Util from '../../../utils/util';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
-const cooldown = 5 * 60 * 1000;
+import util from '../../../utils/util';
+const cooldown = 10 * 60 * 1000;
 
 export default class extends MinecraftCommand {
 
@@ -45,13 +45,13 @@ export default class extends MinecraftCommand {
                 const crop = this.client.minecraft.store[icrop[0]] as any;
                 const tleft = icrop[2] + crop.time - Date.now();
 
-                return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}** \`[${tleft > 0 ? Util.msToTime(tleft) : READY}]\``;
+                return `**${this.properName(icrop[0])}${crop.emote} x${icrop[1]}** \`[${tleft > 0 ? util.msToTime(tleft) : READY}]\``;
             })
                 .join('\n') || '**')
             .addField(CROPS, inventory.crops.map((icrop) => {
                 const crop = this.client.minecraft.store[icrop[0]];
 
-                return `**${Util.toTitleCase(icrop[0].replace('_', ' '))}${crop.emote} x${icrop[1]}**`;
+                return `**${this.properName(icrop[0])}${crop.emote} x${icrop[1]}**`;
             })
                 .join('\n') || '**'));
     }
@@ -80,11 +80,11 @@ export default class extends MinecraftCommand {
                 // eslint-disable-next-line no-unused-expressions
                 icrop ? icrop[1] += amount : inventory.crops.push([cr[0], amount]);
 
-                return `${Util.toTitleCase(cr[0].replace('_', ' '))}${crop.emote} x${cr[1]} | ${RECIEVED}: x${amount}\n`;
+                return `${this.properName(cr[0])}${crop.emote} x${cr[1]} | ${RECIEVED}: x${amount}\n`;
             }
 
             return '';
-        }).join();
+        }).join('');
 
         inventory.farm.planted = inventory.farm.planted.filter(cr => !rcrops.includes(cr));
         this.addXP(msg, inventory, ehoe);
@@ -95,17 +95,15 @@ export default class extends MinecraftCommand {
     }
 
     private join(arr: [string, number, number?][]): [string, number, number?][] {
-        const arr2 = [] as [string, number, number?][];
-        for (const el of arr) {
-            if (!arr2.some(ex => ex[0] === el[0])) {
-                let total = 0;
-                arr.forEach(ex => { total += ex[1]; });
-
-                arr2.push([el[0], total]);
+        return arr.filter((ex, pos) => {
+            const ie = arr.indexOf(arr.find(ey => ey[0] === ex[0])!);
+            if (ie === pos) {
+                return true;
+            } else {
+                arr[ie][1] += arr[pos][1];
+                return false;
             }
-        }
-
-        return arr2;
+        });
     }
 
 }
