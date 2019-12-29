@@ -20,4 +20,8 @@ export default class DiscordCraft extends KlasaClient {
         this.minecraft = new Minecraft(this, config);
     }
 
+    public get prefix(): string {
+        return Array.isArray(this.options.prefix) ? this.options.prefix[0] : this.options.prefix;
+    }
+
 }

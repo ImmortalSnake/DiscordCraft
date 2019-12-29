@@ -3,6 +3,10 @@ import fetch from 'node-fetch';
 
 export default abstract class extends util {
 
+    static properName(item: string): string {
+        return this.toTitleCase(item.replace('_', ' '));
+    }
+
     static formatTime(syncTime: string, asyncTime?: string): string {
         return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
     }

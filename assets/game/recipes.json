@@ -2,7 +2,8 @@
     "cookie": {
         "milk": 5,
         "wheat": 20,
-        "egg": 5
+        "egg": 5,
+        "coal": 10
     },
 
     "bread": {

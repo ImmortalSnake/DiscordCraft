@@ -71,6 +71,7 @@ export default class extends MinecraftCommand {
 
             const stat = type === 'tools' ? `[${item[1]}/${(it as Tool).durability}]` : `x${item[1]}`;
             let text = `\`${this.properName(item[0])} ${stat}\``;
+            text += item[2] ? ` [${item[2]}]` : '';
 
             if (type === 'tools' && Object.values(inventory.equipped).includes(item[0])) {
                 text = `**${text} (eq)**`;

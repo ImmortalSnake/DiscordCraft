@@ -14,7 +14,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [itemName]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.commandPrefix);
 
         const item = this.client.minecraft.search(itemName);
         if (!item[0]) throw msg.language.get('ITEM_NOT_FOUND', itemName);
@@ -29,7 +29,7 @@ export default class extends MinecraftCommand {
         for (const mat of Object.keys(item.materials)) {
             const imat = inventory.materials.find(ex => ex[0] === mat);
 
-            if (!imat || imat[1] < item.materials[mat] * amount) throw msg.language.get('MATERIAL_REQUIRED', item.materials[mat] * amount, this.properName(itemName));
+            if (!imat || imat[1] < item.materials[mat] * amount) throw msg.language.get('MATERIAL_REQUIRED', item.materials[mat] * amount, this.properName(mat));
             imat[1] -= item.materials[mat] * amount;
         }
 

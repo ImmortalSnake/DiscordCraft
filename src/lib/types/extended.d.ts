@@ -8,4 +8,8 @@ declare module 'klasa' {
     interface Language {
         KEYWORDS: Record<string, string>;
     }
+
+    interface KlasaMessage {
+        commandPrefix: string;
+    }
 }

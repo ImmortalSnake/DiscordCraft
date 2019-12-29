@@ -1,17 +1,13 @@
-import { Extendable, ExtendableStore } from 'klasa';
-import { Message } from 'discord.js';
+import { Extendable, ExtendableStore, KlasaMessage } from 'klasa';
 
 export default class extends Extendable {
 
     public constructor(store: ExtendableStore, file: string[], directory: string) {
-        super(store, file, directory, { appliesTo: [Message] });
+        super(store, file, directory, { appliesTo: [KlasaMessage] });
     }
 
-    public async prompt(this: Message, content: string, time = 60000): Promise<Message> {
-        await this.channel.send(content);
-        const messages = await this.channel.awaitMessages(mes => mes.author === this.author, { time, max: 1 });
-        if (messages.size === 0) throw null;
-        return messages.first()!;
+    public get commandPrefix(this: KlasaMessage): string {
+        return this.guildSettings.get('prefix') as string;
     }
 
 }

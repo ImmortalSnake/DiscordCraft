@@ -15,7 +15,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [crateName]: [string?]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.commandPrefix);
 
         if (crateName) {
             const cName = crateName.replace(' ', '_').toLowerCase();
