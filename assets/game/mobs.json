@@ -1,0 +1,51 @@
+{
+    "hostile": [
+        {
+            "name": "baby_zombie",
+            "image": "https://minecraft.gamepedia.com/File:Baby_Zombie.png"
+        },
+        {
+            "name": "zombie",
+            "image": "https://minecraft.gamepedia.com/File:Zombie.png"
+        },
+        {
+            "name": "skeleton",
+            "image": ""
+        },
+        {
+            "name": "creeper",
+            "image": ""
+        },
+        {
+            "name": "slime",
+            "image": ""
+        },
+        {
+            "name": "",
+            "image": ""
+        }
+    ],
+
+    "friendly": [
+        {
+            "name": "chicken",
+            "image": "",
+            "drops": ["raw_chicken"]
+        },
+        {
+            "name": "pig",
+            "image": "",
+            "drops": []
+        },
+        {
+            "name": "sheep",
+            "image": "",
+            "drops": []
+        },
+        {
+            "name": "cow",
+            "image": "",
+            "drops": ["raw_beef"]
+        }
+    ]
+}

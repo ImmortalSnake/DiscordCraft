@@ -6,6 +6,7 @@ import util from '../../utils/util';
 import { Tool } from '../game/items/tool';
 import { COLORS } from '../../utils/constants';
 import LocaleEmbed from '../structures/LocaleEmbed';
+import { UserInventory } from '../game/minecraft';
 
 export type ToolType = 'hoe' | 'axe' | 'pickaxe' | 'rod' | 'sword';
 type verifyResult = [string, Inventory, string, InventoryItem];
@@ -75,12 +76,13 @@ export default class extends Command {
 
     protected dropRewards(inventory: Inventory, itool: InventoryItem, tool?: any): [string, any[]] {
         if (!tool) tool = this.client.minecraft.store[itool[0]];
+        const { luck } = inventory.profile;
         const updated = [];
         let mess = '';
 
         for (const mat of Object.keys(tool.drops)) {
-            if (Math.random() * 100 <= tool.drops[mat][2]) {
-                let drop = Math.floor(Math.random() * tool.drops[mat][0]) + tool.drops[mat][1] as number;
+            if (Math.random() * 100 <= tool.drops[mat][2] + (Math.random() * luck)) {
+                let drop = Math.floor(Math.random() * (tool.drops[mat][0] + (luck / 5))) + tool.drops[mat][1] as number;
                 const item = this.client.minecraft.store[mat] as Tool;
 
                 // handle fortune enchantments
@@ -132,7 +134,7 @@ export default class extends Command {
      * Sets a custom cooldown for the command in order to be able to change it accordingly for potions and enchants
      * @protected
      */
-    protected setCooldown(user: { id: string, inventory: Inventory }, cooldown: number, itool: [string, number, string?]): void {
+    protected setCooldown(user: UserInventory, cooldown: number, itool: [string, number, string?]): void {
         if (itool[2] && itool[2].startsWith('efficiency')) {
             const lvl = parseInt(itool[2].split('-')[1]);
             // 95% - 75%

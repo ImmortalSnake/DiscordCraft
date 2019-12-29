@@ -80,11 +80,11 @@ export default class extends MinecraftCommand {
                 // eslint-disable-next-line no-unused-expressions
                 icrop ? icrop[1] += amount : inventory.crops.push([cr[0], amount]);
 
-                return `${this.properName(cr[0])}${crop.emote} x${cr[1]} | ${RECIEVED}: x${amount}\n`;
+                return `${this.properName(cr[0])}${crop.emote} x${cr[1]} | ${RECIEVED}: x${amount}`;
             }
 
             return '';
-        }).join('');
+        }).join('\n');
 
         inventory.farm.planted = inventory.farm.planted.filter(cr => !rcrops.includes(cr));
         this.addXP(msg, inventory, ehoe);

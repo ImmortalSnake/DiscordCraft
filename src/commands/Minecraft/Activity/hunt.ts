@@ -13,6 +13,12 @@ export default class extends MinecraftCommand {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [id, inventory, eaxe, iaxe] = await this.verify(msg, 'sword');
 
+        if (Math.random() > 0.5) {
+            // Mobs
+        } else {
+            // Animals
+
+        }
         return msg.send('This command is not ready yet!');
     }
 
