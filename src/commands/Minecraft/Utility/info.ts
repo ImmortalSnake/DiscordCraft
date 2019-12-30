@@ -41,8 +41,8 @@ export default class extends MinecraftCommand {
     private stats(item: any): string {
         let mess = '';
 
+        if (item.price) mess += `**Price:** ${item.durability}\n`;
         if (item.durability) mess += `**Durability:** ${item.durability}\n`;
-        if (item.energy) mess += `**Energy:** ${item.energy}\n`;
         if (item.dmg) mess += `**Damage** ${item.dmg}\n`;
         if (item.speed) mess += `**Speed** ${item.speed}\n`;
         if (item.energy) mess += `**Energy** ${item.energy}\n`;

@@ -7,7 +7,7 @@
 
     "coal": {
         "type": "materials",
-        "price": 5,
+        "price": 3,
         "emote": "<:coal:560905931387568130>"
     },
 
@@ -25,19 +25,19 @@
     
     "lapis": {
         "type": "materials",
-        "price": 25,
+        "price": 20,
         "emote": "<:lapis:560905093344395268>"
     },
 
     "redstone": {
         "type": "materials",
-        "price": 25,
+        "price": 20,
         "emote": "<:redstone:560905123539451956>"
     },
       
     "gold": {
         "type": "materials",
-        "price": 100,
+        "price": 75,
         "emote": "<:gold:560733707351097354>"
     },
       
@@ -49,7 +49,7 @@
       
     "diamond": {
         "type": "materials",
-        "price": 200,
+        "price": 150,
         "emote": "<:diamond:560734378393862146>"
     },
       

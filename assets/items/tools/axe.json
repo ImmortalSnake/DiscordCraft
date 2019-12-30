@@ -110,7 +110,11 @@
         "emote": "<:diamondaxe:>",
         "xp": [3, 4, 100],
 
-        "enchants": [],
+        "enchants": [
+            "unbreaking-",
+            "fortune-",
+            "efficiency-"
+        ],
 
         "drops": {
             "wood": [4, 8, 100]

@@ -13,6 +13,13 @@
             "price": {
                 "coin": 50
             }
+        },
+        {
+            "name": "potato",
+            "emote": "",
+            "price": {
+                "coin": 50
+            }
         }
     ],
     "crates": [

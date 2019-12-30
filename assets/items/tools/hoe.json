@@ -11,12 +11,14 @@
 
         "size": {
             "wheat": 5,
-            "carrot": 2
+            "carrot": 2,
+            "potato": 2
         },
         
         "drops": {
             "wheat": [2, 1, 100],
-            "carrot": [2, 1, 100]
+            "carrot": [2, 1, 100],
+            "potato": [2, 1, 100]
         },
 
         "materials": {
@@ -25,6 +27,74 @@
 
         "repair": {
             "wood": 20
+        }
+    },
+
+    "stone_hoe": {
+        "type": "tools",
+        "durability": 100,
+        "emote": "<:stonehoe:562373671654522881>",
+        "xp": [2, 6, 100],
+        "enchants": [
+            "fortune-",
+            "efficiency-"
+        ],
+
+        "size": {
+            "wheat": 10,
+            "carrot": 5,
+            "potato": 5
+        },
+        
+        "drops": {
+            "wheat": [2, 2, 100],
+            "carrot": [2, 2, 100],
+            "potato": [2, 2, 100]
+        },
+
+        "materials": {
+            "wood": 100,
+            "stone": 50
+        },
+
+        "repair": {
+            "wood": 30,
+            "stone": 15
+        }
+    },
+
+    "iron_hoe": {
+        "type": "tools",
+        "durability": 300,
+        "emote": "<:ironhoe:562373880162025483>",
+        "xp": [3, 8, 100],
+        "enchants": [
+            "fortune-",
+            "efficiency-"
+        ],
+
+        "size": {
+            "wheat": 20,
+            "carrot": 10,
+            "potato": 10
+        },
+        
+        "drops": {
+            "wheat": [2, 3, 100],
+            "carrot": [2, 3, 100],
+            "potato": [2, 3, 100]
+        },
+
+        "materials": {
+            "wood": 200,
+            "stone": 100,
+            "iron": 30
+        },
+
+        "repair": {
+            "wood": 50,
+            "stone": 25,
+            "iron": 5
         }
     }
 }

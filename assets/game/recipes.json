@@ -9,5 +9,15 @@
     "bread": {
         "wheat": 10,
         "coal": 5
+    },
+
+    "baked_potato": {
+        "potato": 5,
+        "coal": 5
+    },
+
+    "cooked_cod": {
+        "raw_cod": 1,
+        "coal": 2
     }
 }

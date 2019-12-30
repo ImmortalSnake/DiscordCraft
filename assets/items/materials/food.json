@@ -2,18 +2,28 @@
     "wheat": {
         "type": "materials",
         "emote": "<:wheat:561544489194356756>",
-        "time": 300000
+        "price": 1,
+        "time": 600000
     },
 
     "carrot": {
         "type": "materials",
         "emote": "<:carrot:561543767103111168>",
-        "time": 1200000
+        "price": 5,
+        "time": 1800000
+    },
+
+    "potato": {
+        "type": "materials",
+        "emote": "<:potato:561544134330941444>",
+        "price": 5,
+        "time": 1800000
     },
 
     "raw_chicken": {
         "type": "materials",
         "emote": "<:rawchicken:562937076178485268>",
+        "price": 20,
         "energy": -10
     },
 
@@ -26,40 +36,47 @@
     "mushroom": {
         "type": "materials",
         "emote": "<:wheat:561544489194356756>",
+        "price": 10,
         "energy": 20
     },
     
     "sugar": {
         "type": "materials",
         "emote": "<:wheat:561544489194356756>",
+        "price": 10,
         "energy": 18
       },
 
     "milk": {
         "type": "materials",
         "emote": "<:milk:561544638800986144>",
+        "price": 20,
         "energy": 25
     },
 
     "pumpkin": {
         "type": "materials",
-        "emote": ""
+        "price": 10,
+        "emote": "<:pumpkin:562292790936207383>"
     },
       
     "cocoa": {
         "type": "materials",
+        "price": 10,
         "emote": "<:cocoa:563620422097305603>"
     },
       
     "bread": {
         "type": "materials",
         "emote": "<:bread:562961357746733058>",
+        "price": 30,
         "energy": 40
     },
       
     "golden_apple": {
         "type": "materials",
         "emote": "<:goldenapple:566504525415055365>",
+        "price": 500,
         "energy": 1000
     },
       
@@ -90,36 +107,42 @@
     "raw_cod": {
         "type": "materials",
         "emote": "<:rawcod:566518147251830787>",
+        "price": 10,
         "energy": -5
     },
       
     "tropical_fish": {
         "type": "materials",
         "emote": "<:tropicalfish:566518147251830787>",
+        "price": 25,
         "energy": 30
     },
       
     "cooked_cod": {
         "type": "materials",
         "emote": "<:cookedcod:574333247044059151>",
+        "price": 20,
         "energy": 25
     },
     
     "cooked_salmon": {
         "type": "materials",
         "emote": "<:cookedsalmon:566503739452686336>",
+        "price": 30,
         "energy": 25
     },
       
     "baked_potato": {
         "type": "materials",
         "emote": "<:bakedpotato:563672677123096576>",
+        "price": 50,
         "energy": 50
     },
       
     "cookie": {
         "type": "materials",
         "emote": "<:cookie:563417969254727681>",
+        "price": 100,
         "energy": 100
     }
 }

@@ -105,10 +105,10 @@
             "stone": [2, 2, 100],
             "coal": [2, 2, 90],
             "iron": [2, 2, 90],
-            "emerald": [1, 1, 1],
+            "emerald": [1, 1, 10],
             "redstone": [1, 1, 25],
             "lapis": [1, 1, 25],
-            "gold": [1, 1, 2],
+            "gold": [1, 1, 20],
             "diamond": [1, 1, 8]
         },
 
@@ -143,12 +143,12 @@
             "stone": [3, 3, 95],
             "coal": [3, 3, 95],
             "iron": [3, 3, 100],
-            "emerald": [1, 1, 2],
-            "redstone": [1, 1, 8],
-            "lapis": [1, 1, 8],
+            "emerald": [1, 1, 20],
+            "redstone": [1, 1, 80],
+            "lapis": [1, 1, 80],
             "gold": [1, 1, 25],
-            "diamond": [1, 1, 1],
-            "obsidian": [1, 1, 2]
+            "diamond": [1, 1, 10],
+            "obsidian": [1, 1, 20]
         },
 
         "materials": {
