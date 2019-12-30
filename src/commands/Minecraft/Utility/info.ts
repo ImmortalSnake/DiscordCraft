@@ -5,7 +5,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<item:...str>'
+            usage: '<item:...str>',
+            examples: ['diamond pickaxe']
         });
     }
 
@@ -41,7 +42,7 @@ export default class extends MinecraftCommand {
     private stats(item: any): string {
         let mess = '';
 
-        if (item.price) mess += `**Price:** ${item.durability}\n`;
+        if (item.price) mess += `**Price:** ${item.price}\n`;
         if (item.durability) mess += `**Durability:** ${item.durability}\n`;
         if (item.dmg) mess += `**Damage** ${item.dmg}\n`;
         if (item.speed) mess += `**Speed** ${item.speed}\n`;

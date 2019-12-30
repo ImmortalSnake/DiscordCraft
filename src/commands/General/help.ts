@@ -14,7 +14,8 @@ export default class extends MinecraftCommand {
             guarded: true,
             usage: '(Command:command|page:integer|category:category)',
             flagSupport: true,
-            runIn: ['text', 'dm']
+            runIn: ['text', 'dm'],
+            examples: ['', 'start', 'general', '3']
         });
 
         this.createCustomResolver('command', (arg, possible, msg) => {
@@ -124,7 +125,9 @@ export default class extends MinecraftCommand {
                 if (category) category.push(command);
                 else commands.set(cat, [command]);
                 return null;
-            }).catch(() => {})));
+            }).catch(() => {
+                // noop
+            })));
 
         return commands;
     }

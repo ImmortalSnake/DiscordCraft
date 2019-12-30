@@ -7,7 +7,8 @@ export default class extends MinecraftCommand {
     private readonly emerald: any;
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '[item:str] [amount:int{1,}]'
+            usage: '[item:str] [amount:int{1,}]',
+            examples: ['', 'gold', 'iron 5']
         });
 
         this.emerald = this.client.minecraft.store.emerald;

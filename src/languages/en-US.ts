@@ -214,7 +214,7 @@ export default class extends Language {
             You got: \`${Math.floor(2.5 * (profile.level - 1))} coins\``,
             PROFILE_FOUND: 'You already have a profile. Great!',
 
-            ACTION_DESCRIPTION: (action, name, tool, mess) => `You have ${action} with **${name}** ${tool.emote}: ${mess}`,
+            ACTION_DESCRIPTION: (action, name, tool, mess) => `You have ${action} with **${name}** ${tool.emote} ${mess}`,
 
             /**
              * Command Specific Locales

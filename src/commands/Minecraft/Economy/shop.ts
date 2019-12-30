@@ -13,7 +13,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: `[${categories.join('|')}] [item:number] [amount:number]`
+            usage: `[${categories.join('|')}] [item:number] [amount:number]`,
+            examples: ['crates', 'enchants 2', 'crops 2 3']
         });
     }
 

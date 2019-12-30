@@ -5,7 +5,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<food:...str>'
+            usage: '<food:...str>',
+            examples: ['baked potato']
         });
     }
 

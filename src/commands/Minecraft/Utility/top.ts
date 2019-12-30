@@ -11,7 +11,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<level|coins:default> [page:int{1,10}]'
+            usage: '<level|coins:default> [page:int{1,10}]',
+            examples: ['', 'level']
         });
     }
 
