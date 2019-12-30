@@ -179,7 +179,7 @@ export default class extends Language {
                 `• Discord.js   :: v${discordVersion}`,
                 `• Node.js      :: ${processVersion}`,
                 `• Shard        :: ${(message.guild ? message.guild.shardID : 0) + 1} / ${this.client.options.shardCount}`
-            ],
+            ].join('\n'),
             COMMAND_STATS_DESCRIPTION: 'Provides some details about the bot and stats.',
             MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
             TEXT_PROMPT_ABORT_OPTIONS: ['abort', 'stop', 'cancel'],
@@ -309,6 +309,11 @@ export default class extends Language {
                 extendedHelp: `Once you recieve an axe, you can chop wood
                 Better the axe more are the drops!
                 Gold and Diamond axe can even drop fruits`
+            }),
+
+            COMMAND_COOK_DESCRIPTION: 'Cook tasty food!!',
+            COMMAND_COOK_EXTENDED: builder.display({
+                extendedHelp: `To cook food you need a furnace`
             }),
 
             COMMAND_CRAFT_DESCRIPTION: 'Craft tools, armor and other items that will help you on your adventure!',

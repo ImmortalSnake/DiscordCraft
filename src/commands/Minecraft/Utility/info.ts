@@ -21,6 +21,7 @@ export default class extends MinecraftCommand {
         if (item.materials) embed.addField('Materials Required', this.getStat(item.materials), true);
         if (item.drops) embed.addField('Drops', this.getStat(item.drops), true);
         if (item.repair) embed.addField('Repair', this.getStat(item.repair), true);
+        if (item.recipe) embed.addField('Recipe', this.getStat(item.recipe), true);
 
         return msg.send(embed);
     }
