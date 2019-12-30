@@ -1,6 +1,7 @@
 import { CommandStore, KlasaMessage, Duration, version as klasaVersion } from 'klasa';
 import { version as discordVersion } from 'discord.js';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
+import util from '../../utils/util';
 
 export default class extends MinecraftCommand {
 
@@ -11,7 +12,7 @@ export default class extends MinecraftCommand {
         });
     }
 
-    public async run(message: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
+    public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         let [users, guilds, channels, memory] = [0, 0, 0, 0];
 
         if (this.client.shard) {
@@ -24,14 +25,17 @@ export default class extends MinecraftCommand {
             }
         }
 
-        return message.sendCode('asciidoc', message.language.get('COMMAND_STATS',
-            (memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
-            Duration.toNow(Date.now() - (process.uptime() * 1000)),
-            (users || this.client.users.size).toLocaleString(),
-            (guilds || this.client.guilds.size).toLocaleString(),
-            (channels || this.client.channels.size).toLocaleString(),
-            klasaVersion, discordVersion, process.version, message
-        ));
+        return msg.send(this.embed(msg)
+            .addField('Support', `[Click Here](${this.client.support})`, true)
+            .addField('Invite', `[Click Here](${this.client.invite})`, true)
+            .setDescription(util.codeBlock('asciidoc', msg.language.get('COMMAND_STATS',
+                (memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
+                Duration.toNow(Date.now() - (process.uptime() * 1000)),
+                (users || this.client.users.size).toLocaleString(),
+                (guilds || this.client.guilds.size).toLocaleString(),
+                (channels || this.client.channels.size).toLocaleString(),
+                klasaVersion, discordVersion, process.version, msg
+            ))));
     }
 
 }

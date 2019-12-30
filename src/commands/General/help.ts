@@ -100,6 +100,18 @@ export default class extends MinecraftCommand {
         const prefix = msg.guildSettings.get('prefix') as string;
 
         const display = new UserRichDisplay(this.embed(msg));
+        display.addPage((template: MessageEmbed) => template
+            .setTitle('Help')
+            .setDescription(`
+            Use the reactions to view all commands or use:
+            \`${prefix}${this.name} <command>\` to view detailed info of a command
+            \`${prefix}${this.name} <category>\` to view all commands in a category
+            \`${prefix}${this.name} <page number>\` to view all commands in a page
+            
+            To start using the bot, create a profile using \`${prefix}start\`
+            [Support](${this.client.support})
+            [Invite](${this.client.invite})`));
+
         for (const [category, commands] of commandsByCategory) {
             display.addPage((template: MessageEmbed) => template
                 .setTitle(`${category} Commands`)

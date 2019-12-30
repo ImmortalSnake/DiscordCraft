@@ -34,6 +34,7 @@ export const mongoOptions = {
 export const MinecraftOptions = {
     clientID: '557831541653241857',
     developer: '410806297580011520',
+    support: 'https://discord.gg/RZjVQ6',
     config: {
         // eslint-disable-next-line no-process-env
         provider: process.env.DATABASE
