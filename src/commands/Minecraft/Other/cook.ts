@@ -6,7 +6,8 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<food:...str>',
-            examples: ['baked potato']
+            examples: ['baked potato', 'bread --amount=2'],
+            cooldown: 60000
         });
     }
 
@@ -15,17 +16,17 @@ export default class extends MinecraftCommand {
         if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.commandPrefix);
 
         const foodName = food.toLowerCase().replace(' ', '_');
-        const recipe = this.client.minecraft.recipes[foodName];
-        const amount = 1;
-        if (!recipe) throw 'This item cannot be cooked!';
+        const it = this.client.minecraft.store[foodName] as any;
+        const amount = parseInt(msg.flagArgs.amount) || 1;
+        if (!it.recipe) throw 'This item cannot be cooked!';
 
         if (!inventory.storage.furnace) throw 'You need a furnace to do this. Buy one from the shop!';
 
-        for (const mat of Object.keys(recipe)) {
+        for (const mat of Object.keys(it.recipe)) {
             const imat = inventory.materials.find(ex => ex[0] === mat) || inventory.crops.find(ex => ex[0] === mat);
 
-            if (!imat || imat[1] < recipe[mat] * amount) return msg.send(`You need ${recipe[mat] * amount} ${mat} to cook ${amount} ${food}!`);
-            imat[1] -= recipe[mat];
+            if (!imat || imat[1] < it.recipe[mat] * amount) return msg.send(`You need ${it.recipe[mat] * amount} ${mat} to cook ${amount} ${food}!`);
+            imat[1] -= it.recipe[mat] * amount;
         }
 
         const item = inventory.materials.find(ix => ix[0] === foodName);

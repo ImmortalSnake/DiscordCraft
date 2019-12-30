@@ -69,8 +69,12 @@
     "bread": {
         "type": "materials",
         "emote": "<:bread:562961357746733058>",
-        "price": 30,
-        "energy": 40
+        "price": 20,
+        "energy": 40,
+        "recipe": {
+            "wheat": 10,
+            "coal": 2
+        }
     },
       
     "golden_apple": {
@@ -122,7 +126,11 @@
         "type": "materials",
         "emote": "<:cookedcod:574333247044059151>",
         "price": 20,
-        "energy": 25
+        "energy": 20,
+        "recipe": {
+            "raw_cod": 1,
+            "coal": 2
+        }
     },
     
     "cooked_salmon": {
@@ -135,14 +143,24 @@
     "baked_potato": {
         "type": "materials",
         "emote": "<:bakedpotato:563672677123096576>",
-        "price": 50,
-        "energy": 50
+        "price": 30,
+        "energy": 30,
+        "recipe": {
+            "potato": 3,
+            "coal": 3
+        }
     },
       
     "cookie": {
         "type": "materials",
         "emote": "<:cookie:563417969254727681>",
         "price": 100,
-        "energy": 100
+        "energy": 100,
+        "recipe": {
+            "milk": 5,
+            "wheat": 20,
+            "egg": 5,
+            "coal": 10
+        }
     }
 }
