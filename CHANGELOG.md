@@ -2,9 +2,16 @@
 
 All changes to DiscordCraft will be documented here
 
+## Vwrsion 1.1.0
+
+- Added `Stone Hoe`, `Gold Hoe`
+- Added `potatoes`
+- Fixed Farm bugs
+- Updated `info`, `stats` command
+  
 ## Version 1.0.7
 
-- Localization **(97%)**
+- Localization **(94%)**
 - Commands reorganized to folders
 
 ## Version 1.0.6

@@ -1,4 +1,3 @@
-import { Client } from 'discord.js';
 import { KlasaClientOptions } from 'klasa';
 
 export const config = {
@@ -15,7 +14,7 @@ export const config = {
         }
     },
 
-    readyMessage: (client: Client) => `Logged in as ${client.user!.tag}. Ready to serve ${client.guilds.size} guilds.`
+    readyMessage: (client) => `Logged in as ${client.user!.tag}. Ready to serve ${client.guilds.size} guilds.`
 } as KlasaClientOptions;
 
 export const mongoOptions = {

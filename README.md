@@ -12,17 +12,19 @@
 
 Made with [Klasa](https://github.com/dirigeants/klasa), [Discord.js](https://github.com/discordjs/discord.js) and [Typescript](https://www.typescriptlang.org/). Uses [MongoDB](https://www.mongodb.com/) for database
 
-[Support](https://discord.gg/q2ZpFG4)\
-[Invite](https://discordapp.com/oauth2/authorize?client_id=557831541653241857&permissions=3072&scope=bot)
+[Support Server](https://discord.gg/q2ZpFG4)\
+[Invite The Bot](https://discordapp.com/oauth2/authorize?client_id=557831541653241857&permissions=3072&scope=bot)
 
 ## Features
 
 1. **Chop and Mine** your way to collect materials
 2. **Craft** tools for better drops
-3. **Farm** crops and harvest them
-4. **Trade** items with other players
-5. **Shop** for enchantments, potions, crops
-6. **Compete** with other players in a global leaderboard
+3. **Enchant** tools to make them better and stronger
+4. **Farm** crops and harvest them
+5. **Trade** items with other players
+6. **Shop** for enchantments, potions, crops, crates
+7. **Compete** with other players in a global leaderboard
+8. **Much More** including villagers, food, fishing, quests
 
 ## FAQ
 

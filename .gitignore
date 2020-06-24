@@ -1,8 +1,19 @@
+# logs
+logs
+*.log
+
+# ignore node modules
 node_modules/
+
+# build directories
 dist/
+
+# Test folders
+test/
+
+# editors
 .vscode/
+.idea/
+
+# env variables
 .env
-TODO.txt
-lint.bat
-start.bat
-Procfile

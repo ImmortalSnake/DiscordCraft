@@ -12,7 +12,7 @@ export default class DiscordCraft extends KlasaClient {
     public id = clientID;
     public developer = developer;
     public support = support;
-    public version = 'v 1.0.3';
+    public version = 'v 1.1.0';
 
     public constructor(options: KlasaClientOptions) {
         super(options);
