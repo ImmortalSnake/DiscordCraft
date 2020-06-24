@@ -13,3 +13,9 @@ declare module 'klasa' {
         commandPrefix: string;
     }
 }
+
+declare module 'klasa-dashboard-hooks' {
+    class Route {
+        public constructor(store: RouteStore, file: string[], directory: string, options?: RouteOptions): Route;
+    }
+}

@@ -13,9 +13,8 @@ export const config = {
             name: 'to d!help'
         }
     },
-    providers: {
-        default: provider
-    },
+    providers: { default: provider },
+    dashboardHooks: { apiPrefix: '/', port: process.env.PORT },
     pieceDefaults: {
         commands: {
             runIn: ['text'],

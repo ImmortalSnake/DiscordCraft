@@ -710,6 +710,12 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
+"klasa-dashboard-hooks@github:dirigeants/klasa-dashboard-hooks#master":
+  version "0.0.1-dev"
+  resolved "https://codeload.github.com/dirigeants/klasa-dashboard-hooks/tar.gz/031248f907b92927ccc3bd585d6a8da85e6522de"
+  dependencies:
+    node-fetch "^2.6.0"
+
 klasa@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/klasa/-/klasa-0.5.0.tgz#fc8f91945670469d14dc6184f3c5b1e3ee6c3afa"

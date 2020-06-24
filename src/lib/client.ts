@@ -1,10 +1,14 @@
 import './structures/schemas/clientStorage';
+
 import { KlasaClient, KlasaClientOptions } from 'klasa';
+import { DashboardClient} from 'klasa-dashboard-hooks'
 import { MinecraftOptions } from '../config';
 import permissionLevel from './structures/permissionLevel';
 import Minecraft from './game/minecraft';
 
 const { clientID, developer, support, config } = MinecraftOptions;
+
+KlasaClient.use(DashboardClient);
 
 export default class DiscordCraft extends KlasaClient {
 
