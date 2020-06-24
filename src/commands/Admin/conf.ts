@@ -1,4 +1,4 @@
-import { Command, util, CommandStore, KlasaMessage, SettingsFolderUpdateResult, SchemaEntry, SchemaFolder, Schema } from 'klasa';
+import { Command, util, CommandStore, KlasaMessage, SchemaFolder, Schema, SettingsUpdateResult, SettingsUpdateResultEntry } from 'klasa';
 
 export default class extends Command {
 
@@ -8,7 +8,7 @@ export default class extends Command {
             guarded: true,
             subcommands: true,
             description: language => language.get('COMMAND_CONF_SERVER_DESCRIPTION'),
-            usage: '<set|show|remove|reset> (key:key) (value:value)'
+            usage: '<set|remove|reset|show:default> (key:key) (value:value) [...]'
         });
 
         this
@@ -29,40 +29,40 @@ export default class extends Command {
         if (entry.type === 'Folder') {
             return msg.sendLocale('COMMAND_CONF_SERVER', [
                 key ? `: ${key.split('.').map(util.toTitleCase).join('/')}` : '',
-                util.codeBlock('asciidoc', msg.guild!.settings.display(msg, entry))
+                util.codeBlock('asciidoc', msg.guild!.settings.list(msg, entry.path))
             ]);
         }
-        return msg.sendLocale('COMMAND_CONF_GET', [entry.path, msg.guild!.settings.display(msg, entry)]);
+        return msg.sendLocale('COMMAND_CONF_GET', [entry.path, msg.guild!.settings.resolveString(msg, entry.path)]);
     }
 
     public async set(msg: KlasaMessage, [key, valueToSet]: [string, string]): Promise<KlasaMessage | KlasaMessage[]> {
-        const entry = this.check(msg, key, await msg.guild!.settings.update(key, valueToSet, { onlyConfigurable: true, arrayAction: 'add' }));
-        return msg.sendLocale('COMMAND_CONF_UPDATED', [key, msg.guild!.settings.display(msg, entry)]);
+        const entry = this.check(msg, key, await msg.guild!.settings.update(key, valueToSet, { avoidUnconfigurable: true, action: 'add' }));
+        return msg.sendLocale('COMMAND_CONF_UPDATED', [key, msg.guild!.settings.resolveString(msg, entry.piece.path)]);
     }
 
     public async remove(msg: KlasaMessage, [key, valueToRemove]: [string, string]): Promise<KlasaMessage | KlasaMessage[]> {
-        const entry = this.check(msg, key, await msg.guild!.settings.update(key, valueToRemove, { onlyConfigurable: true, arrayAction: 'remove' }));
-        return msg.sendLocale('COMMAND_CONF_UPDATED', [key, msg.guild!.settings.display(msg, entry)]);
+        const entry = this.check(msg, key, await msg.guild!.settings.update(key, valueToRemove, { avoidUnconfigurable: true, action: 'remove' }));
+        return msg.sendLocale('COMMAND_CONF_UPDATED', [key, msg.guild!.settings.resolveString(msg, entry.piece.path)]);
     }
 
     public async reset(msg: KlasaMessage, [key]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const entry = this.check(msg, key, await msg.guild!.settings.reset(key));
-        return msg.sendLocale('COMMAND_CONF_RESET', [key, msg.guild!.settings.display(msg, entry)]);
+        return msg.sendLocale('COMMAND_CONF_RESET', [key, msg.guild!.settings.resolveString(msg, entry.piece.path)]);
     }
 
-    private check(msg: KlasaMessage, key: string, { errors, updated }: SettingsFolderUpdateResult): SchemaEntry {
+    private check(msg: KlasaMessage, key: string, { errors, updated }: SettingsUpdateResult): SettingsUpdateResultEntry {
         if (errors.length) throw String(errors[0]);
         if (!updated.length) throw msg.language.get('COMMAND_CONF_NOCHANGE', key);
-        return updated[0].entry;
+        return updated[0];
     }
 
-    private getPath(key: string): SchemaFolder | Schema | undefined {
-        const { schema } = this.client.gateways.get('guilds')!;
+    private getPath(key: string): SchemaFolder | Schema | null {
+        const { schema } = this.client.gateways.guilds!;
         if (!key) return schema;
         try {
-            return schema.get(key);
+            return schema!.get(key);
         } catch (__) {
-            return undefined;
+            return null;
         }
     }
 

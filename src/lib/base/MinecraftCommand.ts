@@ -148,7 +148,7 @@ export default class extends Command {
             cooldown *= ((100 - ((lvl ** 2) + 1)) * 5) / 100;
         }
 
-        if (!this.client.owners.has(this.client.users.get(user.id)!)) {
+        if (!this.client.owners.has(this.client.users.cache.get(user.id)!)) {
             (this.cooldowns.get(user.id) || this.cooldowns.set(user.id, new RateLimit(1, cooldown)).get(user.id)!).drip();
         }
     }

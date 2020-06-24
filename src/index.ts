@@ -14,4 +14,4 @@ import DiscordCraft from './lib/client';
 import { config } from './config';
 
 // eslint-disable-next-line no-process-env
-new DiscordCraft(config).login(process.env.token);
+new DiscordCraft(config).login(process.env.TOKEN);

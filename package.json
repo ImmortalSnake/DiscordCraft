@@ -26,9 +26,9 @@
     "url": "https://github.com/ImmortalSnake/DiscordCraft/issues"
   },
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#master",
-    "dotenv": "^8.1.0",
-    "klasa": "github:dirigeants/klasa#settings",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "klasa": "^0.5.0",
     "mongodb": "^3.3.2"
   },
   "devDependencies": {

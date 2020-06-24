@@ -6,7 +6,7 @@ export default class extends Extendable {
         super(store, file, directory, { appliesTo: [KlasaMessage] });
     }
 
-    public get commandPrefix(this: KlasaMessage): string {
+    public commandPrefix(this: KlasaMessage): string {
         return this.guildSettings.get('prefix') as string;
     }
 

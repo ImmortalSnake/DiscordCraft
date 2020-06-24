@@ -5,7 +5,8 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            enabled: false
+            enabled: false,
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS']
         });
     }
 

@@ -14,6 +14,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: `[${categories.join('|')}] [item:number] [amount:number]`,
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS'],
             examples: ['crates', 'enchants 2', 'crops 2 3']
         });
     }

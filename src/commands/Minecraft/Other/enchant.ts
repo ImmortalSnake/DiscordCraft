@@ -7,6 +7,7 @@ export default class extends MinecraftCommand {
         super(store, file, directory, {
             usage: '<tool:str> <enchantment:str>',
             usageDelim: ':',
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS'],
             examples: ['stone axe : efficiency-2']
         });
     }

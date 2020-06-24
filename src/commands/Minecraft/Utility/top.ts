@@ -12,6 +12,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<level|coins:default> [page:int{1,10}]',
+            requiredPermissions: ['ADD_REACTIONS', 'EMBED_LINKS'],
             examples: ['', 'level']
         });
     }
@@ -36,7 +37,7 @@ export default class extends MinecraftCommand {
         for (let i = 0; i < sorted.length; i += npage) {
             display.addPage((template: MessageEmbed) => template
                 .setDescription(sorted.slice(i, ((i / npage) + 1) * npage).map((eh, ek) => {
-                    const pl = this.client.users.get(eh.id);
+                    const pl = this.client.users.cache.get(eh.id);
                     const val = eh.inventory && eh.inventory.profile ? eh.inventory.profile[type] || 0 : 0;
                     return `**${ek + i + 1}] ${pl ? pl.tag : eh.inventory.profile.name}** - \`${val} ${type}\``;
                 }).join('\n')

@@ -6,6 +6,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<food:...str>',
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS'],
             examples: ['baked potato', 'bread --amount=2'],
             cooldown: 60000
         });

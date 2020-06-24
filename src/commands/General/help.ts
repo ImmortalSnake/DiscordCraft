@@ -3,6 +3,7 @@ import { CommandStore, KlasaMessage, util, Command } from 'klasa';
 import { UserRichDisplay } from '../../lib/structures/UserRichDisplay';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { COLORS } from '../../utils/constants';
+import LocaleEmbed from '../../lib/structures/LocaleEmbed';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 
@@ -13,6 +14,7 @@ export default class extends MinecraftCommand {
             aliases: ['commands', 'cmd', 'cmds'],
             guarded: true,
             usage: '(Command:command|page:integer|category:category)',
+            requiredPermissions: ['EMBED_LINKS'],
             flagSupport: true,
             runIn: ['text', 'dm'],
             examples: ['', 'start', 'general', '3']
@@ -51,13 +53,13 @@ export default class extends MinecraftCommand {
         // Handle case for a single command
         const command = typeof commandOrPage === 'object' ? commandOrPage : null;
         if (command) {
-            return msg.sendMessage([
-                msg.language.get('COMMAND_HELP_TITLE', command.name, util.isFunction(command.description) ? command.description(msg.language) : command.description),
-                msg.language.get('COMMAND_HELP_ALIASES', command.aliases),
-                msg.language.get('COMMAND_HELP_USAGE', command instanceof MinecraftCommand ? command.fullUsage(msg) : command.usage.fullUsage(msg)),
-                msg.language.get('COMMAND_HELP_EXTENDED', util.isFunction(command.extendedHelp) ? command.extendedHelp(msg.language) : command.extendedHelp),
-                command instanceof MinecraftCommand ? msg.language.get('COMMAND_HELP_EXAMPLE', command.displayExamples) : ''
-            ].join('\n'));
+            return msg.send(this.embed(msg).setLocaleDescription([
+                ['COMMAND_HELP_TITLE', command.name, util.isFunction(command.description) ? command.description(msg.language) : command.description],
+                ['COMMAND_HELP_ALIASES', command.aliases],
+                ['COMMAND_HELP_USAGE', command instanceof MinecraftCommand ? command.fullUsage(msg) : command.usage.fullUsage(msg)],
+                ['COMMAND_HELP_EXTENDED', util.isFunction(command.extendedHelp) ? command.extendedHelp(msg.language) : command.extendedHelp],
+                command instanceof MinecraftCommand ? ['COMMAND_HELP_EXAMPLE', command.displayExamples] : []
+            ]));
         }
 
         if (!msg.flagArgs.all && msg.guild && (msg.channel as TextChannel).permissionsFor(this.client.user!)!.has(PERMISSIONS_RICHDISPLAY)) {

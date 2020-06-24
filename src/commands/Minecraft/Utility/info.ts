@@ -6,6 +6,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<item:...str>',
+            requiredPermissions: ['EMBED_LINKS', 'USE_EXTERNAL_EMOJIS'],
             examples: ['diamond pickaxe']
         });
     }

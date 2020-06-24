@@ -10,6 +10,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             usage: '<add|remove|confirm|cancel|info|user:user> [item:...str]',
+            requiredPermissions: ['ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'EMBED_LINKS'],
             examples: ['@ImmortalSnake', 'add wheat', 'add coins --amount=4', 'add coal all', 'remove gold', 'cancel', 'confirm', 'view']
         });
 

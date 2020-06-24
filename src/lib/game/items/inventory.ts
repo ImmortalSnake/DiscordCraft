@@ -1,14 +1,15 @@
+/** 
+ * [Name of the tool,
+ * Amount or Durability,
+ * Enchants (if any)]
+ * */
 export type InventoryItem = [
-    // Name of the tool
     string,
-    // Amount / Durability
     number,
-    // Enchants if any
     string?
 ];
 
-export interface InventoryStorage {
-    [index: string]: number;
+export interface InventoryStorage extends Record<string, number> {
     enchantment_table: number;
     chest: number;
     furnace: number;

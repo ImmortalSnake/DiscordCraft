@@ -1,9 +1,15 @@
-import { KlasaMessage, util } from 'klasa';
+import { KlasaMessage, util, CommandStore } from 'klasa';
 import quests from '../../../lib/game/quests';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 import { Tool } from '../../../lib/game/items/tool';
 
 export default class extends MinecraftCommand {
+    
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS']
+        });
+    }
 
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);

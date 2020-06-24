@@ -8,6 +8,7 @@ export default class extends MinecraftCommand {
     constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             guarded: true,
+            requiredPermissions: ['EMBED_LINKS'],
             description: language => language.get('COMMAND_STATS_DESCRIPTION')
         });
     }
@@ -31,9 +32,9 @@ export default class extends MinecraftCommand {
             .setDescription(util.codeBlock('asciidoc', msg.language.get('COMMAND_STATS',
                 (memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
                 Duration.toNow(Date.now() - (process.uptime() * 1000)),
-                (users || this.client.users.size).toLocaleString(),
-                (guilds || this.client.guilds.size).toLocaleString(),
-                (channels || this.client.channels.size).toLocaleString(),
+                (users || this.client.users.cache.size).toLocaleString(),
+                (guilds || this.client.guilds.cache.size).toLocaleString(),
+                (channels || this.client.channels.cache.size).toLocaleString(),
                 klasaVersion, discordVersion, process.version, msg
             ))));
     }

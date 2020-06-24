@@ -12,6 +12,7 @@ export default class extends MinecraftCommand {
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
             aliases: ['inv'],
+            requiredPermissions: ['ADD_REACTIONS', 'EMBED_LINKS', 'USE_EXTERNAL_EMOJIS'],
             usage: '[materials|tools|enchants]'
         });
     }

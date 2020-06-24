@@ -1,11 +1,21 @@
 import { KlasaClientOptions } from 'klasa';
 
+const provider = process.env.NODE_ENV === 'development' ? 'json' : 'mongodb';
 export const config = {
     fetchAllMembers: false,
     disableEveryone: true,
-    prefix: 's!',
+    prefix: 'd!',
     commandEditing: true,
     owners: ['410806297580011520'],
+    presence: {
+        activity: {
+            type: 'LISTENING',
+            name: 'to d!help'
+        }
+    },
+    providers: {
+        default: provider
+    },
     pieceDefaults: {
         commands: {
             runIn: ['text'],
@@ -14,7 +24,7 @@ export const config = {
         }
     },
 
-    readyMessage: (client) => `Logged in as ${client.user!.tag}. Ready to serve ${client.guilds.size} guilds.`
+    readyMessage: (client) => `Logged in as ${client.user!.tag}. Ready to serve ${client.guilds.cache.size} guilds.`
 } as KlasaClientOptions;
 
 export const mongoOptions = {
@@ -22,11 +32,9 @@ export const mongoOptions = {
     uri: process.env.MONGO_PASS,
     options: {
         useNewUrlParser: true,
-        reconnectInterval: 500,
-        reconnectTries: Number.MAX_VALUE,
         poolSize: 5,
         connectTimeoutMS: 10000,
-        autoIndex: false
+        useUnifiedTopology: true
     }
 };
 
@@ -36,6 +44,6 @@ export const MinecraftOptions = {
     support: 'https://discord.gg/RZjVQ6',
     config: {
         // eslint-disable-next-line no-process-env
-        provider: process.env.DATABASE
+        provider: provider
     }
 };

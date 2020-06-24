@@ -1,7 +1,13 @@
-import { KlasaMessage } from 'klasa';
+import { KlasaMessage, CommandStore } from 'klasa';
 import MinecraftCommand from '../../../lib/base/MinecraftCommand';
 
 export default class extends MinecraftCommand {
+
+    public constructor(store: CommandStore, file: string[], directory: string) {
+        super(store, file, directory, {
+            requiredPermissions: ['EMBED_LINKS']
+        });
+    }
 
     public async run(msg: KlasaMessage): Promise<KlasaMessage | KlasaMessage[]> {
         const inventory = await this.client.minecraft.get(msg.author!.id);

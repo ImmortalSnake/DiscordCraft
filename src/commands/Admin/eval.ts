@@ -52,6 +52,7 @@ export default class extends Command {
 
 
     async handleMessage(msg: KlasaMessage, options: any, { success, result, time, footer, language }: IHandleMessageOptions): Promise<KlasaMessage | KlasaMessage[] | null> {
+        if (msg.channel.type === 'news') return null;
         switch (options.sendAs) {
             case 'file': {
                 if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), 'output.txt', msg.language.get('COMMAND_EVAL_SENDFILE', time, footer));
@@ -70,7 +71,7 @@ export default class extends Command {
             }
             case 'console':
             case 'log': {
-                this.client.emit('log', result);
+                console.log(result);
                 return msg.sendMessage(msg.language.get('COMMAND_EVAL_SENDCONSOLE', time, footer));
             }
             case 'none':
@@ -88,6 +89,7 @@ export default class extends Command {
 
     async getTypeOutput(msg: KlasaMessage, options: { hastebinUnavailable: boolean, sendAs: string }): Promise<void> {
         const _options = ['log'];
+        if (msg.channel.type === 'news') return;
         if (msg.channel.attachable) _options.push('file');
         if (!options.hastebinUnavailable) _options.push('hastebin');
         const _choice = await msg.prompt(`Choose one of the following options: ${_options.join(', ')}`).catch(() => ({ content: 'none' }));

@@ -7,8 +7,9 @@ export default class extends MinecraftCommand {
 
     public constructor(store: CommandStore, file: string[], directory: string) {
         super(store, file, directory, {
-            usage: '<sow|harvest|view> [cropName:...str]',
+            usage: '<sow|harvest|view:default> [cropName:...str]',
             subcommands: true,
+            requiredPermissions: ['USE_EXTERNAL_EMOJIS', 'EMBED_LINKS'],
             examples: ['view', 'sow wheat', 'sow wheat --amount=5', 'harvest all']
         });
     }

@@ -1,4 +1,4 @@
-import { Task, Settings } from 'klasa';
+import { Task } from 'klasa';
 
 export default class extends Task {
 
@@ -6,7 +6,7 @@ export default class extends Task {
 
     public async run(): Promise<void> {
         this.client.console.log('Updating Villager');
-        (this.client.settings as Settings).update([
+        this.client.settings!.update([
             ['villager.time', Date.now()],
             ['villager.deals', {
                 coal: [this.rand(80, 50), 1],
@@ -16,7 +16,8 @@ export default class extends Task {
                 lapis: [this.rand(6, 2), 1],
                 gold: [1, this.rand(2, 1)],
                 diamond: [1, this.rand(4, 2)]
-            }]]).catch(console.log);
+            }]
+        ]).catch(console.log);
     }
 
     /**
