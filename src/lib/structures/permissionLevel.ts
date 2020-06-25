@@ -1,5 +1,4 @@
 import { PermissionLevels, KlasaMessage } from 'klasa';
-import { GuildMember, Guild } from 'discord.js';
 
 export default new PermissionLevels()
 // @everyone

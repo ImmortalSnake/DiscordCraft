@@ -21,9 +21,9 @@ export default class LocaleEmbed extends MessageEmbed {
             return super.setDescription(this.language.get(field, ...args));
         }
 
-        return super.setDescription(field.map(([title, ...args]) => {
-            if (!title) return;
-            return this.language.get(title, ...args)
+        return super.setDescription(field.map(([title, ...fargs]) => {
+            if (!title) return '';
+            return this.language.get(title, ...fargs);
         }).join('\n'));
     }
 

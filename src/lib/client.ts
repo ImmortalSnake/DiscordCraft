@@ -1,7 +1,7 @@
 import './structures/schemas/clientStorage';
 
 import { KlasaClient, KlasaClientOptions } from 'klasa';
-import { DashboardClient} from 'klasa-dashboard-hooks'
+import { DashboardClient } from 'klasa-dashboard-hooks';
 import { MinecraftOptions } from '../config';
 import permissionLevel from './structures/permissionLevel';
 import Minecraft from './game/minecraft';

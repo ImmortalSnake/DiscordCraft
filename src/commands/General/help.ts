@@ -3,7 +3,6 @@ import { CommandStore, KlasaMessage, util, Command } from 'klasa';
 import { UserRichDisplay } from '../../lib/structures/UserRichDisplay';
 import MinecraftCommand from '../../lib/base/MinecraftCommand';
 import { COLORS } from '../../utils/constants';
-import LocaleEmbed from '../../lib/structures/LocaleEmbed';
 
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 

@@ -16,7 +16,7 @@ interface MinecraftCommandOptions extends CommandOptions {
     examples?: string[];
 }
 
-export default class extends Command {
+export default abstract class extends Command {
 
     public client: DiscordCraft;
     public cooldowns: RateLimitManager;

@@ -14,7 +14,7 @@ export default class extends MinecraftCommand {
 
     public async run(msg: KlasaMessage, [food]: [string]): Promise<KlasaMessage | KlasaMessage[]> {
         const { id, inventory } = await this.client.minecraft.get(msg.author!.id);
-        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.commandPrefix);
+        if (!id) throw msg.language.get('INVENTORY_NOT_FOUND', msg.guildSettings.get('prefix'));
 
         const foodName = food.toLowerCase().replace(' ', '_');
         const it = this.client.minecraft.store[foodName] as any;

@@ -1,4 +1,4 @@
-/** 
+/**
  * [Name of the tool,
  * Amount or Durability,
  * Enchants (if any)]
@@ -45,10 +45,7 @@ export default interface Inventory {
     };
 
     crops: InventoryItem[];
-    farm: {
-        planted: any[]
-    };
-
+    farm: { planted: any[] };
     boosts: InventoryItem[];
 
     profile: {

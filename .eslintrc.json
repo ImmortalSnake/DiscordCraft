@@ -3,6 +3,9 @@
     "rules": {
         "@typescript-eslint/indent": ["error", 4],
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "no-process-env": "off",
+        "no-dupe-class-members": "off",
         "no-unused-expressions": "off"
     }
 }

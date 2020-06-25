@@ -9,9 +9,6 @@ declare module 'klasa' {
         KEYWORDS: Record<string, string>;
     }
 
-    interface KlasaMessage {
-        commandPrefix: string;
-    }
 }
 
 declare module 'klasa-dashboard-hooks' {
