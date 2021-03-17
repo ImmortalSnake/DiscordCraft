@@ -30,7 +30,7 @@
     "dotenv": "^8.2.0",
     "klasa": "^0.5.0",
     "klasa-dashboard-hooks": "github:dirigeants/klasa-dashboard-hooks#master",
-    "mongodb": "^3.3.2"
+    "mongodb": "^3.6.5"
   },
   "devDependencies": {
     "@types/node": "^14.0.14",
